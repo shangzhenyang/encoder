@@ -7,10 +7,11 @@ import AlertMessage from "../interfaces/AlertMessage";
 import MenuPopup from "./MenuPopup";
 
 interface Props {
+	exportAsFile: () => void;
 	setAlertMessage: Dispatch<SetStateAction<AlertMessage | null>>;
 }
 
-function Menu({ setAlertMessage }: Props) {
+function Menu({ exportAsFile, setAlertMessage }: Props) {
 	const [showMenu, setShowMenu] = useState(false);
 
 	function openMenu() {
@@ -29,6 +30,7 @@ function Menu({ setAlertMessage }: Props) {
 		<MenuPopup
 			show={showMenu}
 			setShow={setShowMenu}
+			exportAsFile={exportAsFile}
 			setAlertMessage={setAlertMessage}
 		/>
 	</>

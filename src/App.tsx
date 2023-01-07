@@ -1,7 +1,21 @@
-import { ChangeEvent, createRef, useEffect, useState } from "react";
+import {
+	ChangeEvent,
+	createRef,
+	KeyboardEvent,
+	useEffect,
+	useState
+} from "react";
 import { t } from "i18next";
 import md5 from "md5";
 import { decode as decodeMorse, encode as encodeMorse } from "xmorse";
+
+import { decodeBinary, encodeBinary } from "./utils/binary";
+import {
+	decodeCoreValues,
+	isCoreValuesEncoded,
+	encodeCoreValues
+} from "./utils/core-values";
+import { decodeUnicode, encodeUnicode } from "./utils/unicode";
 
 import Alert from "./components/Alert";
 import AlertMessage from "./interfaces/AlertMessage";
@@ -28,6 +42,9 @@ function App() {
 		text: t("qrCode"),
 		value: "qrCode"
 	}, {
+		text: t("coreValues"),
+		value: "corevalues"
+	}, {
 		text: t("morseCode"),
 		value: "morse"
 	}, {
@@ -43,10 +60,6 @@ function App() {
 		text: "URI Component",
 		value: "uricomponent"
 	}];
-
-	function addZero(num: string, length: number) {
-		return (Array(length).join("0") + (num || "0")).slice(-length);
-	}
 
 	function decode() {
 		if (!text) {
@@ -82,6 +95,8 @@ function App() {
 				}
 			} else if (isOnly(/0|1|\s/, decoded)) {
 				decoded = decodeBinary(decoded);
+			} else if (isCoreValuesEncoded(decoded)) {
+				decoded = decodeCoreValues(decoded);
 			}
 			setText(decoded);
 		} catch (err: any) {
@@ -93,21 +108,6 @@ function App() {
 		}
 	}
 
-	function decodeBinary(str: string) {
-		const binaries = str.trim().split(" ");
-		let result = "";
-		for (let i = 0; i < binaries.length; i++) {
-			result += String.fromCharCode(parseInt(binaries[i], 2));
-		}
-		return result;
-	}
-
-	function decodeUnicode(unicode: string) {
-		return unicode.replace(/\\u?([\d\w]{4})/gi, (_match, group) => {
-			return String.fromCharCode(parseInt(group, 16));
-		});
-	}
-
 	function encode() {
 		if (encoding === "dataurl") {
 
@@ -116,15 +116,6 @@ function App() {
 			return;
 		}
 		switch (encoding) {
-			case "binary":
-				setText(encodeBinary(text));
-				break;
-			case "morse":
-				setText(encodeMorse(text));
-				break;
-			case "qrcode":
-				// showQrCode(value);
-				break;
 			case "base64":
 				try {
 					setText(window.btoa(text));
@@ -132,10 +123,22 @@ function App() {
 					setText(window.btoa(unescape(encodeURIComponent(text))));
 				}
 				break;
+			case "binary":
+				setText(encodeBinary(text));
+				break;
+			case "corevalues":
+				setText(encodeCoreValues(text));
+				break;
 			case "md5":
 				const md5Value = md5(text);
 				md5Hist.set(md5Value, text);
 				setText(md5Value);
+				break;
+			case "morse":
+				setText(encodeMorse(text));
+				break;
+			case "qrcode":
+				// showQrCode(value);
 				break;
 			case "unicode":
 				setText(encodeUnicode(text));
@@ -148,29 +151,11 @@ function App() {
 		}
 	}
 
-	function encodeBinary(str: string) {
-		const numRegExp = /\d+/;
-		let binary = "";
-		if (isOnly(numRegExp, str)) {
-			binary = parseInt(str).toString(2);
-		} else {
-			for (let i = 0; i < str.length; i++) {
-				binary += str.charCodeAt(i).toString(2) + " ";
-			}
-		}
-		return binary.trim();
-	}
-
-	function encodeUnicode(str: string, separator: string = "\\") {
-		let unicode = "";
-		for (let i = 0; i < str.length; i++) {
-			let charCode = str.charCodeAt(i).toString(16).toUpperCase();
-			if (charCode.length < 4) {
-				charCode = addZero(charCode, 4);
-			}
-			unicode += separator + "u" + charCode;
-		}
-		return unicode;
+	function exportAsFile() {
+		const newA = document.createElement("a");
+		newA.href = "data:text/plain;charset=utf-8," + encodeURIComponent(text);
+		newA.download = `encoder-${Date.now()}.txt`;
+		newA.click();
 	}
 
 	function isOnly(regExp: RegExp, str: string) {
@@ -185,6 +170,30 @@ function App() {
 
 	function textOnChange(evt: ChangeEvent<HTMLTextAreaElement>) {
 		setText(evt.target.value);
+	}
+
+	function textOnKeyDown(evt: KeyboardEvent<HTMLTextAreaElement>) {
+		if (evt.ctrlKey || evt.metaKey) {
+			switch (evt.key) {
+				case "Enter":
+					evt.preventDefault();
+					if (evt.shiftKey) {
+						decode();
+					} else {
+						encode();
+					}
+					break;
+				case "o":
+					evt.preventDefault();
+					break;
+				case "s":
+					evt.preventDefault();
+					exportAsFile();
+					break;
+				default:
+					break;
+			}
+		}
 	}
 
 	useEffect(() => {
@@ -209,13 +218,17 @@ function App() {
 	return <div className="App">
 		<header>
 			<h1>{t("encoder")}</h1>
-			<Menu setAlertMessage={setAlertMessage} />
+			<Menu
+				exportAsFile={exportAsFile}
+				setAlertMessage={setAlertMessage}
+			/>
 		</header>
 		<textarea
 			ref={textInput}
 			placeholder={t("enterText").toString()}
 			value={text}
-			onChange={textOnChange}>
+			onChange={textOnChange}
+			onKeyDown={textOnKeyDown}>
 		</textarea>
 		<div className="control-bar">
 			<DropDown

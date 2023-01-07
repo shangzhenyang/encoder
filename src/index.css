@@ -44,6 +44,7 @@ header {
 }
 
 h1 {
+	font-family: sans-serif;
 	font-weight: lighter;
 	margin: 0;
 	text-transform: uppercase;

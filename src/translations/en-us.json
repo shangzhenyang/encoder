@@ -1,6 +1,7 @@
 {
 	"about": "About",
 	"binary": "Binary",
+	"coreValues": "Core Values",
 	"decode": "Decode",
 	"encode": "Encode",
 	"encoder": "Encoder",
@@ -15,5 +16,6 @@
 	"morseCode": "Morse Code",
 	"ok": "OK",
 	"qrCode": "QR Code",
+	"starOnGithub": "Star on GitHub",
 	"tip": "Tip"
 }

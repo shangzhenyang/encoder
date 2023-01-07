@@ -1,6 +1,7 @@
 {
 	"about": "关于",
 	"binary": "二进制",
+	"coreValues": "核心价值观",
 	"decode": "解码",
 	"encode": "编码",
 	"encoder": "编码器",
@@ -15,5 +16,6 @@
 	"morseCode": "摩斯电码",
 	"ok": "确定",
 	"qrCode": "二维码",
+	"starOnGithub": "去 GitHub 给颗星",
 	"tip": "提示"
 }

@@ -6,7 +6,8 @@ import {
 	faCircleInfo,
 	faDownload,
 	faFolderOpen,
-	faGlobe
+	faGlobe,
+	faStar
 } from "@fortawesome/free-solid-svg-icons";
 
 import AlertMessage from "../interfaces/AlertMessage";
@@ -14,10 +15,11 @@ import AlertMessage from "../interfaces/AlertMessage";
 interface Props {
 	show: boolean;
 	setShow: Dispatch<SetStateAction<boolean>>;
+	exportAsFile: () => void;
 	setAlertMessage: Dispatch<SetStateAction<AlertMessage | null>>;
 }
 
-function MenuPopup({ show, setShow, setAlertMessage }: Props) {
+function MenuPopup({ show, setShow, exportAsFile, setAlertMessage }: Props) {
 	function closeMenu() {
 		setShow(false);
 	}
@@ -38,7 +40,15 @@ function MenuPopup({ show, setShow, setAlertMessage }: Props) {
 		title: t("exportAsFile"),
 		icon: faDownload,
 		onClick: () => {
-
+			exportAsFile();
+			closeMenu();
+		}
+	}, {
+		title: t("starOnGithub"),
+		icon: faStar,
+		onClick: () => {
+			window.open("https://github.com/shangzhenyang/encoder");
+			closeMenu();
 		}
 	}, {
 		title: t("about"),

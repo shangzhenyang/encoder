@@ -1,0 +1,10 @@
+{
+	"binary": "Binary",
+	"decode": "Decode",
+	"encode": "Encode",
+	"encoder": "Encoder",
+	"encoding": "Encoding",
+	"enterText": "Enter text...",
+	"morseCode": "Morse Code",
+	"qrCode": "QR Code"
+}

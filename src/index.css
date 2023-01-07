@@ -1,0 +1,148 @@
+:root {
+	--theme-color: darkred;
+}
+
+* {
+	box-sizing: border-box;
+	outline: none;
+}
+
+body {
+	font-family: sans-serif;
+	height: 100%;
+	margin: 0;
+	--webkit-user-select: none;
+	user-select: none;
+}
+
+button {
+	background-color: transparent;
+	border: 1px solid rgba(0, 0, 0, .2);
+	border-radius: 5px;
+	font-size: 18px;
+	padding: 10px 45px;
+	transition: all .25s;
+}
+
+button:hover {
+	background-color: rgba(0, 0, 0, .1);
+}
+
+button:active {
+	background-color: rgba(0, 0, 0, .2);
+}
+
+html,
+#root {
+	height: 100%;
+}
+
+h1 {
+	font-weight: lighter;
+	margin: 0;
+	text-transform: uppercase;
+}
+
+label {
+	white-space: nowrap;
+}
+
+select {
+	-webkit-appearance: none;
+	appearance: none;
+	background-color: transparent;
+	border: 1px solid rgba(0, 0, 0, .2);
+	border-radius: 5px;
+	display: block;
+	font: inherit;
+	height: 100%;
+	padding: 10px 15px;
+	transition: all .25s;
+	width: 100%;
+}
+
+textarea {
+	-webkit-appearance: none;
+	appearance: none;
+	background-color: transparent;
+	border: 1px solid rgba(0, 0, 0, .2);
+	border-radius: 10px;
+	box-shadow: 0 0 3px rgba(0, 0, 0, .2);
+	display: block;
+	font: inherit;
+	height: 100%;
+	margin: 0 auto;
+	padding: 10px 15px;
+	resize: none;
+	transition: all .25s;
+	width: 100%;
+}
+
+textarea:focus {
+	box-shadow: 0 0 10px rgba(0, 0, 0, .2);
+}
+
+.App {
+	display: flex;
+	flex-direction: column;
+	gap: 30px;
+	height: 100%;
+	padding: 30px 10% 45px;
+}
+
+.control-bar {
+	display: flex;
+	gap: 10px;
+}
+
+.dropdown-group {
+	align-items: center;
+	display: flex;
+	flex: 1;
+	gap: 10px;
+}
+
+.main-btn {
+	background-color: var(--theme-color);
+	color: white;
+}
+
+.main-btn:hover {
+	background-color: var(--theme-color);
+	opacity: .75;
+}
+
+.main-btn:active {
+	background-color: var(--theme-color);
+	opacity: .5;
+}
+
+@media screen and (max-width: 550px) {
+	.control-bar {
+		flex-direction: column;
+	}
+}
+
+@media (prefers-color-scheme: dark) {
+	:root {
+		color-scheme: dark;
+	}
+
+	body {
+		background-color: rgb(30, 30, 30);
+		color: white;
+	}
+
+	button,
+	select {
+		border-color:rgba(255, 255, 255, .2);
+	}
+
+	textarea {
+		box-shadow: 0 0 3px rgba(255, 255, 255, .2);
+	}
+
+	textarea:focus {
+		box-shadow: 0 0 10px rgba(255, 255, 255, .2);
+	}
+}

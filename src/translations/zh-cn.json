@@ -1,0 +1,10 @@
+{
+	"binary": "二进制",
+	"decode": "解码",
+	"encode": "编码",
+	"encoder": "编码器",
+	"encoding": "编码",
+	"enterText": "输入文本...",
+	"morseCode": "摩斯电码",
+	"qrCode": "二维码"
+}

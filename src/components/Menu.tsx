@@ -8,10 +8,11 @@ import MenuPopup from "./MenuPopup";
 
 interface Props {
 	exportAsFile: () => void;
+	openLocalFile: () => void;
 	setAlertMessage: Dispatch<SetStateAction<AlertMessage | null>>;
 }
 
-function Menu({ exportAsFile, setAlertMessage }: Props) {
+function Menu({ exportAsFile, openLocalFile, setAlertMessage }: Props) {
 	const [showMenu, setShowMenu] = useState(false);
 
 	function openMenu() {
@@ -31,6 +32,7 @@ function Menu({ exportAsFile, setAlertMessage }: Props) {
 			show={showMenu}
 			setShow={setShowMenu}
 			exportAsFile={exportAsFile}
+			openLocalFile={openLocalFile}
 			setAlertMessage={setAlertMessage}
 		/>
 	</>

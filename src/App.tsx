@@ -20,6 +20,7 @@ import { decodeUnicode, encodeUnicode } from "./utils/unicode";
 import Alert from "./components/Alert";
 import AlertMessage from "./interfaces/AlertMessage";
 import DropDown from "./components/DropDown";
+import FileInput from "./components/FileInput";
 import Menu from "./components/Menu";
 import Option from "./interfaces/Option";
 
@@ -30,6 +31,7 @@ function App() {
 	const [encoding, setEncoding] = useState("base64");
 	const [text, setText] = useState("");
 
+	const fileInput = createRef<HTMLInputElement>();
 	const textInput = createRef<HTMLTextAreaElement>();
 
 	const encodingOptions: Option[] = [{
@@ -158,21 +160,11 @@ function App() {
 		newA.click();
 	}
 
-	function isOnly(regExp: RegExp, str: string) {
-		let passed = "";
-		for (let i = 0; i < str.length; i++) {
-			if (regExp.test(str[i])) {
-				passed += str[i];
-			}
-		}
-		return passed === str;
-	}
-
-	function textOnChange(evt: ChangeEvent<HTMLTextAreaElement>) {
+	function handleTextChange(evt: ChangeEvent<HTMLTextAreaElement>) {
 		setText(evt.target.value);
 	}
 
-	function textOnKeyDown(evt: KeyboardEvent<HTMLTextAreaElement>) {
+	function handleTextKeyDown(evt: KeyboardEvent<HTMLTextAreaElement>) {
 		if (evt.ctrlKey || evt.metaKey) {
 			switch (evt.key) {
 				case "Enter":
@@ -185,6 +177,7 @@ function App() {
 					break;
 				case "o":
 					evt.preventDefault();
+					openLocalFile();
 					break;
 				case "s":
 					evt.preventDefault();
@@ -194,6 +187,19 @@ function App() {
 					break;
 			}
 		}
+	}
+
+	function isOnly(regExp: RegExp, str: string) {
+		for (let i = 0; i < str.length; i++) {
+			if (!regExp.test(str[i])) {
+				return false;
+			}
+		}
+		return true;
+	}
+
+	function openLocalFile() {
+		fileInput.current?.click();
 	}
 
 	useEffect(() => {
@@ -220,6 +226,7 @@ function App() {
 			<h1>{t("encoder")}</h1>
 			<Menu
 				exportAsFile={exportAsFile}
+				openLocalFile={openLocalFile}
 				setAlertMessage={setAlertMessage}
 			/>
 		</header>
@@ -227,8 +234,8 @@ function App() {
 			ref={textInput}
 			placeholder={t("enterText").toString()}
 			value={text}
-			onChange={textOnChange}
-			onKeyDown={textOnKeyDown}>
+			onChange={handleTextChange}
+			onKeyDown={handleTextKeyDown}>
 		</textarea>
 		<div className="control-bar">
 			<DropDown
@@ -249,6 +256,11 @@ function App() {
 				{t("decode")}
 			</button>
 		</div>
+		<FileInput
+			ref={fileInput}
+			setText={setText}
+			setAlertMessage={setAlertMessage}
+		/>
 		<Alert alertMessage={alertMessage} setAlertMessage={setAlertMessage} />
 	</div>
 }

@@ -16,10 +16,17 @@ interface Props {
 	show: boolean;
 	setShow: Dispatch<SetStateAction<boolean>>;
 	exportAsFile: () => void;
+	openLocalFile: () => void;
 	setAlertMessage: Dispatch<SetStateAction<AlertMessage | null>>;
 }
 
-function MenuPopup({ show, setShow, exportAsFile, setAlertMessage }: Props) {
+function MenuPopup({
+	show,
+	setShow,
+	exportAsFile,
+	openLocalFile,
+	setAlertMessage
+}: Props) {
 	function closeMenu() {
 		setShow(false);
 	}
@@ -28,7 +35,8 @@ function MenuPopup({ show, setShow, exportAsFile, setAlertMessage }: Props) {
 		title: t("importFromLocalFile"),
 		icon: faFolderOpen,
 		onClick: () => {
-
+			openLocalFile();
+			closeMenu();
 		}
 	}, {
 		title: t("importFromUrl"),

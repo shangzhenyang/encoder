@@ -11,7 +11,7 @@ interface Props {
 }
 
 function DropDown({ id, label, options, value, setValue }: Props) {
-	function onChange(evt: ChangeEvent<HTMLSelectElement>) {
+	function handleChange(evt: ChangeEvent<HTMLSelectElement>) {
 		setValue(evt.target.value);
 	}
 
@@ -24,7 +24,7 @@ function DropDown({ id, label, options, value, setValue }: Props) {
 		<select
 			id={id}
 			value={value}
-			onChange={onChange}>
+			onChange={handleChange}>
 			{optionsElem}
 		</select>
 	</div>

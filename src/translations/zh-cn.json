@@ -17,5 +17,6 @@
 	"ok": "确定",
 	"qrCode": "二维码",
 	"starOnGithub": "去 GitHub 给颗星",
-	"tip": "提示"
+	"tip": "提示",
+	"unsupportedFileType": "不支持的文件类型。"
 }

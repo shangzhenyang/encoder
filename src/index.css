@@ -50,6 +50,10 @@ h1 {
 	text-transform: uppercase;
 }
 
+input[type=file] {
+	display: none;
+}
+
 label {
 	white-space: nowrap;
 }

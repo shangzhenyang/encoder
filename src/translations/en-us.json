@@ -17,5 +17,6 @@
 	"ok": "OK",
 	"qrCode": "QR Code",
 	"starOnGithub": "Star on GitHub",
-	"tip": "Tip"
+	"tip": "Tip",
+	"unsupportedFileType": "Unsupported file type."
 }

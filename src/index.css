@@ -1,7 +1,8 @@
 :root {
 	--fg-alpha-1: rgba(0, 0, 0, .1);
 	--fg-alpha-2: rgba(0, 0, 0, .2);
-	--theme-color: rgb(0, 102, 204);
+	--popup-bg: white;
+	--theme-color: darkred;
 }
 
 * {
@@ -11,9 +12,12 @@
 
 body {
 	cursor: default;
-	font-family: sans-serif;
+	font-family: Helvetica, "PingFang SC", "Microsoft YaHei", sans-serif;
 	height: 100%;
 	margin: 0;
+	-webkit-tap-highlight-color: transparent;
+	-webkit-text-size-adjust: 100%;
+	text-size-adjust: 100%;
 	--webkit-user-select: none;
 	user-select: none;
 }
@@ -70,12 +74,12 @@ svg[role=button] {
 }
 
 svg[role=button]:hover,
-.main-btn:hover {
+.default-btn:hover {
 	opacity: .75;
 }
 
 svg[role=button]:active,
-.main-btn:active {
+.default-btn:active {
 	opacity: .5;
 }
 
@@ -108,9 +112,25 @@ textarea:focus {
 	padding: 30px 10% 45px;
 }
 
+.btn-bar {
+	margin: 15px 0 5px;
+	text-align: right;
+}
+
+.btn-bar button {
+	font-size: 14px;
+	padding: 10px 15px;
+	width: 100px;
+}
+
 .control-bar {
 	display: flex;
 	gap: 10px;
+}
+
+.default-btn {
+	background-color: var(--theme-color);
+	color: white;
 }
 
 .dropdown-group {
@@ -118,11 +138,6 @@ textarea:focus {
 	display: flex;
 	flex: 1;
 	gap: 10px;
-}
-
-.main-btn {
-	background-color: var(--theme-color);
-	color: white;
 }
 
 .mask {
@@ -140,7 +155,7 @@ textarea:focus {
 	border-radius: 5px;
 	display: flex;
 	gap: 10px;
-	padding: 5px 15px;
+	padding: 10px 15px;
 	transition: background-color .25s;
 }
 
@@ -155,14 +170,45 @@ textarea:focus {
 }
 
 .menu-popup {
-	background-color: white;
+	background-color: var(--popup-bg);
 	border: 1px solid var(--fg-alpha-2);
 	border-radius: 10px;
-	/* box-shadow: 0 0 10px var(--fg-alpha-2); */
 	padding: 5px;
 	position: fixed;
 	right: 10%;
 	top: 75px;
+}
+
+.modal {
+	background-color: transparent;
+}
+
+.msg-box {
+	animation: fadeIn .25s;
+	background-color: var(--popup-bg);
+	border: 1px solid var(--fg-alpha-1);
+	border-radius: 5px;
+	border-top: 2px solid var(--theme-color);
+	box-shadow: 0 0 5px rgba(0, 0, 0, .5);
+	left: 50%;
+	line-height: 24px;
+	max-width: 100%;
+	padding: 20px 25px 15px 25px;
+	position: fixed;
+	top: 50%;
+	transform: translate(-50%, -50%);
+	transition: all .25s;
+	width: 450px;
+}
+
+.msg-box h1 {
+	font-size: 20px;
+	font-weight: bold;
+	margin: 0 0 10px;
+}
+
+.msg-box p {
+	margin: 0;
 }
 
 @keyframes fadeIn {
@@ -178,21 +224,23 @@ textarea:focus {
 	.control-bar {
 		flex-direction: column;
 	}
+
+	.msg-box {
+		border-radius: 0;
+		width: 100%;
+	}
 }
 
 @media (prefers-color-scheme: dark) {
 	:root {
 		--fg-alpha-1: rgba(255, 255, 255, .1);
 		--fg-alpha-2: rgba(255, 255, 255, .2);
+		--popup-bg: black;
 		color-scheme: dark;
 	}
 
 	body {
 		background-color: rgb(30, 30, 30);
 		color: white;
-	}
-
-	.menu-popup {
-		background-color: black;
 	}
 }

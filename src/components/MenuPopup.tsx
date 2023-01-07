@@ -1,14 +1,23 @@
 import { Dispatch, SetStateAction } from "react";
 import { t } from "i18next";
+import Modal from "react-modal";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCircleInfo, faDownload, faFolderOpen, faGlobe } from "@fortawesome/free-solid-svg-icons";
+import {
+	faCircleInfo,
+	faDownload,
+	faFolderOpen,
+	faGlobe
+} from "@fortawesome/free-solid-svg-icons";
+
+import AlertMessage from "../interfaces/AlertMessage";
 
 interface Props {
 	show: boolean;
 	setShow: Dispatch<SetStateAction<boolean>>;
+	setAlertMessage: Dispatch<SetStateAction<AlertMessage | null>>;
 }
 
-function MenuPopup({ show, setShow }: Props) {
+function MenuPopup({ show, setShow, setAlertMessage }: Props) {
 	function closeMenu() {
 		setShow(false);
 	}
@@ -35,26 +44,33 @@ function MenuPopup({ show, setShow }: Props) {
 		title: t("about"),
 		icon: faCircleInfo,
 		onClick: () => {
-
+			setAlertMessage({
+				title: t("about"),
+				text: "Developed by Shangzhen Yang."
+			});
+			closeMenu();
 		}
 	}];
 	const itemsElem = items.map(({ title, icon, onClick }) => {
 		return <div
 			key={title}
 			className="menu-item"
-			role="button"
+			role="menuitem"
+			tabIndex={0}
 			onClick={onClick}>
 			<FontAwesomeIcon icon={icon} fixedWidth />
 			<span>{title}</span>
 		</div>
 	});
 
-	if (!show) {
-		return null;
-	}
-	return <div className="mask" onClick={closeMenu}>
-		<div className="menu-popup">{itemsElem}</div>
-	</div>
+	return <Modal
+		isOpen={show}
+		className="modal"
+		overlayClassName="mask"
+		onRequestClose={closeMenu}
+		shouldCloseOnOverlayClick={true}>
+		<div className="menu-popup" role="menu">{itemsElem}</div>
+	</Modal>
 }
 
 export default MenuPopup;

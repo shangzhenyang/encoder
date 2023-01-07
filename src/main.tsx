@@ -1,6 +1,7 @@
 import { StrictMode } from "react";
 import ReactDOM from "react-dom/client";
 import i18n, { t } from "i18next";
+import Modal from "react-modal";
 
 import App from "./App";
 
@@ -50,6 +51,7 @@ i18n.init({
 
 document.documentElement.lang = lang;
 document.title = t("encoder");
+Modal.setAppElement("#root");
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
 	<StrictMode>

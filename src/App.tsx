@@ -1,11 +1,14 @@
 import { ChangeEvent, createRef, useEffect, useState } from "react";
 import { t } from "i18next";
 
+import Alert from "./components/Alert";
+import AlertMessage from "./interfaces/AlertMessage";
 import DropDown from "./components/DropDown";
 import Menu from "./components/Menu";
 import Option from "./interfaces/Option";
 
 function App() {
+	const [alertMessage, setAlertMessage] = useState(null as AlertMessage | null);
 	const [text, setText] = useState("");
 
 	const textInput = createRef<HTMLTextAreaElement>();
@@ -50,6 +53,7 @@ function App() {
 			window.location.href = "https://encoder.shangzhenyang.com/";
 			return;
 		}
+
 		const isMobile = navigator.userAgent.includes("Android") ||
 			navigator.userAgent.includes("iPhone") ||
 			navigator.userAgent.includes("iPad");
@@ -61,7 +65,7 @@ function App() {
 	return <div className="App">
 		<header>
 			<h1>{t("encoder")}</h1>
-			<Menu />
+			<Menu setAlertMessage={setAlertMessage} />
 		</header>
 		<textarea
 			ref={textInput}
@@ -75,9 +79,10 @@ function App() {
 				label={t("encoding")}
 				options={encodingOptions}
 			/>
-			<button className="main-btn">{t("encode")}</button>
+			<button className="default-btn">{t("encode")}</button>
 			<button className="regular-btn">{t("decode")}</button>
 		</div>
+		<Alert alertMessage={alertMessage} setAlertMessage={setAlertMessage} />
 	</div>
 }
 

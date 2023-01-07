@@ -1,10 +1,15 @@
 {
+	"about": "关于",
 	"binary": "二进制",
 	"decode": "解码",
 	"encode": "编码",
 	"encoder": "编码器",
 	"encoding": "编码",
 	"enterText": "输入文本...",
+	"exportAsFile": "导出为文件",
+	"importFromLocalFile": "从本地文件导入",
+	"importFromUrl": "从网址导入",
+	"menu": "菜单",
 	"morseCode": "摩斯电码",
 	"qrCode": "二维码"
 }

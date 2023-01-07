@@ -2,6 +2,7 @@ import { ChangeEvent, createRef, useEffect, useState } from "react";
 import { t } from "i18next";
 
 import DropDown from "./components/DropDown";
+import Menu from "./components/Menu";
 import Option from "./interfaces/Option";
 
 function App() {
@@ -58,7 +59,10 @@ function App() {
 	}, [textInput]);
 
 	return <div className="App">
-		<h1>{t("encoder")}</h1>
+		<header>
+			<h1>{t("encoder")}</h1>
+			<Menu />
+		</header>
 		<textarea
 			ref={textInput}
 			placeholder={t("enterText").toString()}
@@ -72,7 +76,7 @@ function App() {
 				options={encodingOptions}
 			/>
 			<button className="main-btn">{t("encode")}</button>
-			<button>{t("decode")}</button>
+			<button className="regular-btn">{t("decode")}</button>
 		</div>
 	</div>
 }

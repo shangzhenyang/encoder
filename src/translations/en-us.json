@@ -1,10 +1,15 @@
 {
+	"about": "About",
 	"binary": "Binary",
 	"decode": "Decode",
 	"encode": "Encode",
 	"encoder": "Encoder",
 	"encoding": "Encoding",
 	"enterText": "Enter text...",
+	"exportAsFile": "Export as File",
+	"importFromLocalFile": "Import from Local File",
+	"importFromUrl": "Import from URL",
+	"menu": "Menu",
 	"morseCode": "Morse Code",
 	"qrCode": "QR Code"
 }

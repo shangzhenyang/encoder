@@ -1,5 +1,7 @@
 :root {
-	--theme-color: darkred;
+	--fg-alpha-1: rgba(0, 0, 0, .1);
+	--fg-alpha-2: rgba(0, 0, 0, .2);
+	--theme-color: rgb(0, 102, 204);
 }
 
 * {
@@ -8,6 +10,7 @@
 }
 
 body {
+	cursor: default;
 	font-family: sans-serif;
 	height: 100%;
 	margin: 0;
@@ -17,24 +20,23 @@ body {
 
 button {
 	background-color: transparent;
-	border: 1px solid rgba(0, 0, 0, .2);
+	border: 1px solid var(--fg-alpha-2);
 	border-radius: 5px;
+	cursor: pointer;
 	font-size: 18px;
 	padding: 10px 45px;
 	transition: all .25s;
 }
 
-button:hover {
-	background-color: rgba(0, 0, 0, .1);
-}
-
-button:active {
-	background-color: rgba(0, 0, 0, .2);
-}
-
 html,
 #root {
 	height: 100%;
+}
+
+header {
+	align-items: center;
+	display: flex;
+	justify-content: space-between;
 }
 
 h1 {
@@ -51,7 +53,7 @@ select {
 	-webkit-appearance: none;
 	appearance: none;
 	background-color: transparent;
-	border: 1px solid rgba(0, 0, 0, .2);
+	border: 1px solid var(--fg-alpha-2);
 	border-radius: 5px;
 	display: block;
 	font: inherit;
@@ -61,13 +63,29 @@ select {
 	width: 100%;
 }
 
+svg[role=button] {
+	cursor: pointer;
+	padding: 5px;
+	transition: opacity .25s;
+}
+
+svg[role=button]:hover,
+.main-btn:hover {
+	opacity: .75;
+}
+
+svg[role=button]:active,
+.main-btn:active {
+	opacity: .5;
+}
+
 textarea {
 	-webkit-appearance: none;
 	appearance: none;
 	background-color: transparent;
-	border: 1px solid rgba(0, 0, 0, .2);
+	border: 1px solid var(--fg-alpha-2);
 	border-radius: 10px;
-	box-shadow: 0 0 3px rgba(0, 0, 0, .2);
+	box-shadow: 0 0 3px var(--fg-alpha-2);
 	display: block;
 	font: inherit;
 	height: 100%;
@@ -79,7 +97,7 @@ textarea {
 }
 
 textarea:focus {
-	box-shadow: 0 0 10px rgba(0, 0, 0, .2);
+	box-shadow: 0 0 10px var(--fg-alpha-2);
 }
 
 .App {
@@ -107,14 +125,53 @@ textarea:focus {
 	color: white;
 }
 
-.main-btn:hover {
-	background-color: var(--theme-color);
-	opacity: .75;
+.mask {
+	animation: fadeIn .25s;
+	background-color: rgba(0, 0, 0, .1);
+	height: 100%;
+	left: 0;
+	position: fixed;
+	top: 0;
+	width: 100%;
 }
 
-.main-btn:active {
-	background-color: var(--theme-color);
-	opacity: .5;
+.menu-item {
+	align-items: center;
+	border-radius: 5px;
+	display: flex;
+	gap: 10px;
+	padding: 5px 15px;
+	transition: background-color .25s;
+}
+
+.menu-item:hover,
+.regular-btn:hover {
+	background-color: var(--fg-alpha-1);
+}
+
+.menu-item:active,
+.regular-btn:active {
+	background-color: var(--fg-alpha-2);
+}
+
+.menu-popup {
+	background-color: white;
+	border: 1px solid var(--fg-alpha-2);
+	border-radius: 10px;
+	/* box-shadow: 0 0 10px var(--fg-alpha-2); */
+	padding: 5px;
+	position: fixed;
+	right: 10%;
+	top: 75px;
+}
+
+@keyframes fadeIn {
+	from {
+		opacity: 0;
+	}
+	to {
+		opacity: 1;
+	}
 }
 
 @media screen and (max-width: 550px) {
@@ -125,6 +182,8 @@ textarea:focus {
 
 @media (prefers-color-scheme: dark) {
 	:root {
+		--fg-alpha-1: rgba(255, 255, 255, .1);
+		--fg-alpha-2: rgba(255, 255, 255, .2);
 		color-scheme: dark;
 	}
 
@@ -133,16 +192,7 @@ textarea:focus {
 		color: white;
 	}
 
-	button,
-	select {
-		border-color:rgba(255, 255, 255, .2);
-	}
-
-	textarea {
-		box-shadow: 0 0 3px rgba(255, 255, 255, .2);
-	}
-
-	textarea:focus {
-		box-shadow: 0 0 10px rgba(255, 255, 255, .2);
+	.menu-popup {
+		background-color: black;
 	}
 }

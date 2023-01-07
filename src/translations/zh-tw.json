@@ -6,11 +6,14 @@
 	"encoder": "編碼器",
 	"encoding": "編碼",
 	"enterText": "輸入文字...",
+	"error": "錯誤",
 	"exportAsFile": "匯出為檔案",
 	"importFromLocalFile": "從本地檔案匯入",
 	"importFromUrl": "從網址匯入",
+	"md5CannotBeDecoded": "MD5 不能被解碼。",
 	"menu": "選單",
 	"morseCode": "摩斯電碼",
 	"ok": "確定",
-	"qrCode": "QR 碼"
+	"qrCode": "QR 碼",
+	"tip": "提示"
 }

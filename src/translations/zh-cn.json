@@ -6,11 +6,14 @@
 	"encoder": "编码器",
 	"encoding": "编码",
 	"enterText": "输入文本...",
+	"error": "错误",
 	"exportAsFile": "导出为文件",
 	"importFromLocalFile": "从本地文件导入",
 	"importFromUrl": "从网址导入",
+	"md5CannotBeDecoded": "MD5 不能被解码。",
 	"menu": "菜单",
 	"morseCode": "摩斯电码",
 	"ok": "确定",
-	"qrCode": "二维码"
+	"qrCode": "二维码",
+	"tip": "提示"
 }

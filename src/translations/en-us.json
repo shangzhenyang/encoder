@@ -6,11 +6,14 @@
 	"encoder": "Encoder",
 	"encoding": "Encoding",
 	"enterText": "Enter text...",
+	"error": "Error",
 	"exportAsFile": "Export as File",
 	"importFromLocalFile": "Import from Local File",
 	"importFromUrl": "Import from URL",
+	"md5CannotBeDecoded": "MD5 cannot be decoded.",
 	"menu": "Menu",
 	"morseCode": "Morse Code",
 	"ok": "OK",
-	"qrCode": "QR Code"
+	"qrCode": "QR Code",
+	"tip": "Tip"
 }

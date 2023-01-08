@@ -80,7 +80,7 @@ function App() {
 						alt: t("decodedImage")
 					});
 				} else {
-					decoded = window.atob(decoded.split("base64,")[1]);
+					decoded = decodeBase64(decoded.split("base64,")[1]);
 				}
 			} else if (isOnly(/\.|-|\/|\s/, decoded)) {
 				decoded = decodeMorse(decoded.replaceAll(" ", "/"));
@@ -100,7 +100,7 @@ function App() {
 				} else if (decoded.includes("\\u") || decoded.includes("\\")) {
 					decoded = decodeUnicode(decoded);
 				} else {
-					decoded = decodeURIComponent(escape(window.atob(decoded)));
+					decoded = decodeBase64(decoded);
 				}
 			} else if (isOnly(/0|1|\s/, decoded)) {
 				decoded = decodeBinary(decoded);
@@ -117,9 +117,17 @@ function App() {
 		}
 	}
 
+	function decodeBase64(str: string) {
+		return decodeURIComponent(escape(window.atob(str)));
+	}
+
 	function encode() {
 		if (encoding === "dataurl") {
-			openLocalFile();
+			if (text) {
+				setText("data:text/plain;base64," + encodeBase64(text));
+			} else {
+				openLocalFile();
+			}
 			return;
 		}
 		if (!text) {
@@ -127,11 +135,7 @@ function App() {
 		}
 		switch (encoding) {
 			case "base64":
-				try {
-					setText(window.btoa(text));
-				} catch {
-					setText(window.btoa(unescape(encodeURIComponent(text))));
-				}
+				setText(encodeBase64(text));
 				break;
 			case "binary":
 				setText(encodeBinary(text));
@@ -171,6 +175,14 @@ function App() {
 				break;
 			default:
 				break;
+		}
+	}
+
+	function encodeBase64(str: string) {
+		try {
+			return window.btoa(str);
+		} catch {
+			return window.btoa(unescape(encodeURIComponent(str)));
 		}
 	}
 

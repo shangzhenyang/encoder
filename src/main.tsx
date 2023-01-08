@@ -2,7 +2,6 @@ import { StrictMode } from "react";
 import ReactDOM from "react-dom/client";
 import i18n, { t } from "i18next";
 import Modal from "react-modal";
-import ReactGA from "react-ga4";
 
 import App from "./App";
 
@@ -59,6 +58,3 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
 		<App />
 	</StrictMode>
 );
-
-ReactGA.initialize("G-H0PC8ZZ7BN");
-ReactGA.send("pageview");

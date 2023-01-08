@@ -9,6 +9,7 @@ import { t } from "i18next";
 import md5 from "md5";
 import QRCode from "qrcode";
 import { decode as decodeMorse, encode as encodeMorse } from "xmorse";
+import ReactGA from "react-ga4";
 
 import { decodeBinary, encodeBinary } from "./utils/binary";
 import {
@@ -252,6 +253,11 @@ function App() {
 		if (!isMobile) {
 			textInput.current?.focus();
 		}
+
+		setTimeout(() => {
+			ReactGA.initialize("G-H0PC8ZZ7BN");
+			ReactGA.send("pageview");
+		}, 1000);
 	}, [textInput]);
 
 	return <div className="App">

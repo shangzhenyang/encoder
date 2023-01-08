@@ -4,17 +4,19 @@ import Modal from "react-modal";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faClose } from "@fortawesome/free-solid-svg-icons";
 
+import ImageInfo from "../interfaces/ImageInfo";
+
 interface Props {
-	imageUrl: string | null;
-	setImageUrl: Dispatch<SetStateAction<string | null>>;
+	imageInfo: ImageInfo | null;
+	setImageInfo: Dispatch<SetStateAction<ImageInfo | null>>;
 }
 
-function ImageViewer({ imageUrl, setImageUrl }: Props) {
+function ImageViewer({ imageInfo, setImageInfo }: Props) {
 	function closeDialog() {
-		setImageUrl(null);
+		setImageInfo(null);
 	}
 
-	if (!imageUrl) {
+	if (!imageInfo) {
 		return null;
 	}
 	return <Modal
@@ -29,13 +31,12 @@ function ImageViewer({ imageUrl, setImageUrl }: Props) {
 				icon={faClose}
 				size="lg"
 				role="button"
+				tabIndex={0}
 				title={t("close").toString()}
 				onClick={closeDialog}
 			/>
 		</header>
-		<div>
-			<img src={imageUrl} alt={t("decodedImage").toString()} />
-		</div>
+		<img src={imageInfo.src} alt={imageInfo.alt} />
 	</Modal>
 }
 

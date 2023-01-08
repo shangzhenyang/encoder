@@ -7,6 +7,7 @@ import {
 } from "react";
 import { t } from "i18next";
 import md5 from "md5";
+import QRCode from "qrcode";
 import { decode as decodeMorse, encode as encodeMorse } from "xmorse";
 
 import { decodeBinary, encodeBinary } from "./utils/binary";
@@ -21,6 +22,7 @@ import Alert from "./components/Alert";
 import AlertMessage from "./interfaces/AlertMessage";
 import DropDown from "./components/DropDown";
 import FileInput from "./components/FileInput";
+import ImageInfo from "./interfaces/ImageInfo";
 import ImageViewer from "./components/ImageViewer";
 import Menu from "./components/Menu";
 import Option from "./interfaces/Option";
@@ -30,7 +32,7 @@ const md5Hist = new Map();
 function App() {
 	const [alertMessage, setAlertMessage] = useState(null as AlertMessage | null);
 	const [encoding, setEncoding] = useState("base64");
-	const [imageUrl, setImageUrl] = useState(null as string | null);
+	const [imageInfo, setImageInfo] = useState(null as ImageInfo | null);
 	const [text, setText] = useState("");
 
 	const fileInput = createRef<HTMLInputElement>();
@@ -44,7 +46,7 @@ function App() {
 		value: "binary"
 	}, {
 		text: t("qrCode"),
-		value: "qrCode"
+		value: "qrcode"
 	}, {
 		text: t("coreValues"),
 		value: "corevalues"
@@ -73,7 +75,10 @@ function App() {
 		try {
 			if (decoded.startsWith("data:")) {
 				if (decoded.includes("image/")) {
-					setImageUrl(decoded);
+					setImageInfo({
+						src: decoded,
+						alt: t("decodedImage")
+					});
 				} else {
 					decoded = window.atob(decoded.split("base64,")[1]);
 				}
@@ -143,7 +148,20 @@ function App() {
 				setText(encodeMorse(text));
 				break;
 			case "qrcode":
-				// showQrCode(value);
+				QRCode.toDataURL(text, {
+					margin: 2
+				}).then((url) => {
+					setImageInfo({
+						src: url,
+						alt: t("qrCode")
+					});
+				}).catch((err: Error) => {
+					console.error(err);
+					setAlertMessage({
+						title: t("error"),
+						text: err.message
+					});
+				});
 				break;
 			case "unicode":
 				setText(encodeUnicode(text));
@@ -264,7 +282,7 @@ function App() {
 			setText={setText}
 			setAlertMessage={setAlertMessage}
 		/>
-		<ImageViewer imageUrl={imageUrl} setImageUrl={setImageUrl} />
+		<ImageViewer imageInfo={imageInfo} setImageInfo={setImageInfo} />
 		<Alert alertMessage={alertMessage} setAlertMessage={setAlertMessage} />
 	</div>
 }

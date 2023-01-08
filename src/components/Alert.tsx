@@ -25,21 +25,24 @@ function Alert({ alertMessage, setAlertMessage }: Props) {
 	}, [closeDialogCallback]);
 
 	useEffect(() => {
-		if (alertMessage !== null) {
+		if (alertMessage) {
 			document.addEventListener("keydown", onKeyDown);
 		} else {
 			document.removeEventListener("keydown", onKeyDown);
 		}
 	}, [alertMessage, onKeyDown]);
 
+	if (!alertMessage) {
+		return null;
+	}
 	return <Modal
-		isOpen={alertMessage !== null}
+		isOpen={true}
 		className="popup alert"
 		overlayClassName="mask"
 		onRequestClose={closeDialog}
 		shouldCloseOnOverlayClick={true}>
-		<h1>{alertMessage?.title}</h1>
-		<p>{alertMessage?.text}</p>
+		<h1>{alertMessage.title}</h1>
+		<p>{alertMessage.text}</p>
 		<div className="btn-bar">
 			<button
 				className="default-btn"

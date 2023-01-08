@@ -68,8 +68,19 @@ function App() {
 		value: "uricomponent"
 	}];
 
-	function decode() {
+	function checkIfTextEmpty() {
 		if (!text) {
+			setAlertMessage({
+				title: t("error"),
+				text: t("textEmpty")
+			});
+			return true;
+		}
+		return false;
+	}
+
+	function decode() {
+		if (checkIfTextEmpty()) {
 			return;
 		}
 		let decoded = text;
@@ -131,7 +142,7 @@ function App() {
 			}
 			return;
 		}
-		if (!text) {
+		if (checkIfTextEmpty()) {
 			return;
 		}
 		switch (encoding) {
@@ -188,6 +199,9 @@ function App() {
 	}
 
 	function exportAsFile() {
+		if (checkIfTextEmpty()) {
+			return;
+		}
 		const newA = document.createElement("a");
 		newA.href = "data:text/plain;charset=utf-8," + encodeURIComponent(text);
 		newA.download = `encoder-${Date.now()}.txt`;

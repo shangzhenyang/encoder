@@ -12,7 +12,7 @@ export default defineConfig({
 				name: "Encoder",
 				short_name: "Encoder",
 				id: "/",
-				theme_color: "#ffffff",
+				theme_color: "#8b0000",
 				description: "Encoder is a web-based tool that allows you to easily encode text into various formats, including base64, binary, MD5, Morse code, QR code, Unicode, URI Component, and more.",
 				icons: [{
 					src: "https://assets.retiehe.com/ysz/avatar.png",

@@ -26,6 +26,7 @@ button {
 	background-color: transparent;
 	border: 1px solid var(--fg-alpha-2);
 	border-radius: 5px;
+	color: inherit;
 	cursor: pointer;
 	font-size: 18px;
 	padding: 10px 45px;
@@ -44,6 +45,12 @@ header {
 	justify-content: space-between;
 }
 
+hr {
+	border: 0;
+	border-bottom: 1px solid var(--fg-alpha-2);
+	margin: 4px 0;
+}
+
 h1 {
 	font-family: sans-serif;
 	font-weight: lighter;
@@ -59,12 +66,17 @@ label {
 	white-space: nowrap;
 }
 
+option {
+	color: gray;
+}
+
 select {
 	-webkit-appearance: none;
 	appearance: none;
 	background-color: transparent;
 	border: 1px solid var(--fg-alpha-2);
 	border-radius: 5px;
+	color: inherit;
 	display: block;
 	font: inherit;
 	height: 100%;

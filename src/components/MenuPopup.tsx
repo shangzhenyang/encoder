@@ -6,7 +6,8 @@ import {
 	faCircleInfo,
 	faDownload,
 	faFolderOpen,
-	faStar
+	faStar,
+	faUser
 } from "@fortawesome/free-solid-svg-icons";
 
 import AlertMessage from "../interfaces/AlertMessage";
@@ -45,10 +46,19 @@ function MenuPopup({
 			closeMenu();
 		}
 	}, {
+		separator: true
+	}, {
 		title: t("starOnGithub"),
 		icon: faStar,
 		onClick: () => {
 			window.open("https://github.com/shangzhenyang/encoder");
+			closeMenu();
+		}
+	}, {
+		title: t("authorsPortfolio"),
+		icon: faUser,
+		onClick: () => {
+			window.open("https://www.yangshangzhen.com/");
 			closeMenu();
 		}
 	}, {
@@ -62,14 +72,17 @@ function MenuPopup({
 			closeMenu();
 		}
 	}];
-	const itemsElem = items.map(({ title, icon, onClick }) => {
+	const itemsElem = items.map(({ separator, title, icon, onClick }) => {
+		if (separator) {
+			return <hr key={title} aria-hidden={true} />
+		}
 		return <div
 			key={title}
 			className="menu-item"
 			role="menuitem"
 			tabIndex={0}
 			onClick={onClick}>
-			<FontAwesomeIcon icon={icon} fixedWidth />
+			{icon && <FontAwesomeIcon icon={icon} fixedWidth />}
 			<span>{title}</span>
 		</div>
 	});

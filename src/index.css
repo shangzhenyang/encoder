@@ -108,6 +108,7 @@ textarea {
 	border: 1px solid var(--fg-alpha-2);
 	border-radius: 10px;
 	box-shadow: 0 0 3px var(--fg-alpha-2);
+	color: inherit;
 	display: block;
 	font: inherit;
 	height: 100%;
@@ -286,6 +287,6 @@ textarea:focus {
 
 	body {
 		background-color: rgb(30, 30, 30);
-		color: white;
+		color: whitesmoke;
 	}
 }

@@ -34,20 +34,18 @@ function Alert({ alertMessage, setAlertMessage }: Props) {
 
 	return <Modal
 		isOpen={alertMessage !== null}
-		className="modal"
+		className="popup alert"
 		overlayClassName="mask"
 		onRequestClose={closeDialog}
 		shouldCloseOnOverlayClick={true}>
-		<div className="msg-box">
-			<h1>{alertMessage?.title}</h1>
-			<p>{alertMessage?.text}</p>
-			<div className="btn-bar">
-				<button
-					className="default-btn"
-					onClick={closeDialog}>
-					{t("ok")}
-				</button>
-			</div>
+		<h1>{alertMessage?.title}</h1>
+		<p>{alertMessage?.text}</p>
+		<div className="btn-bar">
+			<button
+				className="default-btn"
+				onClick={closeDialog}>
+				{t("ok")}
+			</button>
 		</div>
 	</Modal>
 }

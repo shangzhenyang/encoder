@@ -21,6 +21,7 @@ import Alert from "./components/Alert";
 import AlertMessage from "./interfaces/AlertMessage";
 import DropDown from "./components/DropDown";
 import FileInput from "./components/FileInput";
+import ImageViewer from "./components/ImageViewer";
 import Menu from "./components/Menu";
 import Option from "./interfaces/Option";
 
@@ -29,6 +30,7 @@ const md5Hist = new Map();
 function App() {
 	const [alertMessage, setAlertMessage] = useState(null as AlertMessage | null);
 	const [encoding, setEncoding] = useState("base64");
+	const [imageUrl, setImageUrl] = useState(null as string | null);
 	const [text, setText] = useState("");
 
 	const fileInput = createRef<HTMLInputElement>();
@@ -71,7 +73,7 @@ function App() {
 		try {
 			if (decoded.startsWith("data:")) {
 				if (decoded.includes("image/")) {
-					window.open(decoded);
+					setImageUrl(decoded);
 				} else {
 					decoded = window.atob(decoded.split("base64,")[1]);
 				}
@@ -112,7 +114,8 @@ function App() {
 
 	function encode() {
 		if (encoding === "dataurl") {
-
+			openLocalFile();
+			return;
 		}
 		if (!text) {
 			return;
@@ -261,6 +264,7 @@ function App() {
 			setText={setText}
 			setAlertMessage={setAlertMessage}
 		/>
+		<ImageViewer imageUrl={imageUrl} setImageUrl={setImageUrl} />
 		<Alert alertMessage={alertMessage} setAlertMessage={setAlertMessage} />
 	</div>
 }

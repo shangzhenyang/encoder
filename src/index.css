@@ -109,6 +109,26 @@ textarea:focus {
 	box-shadow: 0 0 10px var(--fg-alpha-2);
 }
 
+.alert {
+	border: 1px solid var(--fg-alpha-1);
+	border-top: 2px solid var(--theme-color);
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+	line-height: 24px;
+	max-width: 100%;
+	padding: 20px 25px 15px 25px;
+	width: 450px;
+}
+
+.alert h1 {
+	font-weight: bold;
+}
+
+.alert p {
+	margin: 0;
+}
+
 .App {
 	display: flex;
 	flex-direction: column;
@@ -118,7 +138,7 @@ textarea:focus {
 }
 
 .btn-bar {
-	margin: 15px 0 5px;
+	margin: 5px 0;
 	text-align: right;
 }
 
@@ -145,9 +165,30 @@ textarea:focus {
 	gap: 10px;
 }
 
+.image-viewer {
+	max-height: 90%;
+	max-width: 90%;
+	padding: 10px;
+	width: fit-content;
+}
+
+.image-viewer header {
+	margin-bottom: 10px;
+	padding: 0 10px;
+}
+
+.image-viewer img {
+	border-radius: 5px;
+	display: block;
+	max-height: 100%;
+	max-width: 100%;
+	object-fit: contain;
+}
+
 .mask {
 	animation: fadeIn .25s;
 	background-color: rgba(0, 0, 0, .1);
+	display: flex;
 	height: 100%;
 	left: 0;
 	position: fixed;
@@ -184,36 +225,17 @@ textarea:focus {
 	top: 75px;
 }
 
-.modal {
-	background-color: transparent;
-}
-
-.msg-box {
+.popup {
 	animation: fadeIn .25s;
 	background-color: var(--popup-bg);
-	border: 1px solid var(--fg-alpha-1);
 	border-radius: 5px;
-	border-top: 2px solid var(--theme-color);
 	box-shadow: 0 0 5px rgba(0, 0, 0, .5);
-	left: 50%;
-	line-height: 24px;
-	max-width: 100%;
-	padding: 20px 25px 15px 25px;
-	position: fixed;
-	top: 50%;
-	transform: translate(-50%, -50%);
+	margin: auto;
 	transition: all .25s;
-	width: 450px;
 }
 
-.msg-box h1 {
+.popup h1 {
 	font-size: 20px;
-	font-weight: bold;
-	margin: 0 0 10px;
-}
-
-.msg-box p {
-	margin: 0;
 }
 
 @keyframes fadeIn {
@@ -230,9 +252,14 @@ textarea:focus {
 		flex-direction: column;
 	}
 
-	.msg-box {
+	.popup {
 		border-radius: 0;
 		width: 100%;
+	}
+
+	.image-viewer {
+		max-height: 100%;
+		max-width: 100%;
 	}
 }
 

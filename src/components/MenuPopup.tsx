@@ -6,7 +6,6 @@ import {
 	faCircleInfo,
 	faDownload,
 	faFolderOpen,
-	faGlobe,
 	faStar
 } from "@fortawesome/free-solid-svg-icons";
 
@@ -37,12 +36,6 @@ function MenuPopup({
 		onClick: () => {
 			openLocalFile();
 			closeMenu();
-		}
-	}, {
-		title: t("importFromUrl"),
-		icon: faGlobe,
-		onClick: () => {
-
 		}
 	}, {
 		title: t("exportAsFile"),
@@ -83,11 +76,12 @@ function MenuPopup({
 
 	return <Modal
 		isOpen={show}
-		className="modal"
+		className="menu-popup"
 		overlayClassName="mask"
+		role="menu"
 		onRequestClose={closeMenu}
 		shouldCloseOnOverlayClick={true}>
-		<div className="menu-popup" role="menu">{itemsElem}</div>
+		{itemsElem}
 	</Modal>
 }
 

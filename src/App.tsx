@@ -120,12 +120,14 @@ function App() {
 				decoded = decodeCoreValues(decoded);
 			}
 			setText(decoded);
-		} catch (err: any) {
-			console.error(err);
-			setAlertMessage({
-				title: t("error"),
-				text: err.message
-			});
+		} catch (err: unknown) {
+			if (err instanceof Error) {
+				console.error(err);
+				setAlertMessage({
+					title: t("error"),
+					text: err.message
+				});
+			}
 		}
 	}
 
@@ -156,9 +158,11 @@ function App() {
 				setText(encodeCoreValues(text));
 				break;
 			case "md5":
-				const md5Value = md5(text);
-				md5Hist.set(md5Value, text);
-				setText(md5Value);
+				(() => {
+					const md5Value = md5(text);
+					md5Hist.set(md5Value, text);
+					setText(md5Value);
+				})();
 				break;
 			case "morse":
 				setText(encodeMorse(text));
@@ -274,49 +278,57 @@ function App() {
 		}, 1000);
 	}, [textInput]);
 
-	return <div className="App">
-		<header>
-			<h1>{t("encoder")}</h1>
-			<Menu
-				exportAsFile={exportAsFile}
-				openLocalFile={openLocalFile}
+	return (
+		<div className="App">
+			<header>
+				<h1>{t("encoder")}</h1>
+				<Menu
+					exportAsFile={exportAsFile}
+					openLocalFile={openLocalFile}
+					setAlertMessage={setAlertMessage}
+				/>
+			</header>
+			<textarea
+				ref={textInput}
+				placeholder={t("enterText").toString()}
+				value={text}
+				onChange={handleTextChange}
+				onKeyDown={handleTextKeyDown}>
+			</textarea>
+			<div className="control-bar">
+				<DropDown
+					id="encoding-selector"
+					label={t("encoding")}
+					options={encodingOptions}
+					value={encoding}
+					setValue={setEncoding}
+				/>
+				<button
+					className="default-btn"
+					onClick={encode}>
+					{t("encode")}
+				</button>
+				<button
+					className="regular-btn"
+					onClick={decode}>
+					{t("decode")}
+				</button>
+			</div>
+			<FileInput
+				ref={fileInput}
+				setText={setText}
 				setAlertMessage={setAlertMessage}
 			/>
-		</header>
-		<textarea
-			ref={textInput}
-			placeholder={t("enterText").toString()}
-			value={text}
-			onChange={handleTextChange}
-			onKeyDown={handleTextKeyDown}>
-		</textarea>
-		<div className="control-bar">
-			<DropDown
-				id="encoding-selector"
-				label={t("encoding")}
-				options={encodingOptions}
-				value={encoding}
-				setValue={setEncoding}
+			<ImageViewer
+				imageInfo={imageInfo}
+				setImageInfo={setImageInfo}
 			/>
-			<button
-				className="default-btn"
-				onClick={encode}>
-				{t("encode")}
-			</button>
-			<button
-				className="regular-btn"
-				onClick={decode}>
-				{t("decode")}
-			</button>
+			<Alert
+				alertMessage={alertMessage}
+				setAlertMessage={setAlertMessage}
+			/>
 		</div>
-		<FileInput
-			ref={fileInput}
-			setText={setText}
-			setAlertMessage={setAlertMessage}
-		/>
-		<ImageViewer imageInfo={imageInfo} setImageInfo={setImageInfo} />
-		<Alert alertMessage={alertMessage} setAlertMessage={setAlertMessage} />
-	</div>
+	);
 }
 
 export default App;

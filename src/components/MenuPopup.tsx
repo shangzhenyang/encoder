@@ -72,30 +72,39 @@ function MenuPopup({
 			closeMenu();
 		}
 	}];
-	const itemsElem = items.map(({ separator, title, icon, onClick }) => {
+	const itemsElem = items.map((
+		{ separator, title, icon, onClick },
+		index
+	) => {
 		if (separator) {
-			return <hr key={title} aria-hidden={true} />
+			return (
+				<hr key={index} aria-hidden={true} />
+			);
 		}
-		return <div
-			key={title}
-			className="menu-item"
-			role="menuitem"
-			tabIndex={0}
-			onClick={onClick}>
-			{icon && <FontAwesomeIcon icon={icon} fixedWidth />}
-			<span>{title}</span>
-		</div>
+		return (
+			<div
+				key={title}
+				className="menu-item"
+				role="menuitem"
+				tabIndex={0}
+				onClick={onClick}>
+				{icon && <FontAwesomeIcon icon={icon} fixedWidth />}
+				<span>{title}</span>
+			</div>
+		);
 	});
 
-	return <Modal
-		isOpen={show}
-		className="menu-popup"
-		overlayClassName="mask"
-		role="menu"
-		onRequestClose={closeMenu}
-		shouldCloseOnOverlayClick={true}>
-		{itemsElem}
-	</Modal>
+	return (
+		<Modal
+			isOpen={show}
+			className="menu-popup"
+			overlayClassName="mask"
+			role="menu"
+			onRequestClose={closeMenu}
+			shouldCloseOnOverlayClick={true}>
+			{itemsElem}
+		</Modal>
+	);
 }
 
 export default MenuPopup;

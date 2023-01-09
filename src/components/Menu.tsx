@@ -19,23 +19,25 @@ function Menu({ exportAsFile, openLocalFile, setAlertMessage }: Props) {
 		setShowMenu(true);
 	}
 
-	return <>
-		<FontAwesomeIcon
-			icon={faBars}
-			size="xl"
-			role="button"
-			tabIndex={0}
-			title={t("menu").toString()}
-			onClick={openMenu}
-		/>
-		<MenuPopup
-			show={showMenu}
-			setShow={setShowMenu}
-			exportAsFile={exportAsFile}
-			openLocalFile={openLocalFile}
-			setAlertMessage={setAlertMessage}
-		/>
-	</>
+	return (
+		<>
+			<FontAwesomeIcon
+				icon={faBars}
+				size="xl"
+				role="button"
+				tabIndex={0}
+				title={t("menu").toString()}
+				onClick={openMenu}
+			/>
+			<MenuPopup
+				show={showMenu}
+				setShow={setShowMenu}
+				exportAsFile={exportAsFile}
+				openLocalFile={openLocalFile}
+				setAlertMessage={setAlertMessage}
+			/>
+		</>
+	);
 }
 
 export default Menu;

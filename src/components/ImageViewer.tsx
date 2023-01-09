@@ -19,25 +19,27 @@ function ImageViewer({ imageInfo, setImageInfo }: Props) {
 	if (!imageInfo) {
 		return null;
 	}
-	return <Modal
-		isOpen={true}
-		className="popup image-viewer"
-		overlayClassName="mask"
-		onRequestClose={closeDialog}
-		shouldCloseOnOverlayClick={true}>
-		<header>
-			<h1>{t("imageViewer")}</h1>
-			<FontAwesomeIcon
-				icon={faClose}
-				size="lg"
-				role="button"
-				tabIndex={0}
-				title={t("close").toString()}
-				onClick={closeDialog}
-			/>
-		</header>
-		<img src={imageInfo.src} alt={imageInfo.alt} />
-	</Modal>
+	return (
+		<Modal
+			isOpen={true}
+			className="popup image-viewer"
+			overlayClassName="mask"
+			onRequestClose={closeDialog}
+			shouldCloseOnOverlayClick={true}>
+			<header>
+				<h1>{t("imageViewer")}</h1>
+				<FontAwesomeIcon
+					icon={faClose}
+					size="lg"
+					role="button"
+					tabIndex={0}
+					title={t("close").toString()}
+					onClick={closeDialog}
+				/>
+			</header>
+			<img src={imageInfo.src} alt={imageInfo.alt} />
+		</Modal>
+	);
 }
 
 export default ImageViewer;

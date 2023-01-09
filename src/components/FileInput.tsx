@@ -39,12 +39,14 @@ function FileInput(
 		}
 	}
 
-	return <input
-		ref={ref}
-		accept="image/*,text/*"
-		type="file"
-		onChange={handleFileChange}
-	/>
+	return (
+		<input
+			ref={ref}
+			accept="image/*,text/*"
+			type="file"
+			onChange={handleFileChange}
+		/>
+	);
 }
 
 export default forwardRef(FileInput);

@@ -16,18 +16,22 @@ function DropDown({ id, label, options, value, setValue }: Props) {
 	}
 
 	const optionsElem = options.map(({ text, value }) => {
-		return <option key={value} value={value}>{text}</option>
+		return (
+			<option key={value} value={value}>{text}</option>
+		);
 	});
 
-	return <div className="dropdown-group">
-		<label htmlFor={id}>{label}</label>
-		<select
-			id={id}
-			value={value}
-			onChange={handleChange}>
-			{optionsElem}
-		</select>
-	</div>
+	return (
+		<div className="dropdown-group">
+			<label htmlFor={id}>{label}</label>
+			<select
+				id={id}
+				value={value}
+				onChange={handleChange}>
+				{optionsElem}
+			</select>
+		</div>
+	);
 }
 
 export default DropDown;

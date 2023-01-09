@@ -8,7 +8,7 @@ export function decodeUnicode(unicode: string) {
 	});
 }
 
-export function encodeUnicode(str: string, separator: string = "\\") {
+export function encodeUnicode(str: string, separator = "\\") {
 	let unicode = "";
 	for (let i = 0; i < str.length; i++) {
 		let charCode = str.charCodeAt(i).toString(16).toUpperCase();

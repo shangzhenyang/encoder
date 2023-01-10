@@ -1,5 +1,5 @@
 /*
-	Content-Security-Policy: default-src 'none'; base-uri 'none'; connect-src 'self' https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com; form-action 'none'; frame-ancestors 'none'; img-src https://assets.retiehe.com https://*.google-analytics.com https://*.googletagmanager.com; manifest-src 'self'; script-src 'self' https://www.googletagmanager.com; style-src 'self' 'unsafe-inline'
+	Content-Security-Policy: default-src 'none'; base-uri 'none'; connect-src 'self' https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com; form-action 'none'; frame-ancestors 'none'; img-src data: https://assets.retiehe.com https://*.google-analytics.com https://*.googletagmanager.com; manifest-src 'self'; script-src 'self' https://www.googletagmanager.com; style-src 'self' 'unsafe-inline'
 
 /assets/*
 	Cache-Control: public, max-age=31536000, immutable

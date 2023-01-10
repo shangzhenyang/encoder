@@ -47,6 +47,7 @@ function Alert({ alertMessage, setAlertMessage }: Props) {
 			<div className="btn-bar">
 				<button
 					className="default-btn"
+					type="button"
 					onClick={closeDialog}>
 					{t("ok")}
 				</button>

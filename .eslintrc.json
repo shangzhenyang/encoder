@@ -20,6 +20,14 @@
 		"@typescript-eslint"
 	],
 	"rules": {
+		"arrow-body-style": [
+			"error",
+			"always"
+		],
+		"arrow-parens": [
+			"error",
+			"always"
+		],
 		"indent": [
 			"error",
 			"tab",
@@ -35,11 +43,11 @@
 			"error",
 			"double"
 		],
+		"react/react-in-jsx-scope": "off",
 		"semi": [
 			"error",
 			"always"
-		],
-		"react/react-in-jsx-scope": "off"
+		]
 	},
 	"settings": {
 		"react": {

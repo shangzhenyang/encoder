@@ -305,11 +305,13 @@ function App() {
 				/>
 				<button
 					className="default-btn"
+					type="button"
 					onClick={encode}>
 					{t("encode")}
 				</button>
 				<button
 					className="regular-btn"
+					type="button"
 					onClick={decode}>
 					{t("decode")}
 				</button>

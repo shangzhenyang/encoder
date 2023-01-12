@@ -37,7 +37,6 @@ function App() {
 	const [text, setText] = useState("");
 
 	const fileInput = createRef<HTMLInputElement>();
-	const textInput = createRef<HTMLTextAreaElement>();
 
 	const encodingOptions: Option[] = [{
 		text: "Base64",
@@ -265,18 +264,11 @@ function App() {
 			return;
 		}
 
-		const isMobile = navigator.userAgent.includes("Android") ||
-			navigator.userAgent.includes("iPhone") ||
-			navigator.userAgent.includes("iPad");
-		if (!isMobile) {
-			textInput.current?.focus();
-		}
-
 		setTimeout(() => {
 			ReactGA.initialize("G-H0PC8ZZ7BN");
 			ReactGA.send("pageview");
 		}, 1000);
-	}, [textInput]);
+	}, []);
 
 	return (
 		<div className="App">
@@ -289,7 +281,7 @@ function App() {
 				/>
 			</header>
 			<textarea
-				ref={textInput}
+				autoFocus={true}
 				placeholder={t("enterText").toString()}
 				value={text}
 				onChange={handleTextChange}

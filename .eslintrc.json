@@ -8,8 +8,7 @@
 		"plugin:react/recommended",
 		"plugin:@typescript-eslint/recommended"
 	],
-	"overrides": [
-	],
+	"overrides": [],
 	"parser": "@typescript-eslint/parser",
 	"parserOptions": {
 		"ecmaVersion": "latest",
@@ -39,6 +38,7 @@
 			"error",
 			"unix"
 		],
+		"no-mixed-operators": "error",
 		"quotes": [
 			"error",
 			"double"

@@ -31,7 +31,8 @@ import Option from "./interfaces/Option";
 const md5Hist = new Map();
 
 function App() {
-	const [alertMessage, setAlertMessage] = useState(null as AlertMessage | null);
+	const [alertMessage, setAlertMessage] =
+		useState(null as AlertMessage | null);
 	const [encoding, setEncoding] = useState("base64");
 	const [imageInfo, setImageInfo] = useState(null as ImageInfo | null);
 	const [text, setText] = useState("");

@@ -27,6 +27,10 @@
 			"error",
 			"always"
 		],
+		"eqeqeq": [
+			"error",
+			"always"
+		],
 		"indent": [
 			"error",
 			"tab",
@@ -38,7 +42,9 @@
 			"error",
 			"unix"
 		],
+		"max-len": "error",
 		"no-mixed-operators": "error",
+		"prefer-const": "error",
 		"quotes": [
 			"error",
 			"double"

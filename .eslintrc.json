@@ -27,6 +27,16 @@
 			"error",
 			"always"
 		],
+		"curly": [
+			"error",
+			"all"
+		],
+		"default-case": "error",
+		"default-case-last": "error",
+		"eol-last": [
+			"error",
+			"always"
+		],
 		"eqeqeq": [
 			"error",
 			"always"
@@ -42,7 +52,6 @@
 			"error",
 			"unix"
 		],
-		"max-len": "error",
 		"no-mixed-operators": "error",
 		"prefer-const": "error",
 		"quotes": [

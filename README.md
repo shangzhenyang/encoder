@@ -22,6 +22,10 @@ Encoder is a free and easy-to-use tool for encoding text into various formats, i
 - Unicode
 - URI Component
 
+## License
+
+[MIT](LICENSE).
+
 ## Try it Out
 
 https://encoder.shangzhenyang.com/

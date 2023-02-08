@@ -39,7 +39,7 @@ export function encodeCoreValues(str: string) {
 			}
 			encoded += charCode;
 			if (str.length <= 1 || i < str.length - 1) {
-				encoded += coreValues[coreValues.length - 1] + " ";
+				encoded += coreValues.at(-1) + " ";
 			}
 		}
 		return encoded.trim();

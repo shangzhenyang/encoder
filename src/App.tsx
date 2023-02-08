@@ -255,16 +255,6 @@ function App() {
 	}
 
 	useEffect(() => {
-		const allowedHostNames = [
-			"localhost",
-			"encoder.shangzhenyang.com",
-			"encoder.yangshangzhen.com"
-		];
-		if (!allowedHostNames.includes(window.location.hostname)) {
-			window.location.href = "https://encoder.shangzhenyang.com/";
-			return;
-		}
-
 		setTimeout(() => {
 			ReactGA.initialize("G-H0PC8ZZ7BN");
 			ReactGA.send("pageview");

@@ -24,13 +24,7 @@ const i18nResources = {
 };
 
 const lang = (() => {
-	if (
-		!navigator.language ||
-		/^(yue|zh)(-cn|-hans(-[a-z]+)?)?$/i.test(navigator.language) || (
-			/bot|spider/i.test(navigator.userAgent) &&
-			!navigator.userAgent.includes("Googlebot")
-		)
-	) {
+	if (/^(yue|zh)(-cn|-hans(-[a-z]+)?)?$/i.test(navigator.language)) {
 		return "zh-CN";
 	} else if (
 		navigator.language.startsWith("zh") ||

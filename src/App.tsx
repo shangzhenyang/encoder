@@ -20,13 +20,13 @@ import {
 import { decodeUnicode, encodeUnicode } from "./utils/unicode";
 
 import Alert from "./components/Alert";
-import AlertMessage from "./interfaces/AlertMessage";
+import AlertMessage from "./types/AlertMessage";
 import DropDown from "./components/DropDown";
 import FileInput from "./components/FileInput";
-import ImageInfo from "./interfaces/ImageInfo";
+import ImageInfo from "./types/ImageInfo";
 import ImageViewer from "./components/ImageViewer";
 import Menu from "./components/Menu";
-import Option from "./interfaces/Option";
+import Option from "./types/Option";
 
 const md5Hist = new Map();
 

@@ -3,7 +3,7 @@ import { t } from "i18next";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
 
-import AlertMessage from "../interfaces/AlertMessage";
+import AlertMessage from "../types/AlertMessage";
 import MenuPopup from "./MenuPopup";
 
 interface Props {

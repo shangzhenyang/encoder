@@ -1,6 +1,6 @@
 import { ChangeEvent, Dispatch, SetStateAction } from "react";
 
-import Option from "../types/Option";
+import type Option from "@/types/Option";
 
 interface Props {
 	id: string;

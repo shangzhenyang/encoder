@@ -2,7 +2,7 @@ import { Dispatch, SetStateAction, useCallback, useEffect } from "react";
 import { t } from "i18next";
 import Modal from "react-modal";
 
-import AlertMessage from "../types/AlertMessage";
+import type AlertMessage from "@/types/AlertMessage";
 
 interface Props {
 	alertMessage: AlertMessage | null;

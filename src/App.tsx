@@ -11,22 +11,23 @@ import QRCode from "qrcode";
 import { decode as decodeMorse, encode as encodeMorse } from "xmorse";
 import ReactGA from "react-ga4";
 
-import { decodeBinary, encodeBinary } from "./utils/binary";
+import { decodeBinary, encodeBinary } from "@/utils/binary";
 import {
 	decodeCoreValues,
 	isCoreValuesEncoded,
 	encodeCoreValues
-} from "./utils/core-values";
-import { decodeUnicode, encodeUnicode } from "./utils/unicode";
+} from "@/utils/core-values";
+import { decodeUnicode, encodeUnicode } from "@/utils/unicode";
 
-import Alert from "./components/Alert";
-import AlertMessage from "./types/AlertMessage";
-import DropDown from "./components/DropDown";
-import FileInput from "./components/FileInput";
-import ImageInfo from "./types/ImageInfo";
-import ImageViewer from "./components/ImageViewer";
-import Menu from "./components/Menu";
-import Option from "./types/Option";
+import Alert from "@/components/Alert";
+import DropDown from "@/components/DropDown";
+import FileInput from "@/components/FileInput";
+import ImageViewer from "@/components/ImageViewer";
+import Menu from "@/components/Menu";
+
+import type AlertMessage from "@/types/AlertMessage";
+import type ImageInfo from "@/types/ImageInfo";
+import type Option from "@/types/Option";
 
 const md5Hist = new Map();
 

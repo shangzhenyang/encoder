@@ -10,7 +10,7 @@ import {
 	faUser
 } from "@fortawesome/free-solid-svg-icons";
 
-import AlertMessage from "../types/AlertMessage";
+import type AlertMessage from "@/types/AlertMessage";
 
 interface Props {
 	show: boolean;

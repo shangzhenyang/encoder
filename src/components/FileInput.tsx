@@ -7,7 +7,7 @@ import {
 } from "react";
 import { t } from "i18next";
 
-import AlertMessage from "../types/AlertMessage";
+import type AlertMessage from "@/types/AlertMessage";
 
 interface Props {
 	setText: Dispatch<SetStateAction<string>>;

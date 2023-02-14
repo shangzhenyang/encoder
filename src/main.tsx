@@ -3,13 +3,13 @@ import ReactDOM from "react-dom/client";
 import i18n, { t } from "i18next";
 import Modal from "react-modal";
 
-import App from "./App";
+import App from "@/App";
 
-import translationEnUs from "./translations/en-us.json";
-import translationZhCn from "./translations/zh-cn.json";
-import translationZhTw from "./translations/zh-tw.json";
+import translationEnUs from "@/translations/en-us.json";
+import translationZhCn from "@/translations/zh-cn.json";
+import translationZhTw from "@/translations/zh-tw.json";
 
-import "./index.css";
+import "@/index.css";
 
 const i18nResources = {
 	"en-US": {

@@ -3,8 +3,9 @@ import { t } from "i18next";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
 
-import AlertMessage from "../types/AlertMessage";
-import MenuPopup from "./MenuPopup";
+import MenuPopup from "@/components/MenuPopup";
+
+import type AlertMessage from "@/types/AlertMessage";
 
 interface Props {
 	exportAsFile: () => void;

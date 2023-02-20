@@ -1,16 +1,25 @@
 :root {
+	--bg-body: white;
+	--bg-popup: white;
 	--fg-alpha-1: rgba(0, 0, 0, .1);
 	--fg-alpha-2: rgba(0, 0, 0, .2);
-	--popup-bg: white;
-	--theme-color: darkred;
+	--theme-color: rgb(0, 102, 204);
 }
 
 * {
 	box-sizing: border-box;
+}
+
+*:focus:not(:focus-visible) {
 	outline: none;
 }
 
+*:focus-visible {
+	outline: auto;
+}
+
 body {
+	background-color: var(--bg-body);
 	cursor: default;
 	font-family: Helvetica, "PingFang SC", "Microsoft YaHei", sans-serif;
 	height: 100%;
@@ -117,6 +126,7 @@ textarea {
 
 textarea:focus {
 	box-shadow: 0 0 10px var(--fg-alpha-2);
+	outline: none;
 }
 
 .alert {
@@ -231,7 +241,7 @@ textarea:focus {
 }
 
 .menu-popup {
-	background-color: var(--popup-bg);
+	background-color: var(--bg-popup);
 	border: 1px solid var(--fg-alpha-2);
 	border-radius: 10px;
 	padding: 5px;
@@ -242,7 +252,7 @@ textarea:focus {
 
 .popup {
 	animation: fadeIn .25s;
-	background-color: var(--popup-bg);
+	background-color: var(--bg-popup);
 	border-radius: 5px;
 	box-shadow: 0 0 5px rgba(0, 0, 0, .5);
 	margin: auto;
@@ -257,6 +267,7 @@ textarea:focus {
 	from {
 		opacity: 0;
 	}
+
 	to {
 		opacity: 1;
 	}
@@ -275,14 +286,14 @@ textarea:focus {
 
 @media (prefers-color-scheme: dark) {
 	:root {
+		--bg-body: rgb(30, 30, 30);
+		--bg-popup: black;
 		--fg-alpha-1: rgba(255, 255, 255, .1);
 		--fg-alpha-2: rgba(255, 255, 255, .2);
-		--popup-bg: black;
 		color-scheme: dark;
 	}
 
 	body {
-		background-color: rgb(30, 30, 30);
 		color: whitesmoke;
 	}
 }

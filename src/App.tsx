@@ -208,8 +208,10 @@ function App() {
 			return;
 		}
 		const newA = document.createElement("a");
-		newA.href = "data:text/plain;charset=utf-8," + encodeURIComponent(text);
-		newA.download = `encoder-${Date.now()}.txt`;
+		newA.href = URL.createObjectURL(new Blob([text], {
+			type: "text/plain"
+		}));
+		newA.download = "encoder.txt";
 		newA.click();
 	}
 

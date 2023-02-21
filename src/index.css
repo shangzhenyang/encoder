@@ -24,6 +24,7 @@ body {
 	font-family: Helvetica, "PingFang SC", "Microsoft YaHei", sans-serif;
 	height: 100%;
 	margin: 0;
+	overflow: hidden;
 	-webkit-tap-highlight-color: transparent;
 	text-size-adjust: 100%;
 	user-select: none;

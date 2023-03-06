@@ -25,6 +25,8 @@ import FileInput from "@/components/FileInput";
 import ImageViewer from "@/components/ImageViewer";
 import Menu from "@/components/Menu";
 
+import styles from "@/styles/App.module.css";
+
 import type AlertMessage from "@/types/AlertMessage";
 import type ImageInfo from "@/types/ImageInfo";
 import type Option from "@/types/Option";
@@ -265,7 +267,7 @@ function App() {
 	}, []);
 
 	return (
-		<div className="App">
+		<div className={styles["App"]}>
 			<header>
 				<h1>{t("encoder")}</h1>
 				<Menu
@@ -275,13 +277,14 @@ function App() {
 				/>
 			</header>
 			<textarea
+				className={styles["text-area"]}
 				autoFocus={true}
 				placeholder={t("enterText").toString()}
 				value={text}
 				onChange={handleTextChange}
 				onKeyDown={handleTextKeyDown}>
 			</textarea>
-			<div className="control-bar">
+			<div className={styles["control-bar"]}>
 				<DropDown
 					id="encoding-selector"
 					label={t("encoding")}
@@ -296,7 +299,7 @@ function App() {
 					{t("encode")}
 				</button>
 				<button
-					className="regular-btn"
+					className={styles["regular-btn"]}
 					type="button"
 					onClick={decode}>
 					{t("decode")}

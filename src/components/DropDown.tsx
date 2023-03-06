@@ -1,5 +1,7 @@
 import { ChangeEvent, Dispatch, SetStateAction } from "react";
 
+import styles from "@/styles/DropDown.module.css";
+
 import type Option from "@/types/Option";
 
 interface Props {
@@ -22,7 +24,7 @@ function DropDown({ id, label, options, value, setValue }: Props) {
 	});
 
 	return (
-		<div className="dropdown-group">
+		<div className={styles["dropdown-group"]}>
 			<label htmlFor={id}>{label}</label>
 			<select
 				id={id}

@@ -1,0 +1,48 @@
+.App {
+	display: flex;
+	flex-direction: column;
+	gap: 30px;
+	height: 100%;
+	padding: 30px 10% 45px;
+}
+
+.control-bar {
+	display: flex;
+	gap: 10px;
+}
+
+.regular-btn:hover {
+	background-color: var(--fg-alpha-1);
+}
+
+.regular-btn:active {
+	background-color: var(--fg-alpha-2);
+}
+
+.text-area {
+	appearance: none;
+	background-color: transparent;
+	border: 1px solid var(--fg-alpha-2);
+	border-radius: 10px;
+	box-shadow: 0 0 3px var(--fg-alpha-2);
+	color: inherit;
+	display: block;
+	font: inherit;
+	height: 100%;
+	margin: 0 auto;
+	padding: 10px 15px;
+	resize: none;
+	transition: all .25s;
+	width: 100%;
+}
+
+.text-area:focus {
+	box-shadow: 0 0 10px var(--fg-alpha-2);
+	outline: none;
+}
+
+@media screen and (max-width: 550px) {
+	.control-bar {
+		flex-direction: column;
+	}
+}

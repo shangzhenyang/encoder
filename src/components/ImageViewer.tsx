@@ -1,8 +1,11 @@
 import { Dispatch, SetStateAction } from "react";
 import { t } from "i18next";
+import classnames from "classnames";
 import Modal from "react-modal";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faClose } from "@fortawesome/free-solid-svg-icons";
+
+import styles from "@/styles/ImageViewer.module.css";
 
 import type ImageInfo from "@/types/ImageInfo";
 
@@ -22,7 +25,7 @@ function ImageViewer({ imageInfo, setImageInfo }: Props) {
 	return (
 		<Modal
 			isOpen={true}
-			className="popup image-viewer"
+			className={classnames("popup", styles["image-viewer"])}
 			overlayClassName="mask"
 			onRequestClose={closeDialog}
 			shouldCloseOnOverlayClick={true}>

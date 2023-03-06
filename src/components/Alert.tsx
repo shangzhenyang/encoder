@@ -1,6 +1,9 @@
 import { Dispatch, SetStateAction, useCallback, useEffect } from "react";
 import { t } from "i18next";
+import classnames from "classnames";
 import Modal from "react-modal";
+
+import styles from "@/styles/Alert.module.css";
 
 import type AlertMessage from "@/types/AlertMessage";
 
@@ -38,13 +41,13 @@ function Alert({ alertMessage, setAlertMessage }: Props) {
 	return (
 		<Modal
 			isOpen={true}
-			className="popup alert"
+			className={classnames("popup", styles["alert"])}
 			overlayClassName="mask"
 			onRequestClose={closeDialog}
 			shouldCloseOnOverlayClick={true}>
 			<h1>{alertMessage.title}</h1>
 			<p>{alertMessage.text}</p>
-			<div className="btn-bar">
+			<div className={styles["btn-bar"]}>
 				<button
 					className="default-btn"
 					type="button"

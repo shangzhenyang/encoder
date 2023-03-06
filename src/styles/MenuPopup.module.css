@@ -1,0 +1,32 @@
+.menu-item {
+	align-items: center;
+	border-radius: 5px;
+	display: flex;
+	gap: 10px;
+	padding: 10px 15px;
+	transition: background-color .25s;
+}
+
+.menu-item:hover {
+	background-color: var(--fg-alpha-1);
+}
+
+.menu-item:active {
+	background-color: var(--fg-alpha-2);
+}
+
+.menu-popup {
+	background-color: var(--bg-popup);
+	border: 1px solid var(--fg-alpha-2);
+	border-radius: 10px;
+	padding: 5px;
+	position: fixed;
+	right: 10%;
+	top: 75px;
+}
+
+.separator {
+	border: 0;
+	border-bottom: 1px solid var(--fg-alpha-2);
+	margin: 4px 0;
+}

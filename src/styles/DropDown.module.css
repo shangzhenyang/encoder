@@ -1,0 +1,28 @@
+.dropdown-group {
+	align-items: center;
+	display: flex;
+	flex: 1;
+	gap: 10px;
+}
+
+.dropdown-group label {
+	white-space: nowrap;
+}
+
+.dropdown-group option {
+	color: gray;
+}
+
+.dropdown-group select {
+	appearance: none;
+	background-color: transparent;
+	border: 1px solid var(--fg-alpha-2);
+	border-radius: 5px;
+	color: inherit;
+	display: block;
+	font: inherit;
+	height: 100%;
+	padding: 10px 15px;
+	transition: all .25s;
+	width: 100%;
+}

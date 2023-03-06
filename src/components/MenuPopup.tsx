@@ -10,6 +10,8 @@ import {
 	faUser
 } from "@fortawesome/free-solid-svg-icons";
 
+import styles from "@/styles/MenuPopup.module.css";
+
 import type AlertMessage from "@/types/AlertMessage";
 
 interface Props {
@@ -78,13 +80,17 @@ function MenuPopup({
 	) => {
 		if (separator) {
 			return (
-				<hr key={index} aria-hidden={true} />
+				<hr
+					key={index}
+					className={styles["separator"]}
+					aria-hidden={true}
+				/>
 			);
 		}
 		return (
 			<div
 				key={title}
-				className="menu-item"
+				className={styles["menu-item"]}
 				role="menuitem"
 				tabIndex={0}
 				onClick={onClick}>
@@ -97,7 +103,7 @@ function MenuPopup({
 	return (
 		<Modal
 			isOpen={show}
-			className="menu-popup"
+			className={styles["menu-popup"]}
 			overlayClassName="mask"
 			role="menu"
 			onRequestClose={closeMenu}

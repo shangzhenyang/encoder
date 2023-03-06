@@ -9,7 +9,7 @@ import translationEnUs from "@/translations/en-us.json";
 import translationZhCn from "@/translations/zh-cn.json";
 import translationZhTw from "@/translations/zh-tw.json";
 
-import "@/index.css";
+import "@/styles/globals.css";
 
 const i18nResources = {
 	"en-US": {

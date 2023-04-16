@@ -18,7 +18,7 @@ function FileInput(
 	{ setText, setAlertMessage }: Props,
 	ref: ForwardedRef<HTMLInputElement>
 ) {
-	function handleFileChange(evt: ChangeEvent<HTMLInputElement>) {
+	const handleFileChange = (evt: ChangeEvent<HTMLInputElement>) => {
 		const file = evt.target.files?.[0];
 		if (!file) {
 			return;
@@ -37,7 +37,7 @@ function FileInput(
 				text: t("unsupportedFileType")
 			});
 		}
-	}
+	};
 
 	return (
 		<input

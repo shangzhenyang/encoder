@@ -15,9 +15,9 @@ interface Props {
 }
 
 function ImageViewer({ imageInfo, setImageInfo }: Props) {
-	function closeDialog() {
+	const closeDialog = () => {
 		setImageInfo(null);
-	}
+	};
 
 	if (!imageInfo) {
 		return null;

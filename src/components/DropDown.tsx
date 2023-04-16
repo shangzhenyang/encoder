@@ -13,9 +13,9 @@ interface Props {
 }
 
 function DropDown({ id, label, options, value, setValue }: Props) {
-	function handleChange(evt: ChangeEvent<HTMLSelectElement>) {
+	const handleChange = (evt: ChangeEvent<HTMLSelectElement>) => {
 		setValue(evt.target.value);
-	}
+	};
 
 	const optionsElem = options.map(({ text, value }) => {
 		return (

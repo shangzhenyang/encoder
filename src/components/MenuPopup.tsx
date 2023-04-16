@@ -29,9 +29,9 @@ function MenuPopup({
 	openLocalFile,
 	setAlertMessage
 }: Props) {
-	function closeMenu() {
+	const closeMenu = () => {
 		setShow(false);
-	}
+	};
 
 	const items = [{
 		title: t("importFromLocalFile"),

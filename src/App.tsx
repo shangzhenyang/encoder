@@ -11,13 +11,15 @@ import QRCode from "qrcode";
 import { decode as decodeMorse, encode as encodeMorse } from "xmorse";
 import ReactGA from "react-ga4";
 
-import { decodeBinary, encodeBinary } from "@/utils/binary";
+import { decodeBase64, encodeBase64 } from "@/encodings/base64";
+import { decodeBinary, encodeBinary } from "@/encodings/binary";
 import {
 	decodeCoreValues,
 	isCoreValuesEncoded,
 	encodeCoreValues
-} from "@/utils/core-values";
-import { decodeUnicode, encodeUnicode } from "@/utils/unicode";
+} from "@/encodings/core-values";
+import { decodeCharCode, encodeCharCode } from "@/encodings/char-code";
+import { decodeUnicode, encodeUnicode } from "@/encodings/unicode";
 
 import Alert from "@/components/Alert";
 import DropDown from "@/components/DropDown";
@@ -58,6 +60,9 @@ function App() {
 		text: t("morseCode"),
 		value: "morse"
 	}, {
+		text: t("charCode"),
+		value: "charcode"
+	}, {
 		text: "Data URL",
 		value: "dataurl"
 	}, {
@@ -71,7 +76,7 @@ function App() {
 		value: "uricomponent"
 	}];
 
-	function checkIfTextEmpty() {
+	const checkIfTextEmpty = () => {
 		if (!text) {
 			setAlertMessage({
 				title: t("error"),
@@ -80,9 +85,9 @@ function App() {
 			return true;
 		}
 		return false;
-	}
+	};
 
-	function decode() {
+	const decode = () => {
 		if (checkIfTextEmpty()) {
 			return;
 		}
@@ -119,6 +124,8 @@ function App() {
 				}
 			} else if (isOnly(/0|1|\s/, decoded)) {
 				decoded = decodeBinary(decoded);
+			} else if (isOnly(/\d|\s/, decoded)) {
+				decoded = decodeCharCode(decoded);
 			} else if (isCoreValuesEncoded(decoded)) {
 				decoded = decodeCoreValues(decoded);
 			}
@@ -132,13 +139,9 @@ function App() {
 				});
 			}
 		}
-	}
+	};
 
-	function decodeBase64(str: string) {
-		return decodeURIComponent(escape(window.atob(str)));
-	}
-
-	function encode() {
+	const encode = () => {
 		if (encoding === "dataurl") {
 			if (text) {
 				setText("data:text/plain;base64," + encodeBase64(text));
@@ -156,6 +159,9 @@ function App() {
 				break;
 			case "binary":
 				setText(encodeBinary(text));
+				break;
+			case "charcode":
+				setText(encodeCharCode(text));
 				break;
 			case "corevalues":
 				setText(encodeCoreValues(text));
@@ -195,17 +201,9 @@ function App() {
 			default:
 				break;
 		}
-	}
+	};
 
-	function encodeBase64(str: string) {
-		try {
-			return window.btoa(str);
-		} catch {
-			return window.btoa(unescape(encodeURIComponent(str)));
-		}
-	}
-
-	function exportAsFile() {
+	const exportAsFile = () => {
 		if (checkIfTextEmpty()) {
 			return;
 		}
@@ -215,13 +213,13 @@ function App() {
 		}));
 		newA.download = "encoder.txt";
 		newA.click();
-	}
+	};
 
-	function handleTextChange(evt: ChangeEvent<HTMLTextAreaElement>) {
+	const handleTextChange = (evt: ChangeEvent<HTMLTextAreaElement>) => {
 		setText(evt.target.value);
-	}
+	};
 
-	function handleTextKeyDown(evt: KeyboardEvent<HTMLTextAreaElement>) {
+	const handleTextKeyDown = (evt: KeyboardEvent<HTMLTextAreaElement>) => {
 		if (evt.ctrlKey || evt.metaKey) {
 			switch (evt.key) {
 				case "Enter":
@@ -244,20 +242,20 @@ function App() {
 					break;
 			}
 		}
-	}
+	};
 
-	function isOnly(regExp: RegExp, str: string) {
+	const isOnly = (regExp: RegExp, str: string) => {
 		for (let i = 0; i < str.length; i++) {
 			if (!regExp.test(str[i])) {
 				return false;
 			}
 		}
 		return true;
-	}
+	};
 
-	function openLocalFile() {
+	const openLocalFile = () => {
 		fileInput.current?.click();
-	}
+	};
 
 	useEffect(() => {
 		setTimeout(() => {

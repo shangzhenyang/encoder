@@ -13,9 +13,9 @@ interface Props {
 }
 
 function Alert({ alertMessage, setAlertMessage }: Props) {
-	function closeDialog() {
+	const closeDialog = () => {
 		setAlertMessage(null);
-	}
+	};
 
 	const closeDialogCallback = useCallback(
 		closeDialog,

@@ -16,9 +16,9 @@ interface Props {
 function Menu({ exportAsFile, openLocalFile, setAlertMessage }: Props) {
 	const [showMenu, setShowMenu] = useState(false);
 
-	function openMenu() {
+	const openMenu = () => {
 		setShowMenu(true);
-	}
+	};
 
 	return (
 		<>

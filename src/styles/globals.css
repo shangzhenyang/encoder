@@ -15,7 +15,7 @@
 }
 
 *:focus-visible {
-	outline: auto;
+	outline: 2px solid var(--fg-alpha-2);
 }
 
 body {

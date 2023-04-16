@@ -112,7 +112,9 @@ function App() {
 						text: t("md5CannotBeDecoded")
 					});
 				} else if (isOnly(/0|1/, decoded)) {
-					decoded = parseInt(decoded, 2).toString();
+					decoded = decodeBinary(decoded);
+				} else if (isOnly(/\d/, decoded)) {
+					decoded = decodeCharCode(decoded);
 				} else if (decoded.includes("%u")) {
 					decoded = unescape(decoded);
 				} else if (decoded.includes("%")) {

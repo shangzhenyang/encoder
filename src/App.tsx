@@ -36,11 +36,10 @@ import type Option from "@/types/Option";
 const md5Hist = new Map();
 
 function App() {
-	const [alertMessage, setAlertMessage] =
-		useState(null as AlertMessage | null);
-	const [encoding, setEncoding] = useState("base64");
-	const [imageInfo, setImageInfo] = useState(null as ImageInfo | null);
-	const [text, setText] = useState("");
+	const [alertMessage, setAlertMessage] = useState<AlertMessage | null>(null);
+	const [encoding, setEncoding] = useState<string>("base64");
+	const [imageInfo, setImageInfo] = useState<ImageInfo | null>(null);
+	const [text, setText] = useState<string>("");
 
 	const fileInput = createRef<HTMLInputElement>();
 

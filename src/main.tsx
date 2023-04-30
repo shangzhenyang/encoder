@@ -46,7 +46,7 @@ i18n.init({
 });
 
 document.documentElement.lang = lang;
-document.title = t("encoder");
+document.title = t("encoderByShangzhen");
 Modal.setAppElement("#root");
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(

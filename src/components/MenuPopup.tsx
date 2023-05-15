@@ -1,4 +1,3 @@
-import { Dispatch, SetStateAction } from "react";
 import { t } from "i18next";
 import Modal from "react-modal";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -16,21 +15,21 @@ import type AlertMessage from "@/types/AlertMessage";
 
 interface Props {
 	show: boolean;
-	setShow: Dispatch<SetStateAction<boolean>>;
 	exportAsFile: () => void;
 	openLocalFile: () => void;
-	setAlertMessage: Dispatch<SetStateAction<AlertMessage | null>>;
+	updateAlertMessage: (newValue: AlertMessage | null) => void;
+	updateShowMenu: (newValue: boolean) => void;
 }
 
 function MenuPopup({
 	show,
-	setShow,
 	exportAsFile,
 	openLocalFile,
-	setAlertMessage
+	updateAlertMessage,
+	updateShowMenu
 }: Props) {
 	const closeMenu = () => {
-		setShow(false);
+		updateShowMenu(false);
 	};
 
 	const items = [{
@@ -67,7 +66,7 @@ function MenuPopup({
 		title: t("about"),
 		icon: faCircleInfo,
 		onClick: () => {
-			setAlertMessage({
+			updateAlertMessage({
 				title: t("about"),
 				text: "Developed by Shangzhen Yang."
 			});

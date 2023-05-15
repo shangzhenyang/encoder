@@ -1,4 +1,3 @@
-import { Dispatch, SetStateAction } from "react";
 import { t } from "i18next";
 import classnames from "classnames";
 import Modal from "react-modal";
@@ -11,12 +10,12 @@ import type ImageInfo from "@/types/ImageInfo";
 
 interface Props {
 	imageInfo: ImageInfo | null;
-	setImageInfo: Dispatch<SetStateAction<ImageInfo | null>>;
+	updateImageInfo: (newValue: ImageInfo | null) => void;
 }
 
-function ImageViewer({ imageInfo, setImageInfo }: Props) {
+function ImageViewer({ imageInfo, updateImageInfo }: Props) {
 	const closeDialog = () => {
-		setImageInfo(null);
+		updateImageInfo(null);
 	};
 
 	if (!imageInfo) {

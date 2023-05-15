@@ -1,10 +1,4 @@
-import {
-	ChangeEvent,
-	createRef,
-	KeyboardEvent,
-	useEffect,
-	useState
-} from "react";
+import { createRef, useEffect, useState } from "react";
 import { t } from "i18next";
 import md5 from "md5";
 import QRCode from "qrcode";
@@ -29,6 +23,7 @@ import Menu from "@/components/Menu";
 
 import styles from "@/styles/App.module.css";
 
+import type { ChangeEvent, KeyboardEvent } from "react";
 import type AlertMessage from "@/types/AlertMessage";
 import type ImageInfo from "@/types/ImageInfo";
 import type Option from "@/types/Option";
@@ -258,6 +253,22 @@ function App() {
 		fileInput.current?.click();
 	};
 
+	const updateAlertMessage = (newValue: AlertMessage | null) => {
+		setAlertMessage(newValue);
+	};
+
+	const updateEncoding = (newValue: string) => {
+		setEncoding(newValue);
+	};
+
+	const updateImageInfo = (newValue: ImageInfo | null) => {
+		setImageInfo(newValue);
+	};
+
+	const updateText = (newValue: string) => {
+		setText(newValue);
+	};
+
 	useEffect(() => {
 		setTimeout(() => {
 			ReactGA.initialize("G-H0PC8ZZ7BN");
@@ -272,7 +283,7 @@ function App() {
 				<Menu
 					exportAsFile={exportAsFile}
 					openLocalFile={openLocalFile}
-					setAlertMessage={setAlertMessage}
+					updateAlertMessage={updateAlertMessage}
 				/>
 			</header>
 			<textarea
@@ -289,7 +300,7 @@ function App() {
 					label={t("encoding")}
 					options={encodingOptions}
 					value={encoding}
-					setValue={setEncoding}
+					updateValue={updateEncoding}
 				/>
 				<button
 					className="default-btn"
@@ -306,16 +317,16 @@ function App() {
 			</div>
 			<FileInput
 				ref={fileInput}
-				setText={setText}
-				setAlertMessage={setAlertMessage}
+				updateAlertMessage={updateAlertMessage}
+				updateText={updateText}
 			/>
 			<ImageViewer
 				imageInfo={imageInfo}
-				setImageInfo={setImageInfo}
+				updateImageInfo={updateImageInfo}
 			/>
 			<Alert
 				alertMessage={alertMessage}
-				setAlertMessage={setAlertMessage}
+				updateAlertMessage={updateAlertMessage}
 			/>
 		</div>
 	);

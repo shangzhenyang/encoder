@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction, useCallback, useEffect } from "react";
+import { useCallback, useEffect } from "react";
 import { t } from "i18next";
 import classnames from "classnames";
 import Modal from "react-modal";
@@ -9,17 +9,17 @@ import type AlertMessage from "@/types/AlertMessage";
 
 interface Props {
 	alertMessage: AlertMessage | null;
-	setAlertMessage: Dispatch<SetStateAction<AlertMessage | null>>;
+	updateAlertMessage: (newValue: AlertMessage | null) => void;
 }
 
-function Alert({ alertMessage, setAlertMessage }: Props) {
+function Alert({ alertMessage, updateAlertMessage }: Props) {
 	const closeDialog = () => {
-		setAlertMessage(null);
+		updateAlertMessage(null);
 	};
 
 	const closeDialogCallback = useCallback(
 		closeDialog,
-		[setAlertMessage]
+		[updateAlertMessage]
 	);
 	const onKeyDown = useCallback((evt: KeyboardEvent) => {
 		if (evt.key === "Enter") {

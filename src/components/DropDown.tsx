@@ -1,7 +1,6 @@
-import { ChangeEvent, Dispatch, SetStateAction } from "react";
-
 import styles from "@/styles/DropDown.module.css";
 
+import type { ChangeEvent } from "react";
 import type Option from "@/types/Option";
 
 interface Props {
@@ -9,12 +8,12 @@ interface Props {
 	label: string;
 	options: Option[];
 	value: string;
-	setValue: Dispatch<SetStateAction<string>>;
+	updateValue: (newValue: string) => void;
 }
 
-function DropDown({ id, label, options, value, setValue }: Props) {
+function DropDown({ id, label, options, value, updateValue }: Props) {
 	const handleChange = (evt: ChangeEvent<HTMLSelectElement>) => {
-		setValue(evt.target.value);
+		updateValue(evt.target.value);
 	};
 
 	const optionsElem = options.map(({ text, value }) => {

@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction, useState } from "react";
+import { useState } from "react";
 import { t } from "i18next";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
@@ -10,14 +10,18 @@ import type AlertMessage from "@/types/AlertMessage";
 interface Props {
 	exportAsFile: () => void;
 	openLocalFile: () => void;
-	setAlertMessage: Dispatch<SetStateAction<AlertMessage | null>>;
+	updateAlertMessage: (newValue: AlertMessage | null) => void;
 }
 
-function Menu({ exportAsFile, openLocalFile, setAlertMessage }: Props) {
+function Menu({ exportAsFile, openLocalFile, updateAlertMessage }: Props) {
 	const [showMenu, setShowMenu] = useState<boolean>(false);
 
 	const openMenu = () => {
 		setShowMenu(true);
+	};
+
+	const updateShowMenu = (newValue: boolean) => {
+		setShowMenu(newValue);
 	};
 
 	return (
@@ -32,10 +36,10 @@ function Menu({ exportAsFile, openLocalFile, setAlertMessage }: Props) {
 			/>
 			<MenuPopup
 				show={showMenu}
-				setShow={setShowMenu}
 				exportAsFile={exportAsFile}
 				openLocalFile={openLocalFile}
-				setAlertMessage={setAlertMessage}
+				updateAlertMessage={updateAlertMessage}
+				updateShowMenu={updateShowMenu}
 			/>
 		</>
 	);

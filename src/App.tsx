@@ -1,4 +1,5 @@
 import { createRef, useEffect, useState } from "react";
+import browserUpdate from "browser-update";
 import { t } from "i18next";
 import md5 from "md5";
 import QRCode from "qrcode";
@@ -270,6 +271,17 @@ function App() {
 	};
 
 	useEffect(() => {
+		browserUpdate({
+			required: { c: -1, e: -1, f: -1, o: -1, s: 0 },
+			insecure: true,
+			noclose: true,
+			no_permanent_hide: true,
+			notify_esr: true,
+			reminder: 0,
+			reminderClosed: 0,
+			unsupported: true,
+			url: "https://check.retiehe.com/"
+		});
 		setTimeout(() => {
 			ReactGA.initialize("G-H0PC8ZZ7BN");
 			ReactGA.send("pageview");

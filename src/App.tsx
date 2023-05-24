@@ -280,7 +280,7 @@ function App() {
 			reminder: 0,
 			reminderClosed: 0,
 			unsupported: true,
-			url: "https://check.retiehe.com/"
+			url: "https://www.google.cn/chrome/"
 		});
 		setTimeout(() => {
 			ReactGA.initialize("G-H0PC8ZZ7BN");

@@ -43,8 +43,8 @@ export function encodeCoreValues(str: string): string {
 			}
 		}
 		return encoded.trim();
-	} catch (err) {
-		console.error(err);
+	} catch (error) {
+		console.error(error);
 		return "";
 	}
 }

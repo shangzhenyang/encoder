@@ -21,8 +21,8 @@ function Alert({ alertMessage, updateAlertMessage }: Props): JSX.Element {
 		closeDialog,
 		[updateAlertMessage]
 	);
-	const onKeyDown = useCallback((evt: KeyboardEvent) => {
-		if (evt.key === "Enter") {
+	const onKeyDown = useCallback((event: KeyboardEvent) => {
+		if (event.key === "Enter") {
 			closeDialogCallback();
 		}
 	}, [closeDialogCallback]);

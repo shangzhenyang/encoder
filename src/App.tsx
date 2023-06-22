@@ -127,12 +127,12 @@ function App(): JSX.Element {
 				decoded = decodeCoreValues(decoded);
 			}
 			setText(decoded);
-		} catch (err: unknown) {
-			if (err instanceof Error) {
-				console.error(err);
+		} catch (error: unknown) {
+			if (error instanceof Error) {
+				console.error(error);
 				setAlertMessage({
 					title: t("error"),
-					text: err.message
+					text: error.message
 				});
 			}
 		}
@@ -181,11 +181,11 @@ function App(): JSX.Element {
 						src: url,
 						alt: t("qrCode")
 					});
-				}).catch((err: Error) => {
-					console.error(err);
+				}).catch((error: Error) => {
+					console.error(error);
 					setAlertMessage({
 						title: t("error"),
-						text: err.message
+						text: error.message
 					});
 				});
 				break;

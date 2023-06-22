@@ -27,22 +27,22 @@ function MenuPopup({
 	openLocalFile,
 	updateAlertMessage,
 	updateShowMenu
-}: Props) {
-	const closeMenu = () => {
+}: Props): JSX.Element {
+	const closeMenu = (): void => {
 		updateShowMenu(false);
 	};
 
 	const items = [{
 		title: t("importFromLocalFile"),
 		icon: faFolderOpen,
-		onClick: () => {
+		onClick: (): void => {
 			openLocalFile();
 			closeMenu();
 		}
 	}, {
 		title: t("exportAsFile"),
 		icon: faDownload,
-		onClick: () => {
+		onClick: (): void => {
 			exportAsFile();
 			closeMenu();
 		}
@@ -51,21 +51,21 @@ function MenuPopup({
 	}, {
 		title: t("starOnGithub"),
 		icon: faStar,
-		onClick: () => {
+		onClick: (): void => {
 			window.open("https://github.com/shangzhenyang/encoder");
 			closeMenu();
 		}
 	}, {
 		title: t("authorsPortfolio"),
 		icon: faUser,
-		onClick: () => {
+		onClick: (): void => {
 			window.open("https://www.yangshangzhen.com/");
 			closeMenu();
 		}
 	}, {
 		title: t("about"),
 		icon: faCircleInfo,
-		onClick: () => {
+		onClick: (): void => {
 			updateAlertMessage({
 				title: t("about"),
 				text: "Developed by Shangzhen Yang."

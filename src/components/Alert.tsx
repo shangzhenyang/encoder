@@ -12,8 +12,8 @@ interface Props {
 	updateAlertMessage: (newValue: AlertMessage | null) => void;
 }
 
-function Alert({ alertMessage, updateAlertMessage }: Props) {
-	const closeDialog = () => {
+function Alert({ alertMessage, updateAlertMessage }: Props): JSX.Element {
+	const closeDialog = (): void => {
 		updateAlertMessage(null);
 	};
 
@@ -36,7 +36,7 @@ function Alert({ alertMessage, updateAlertMessage }: Props) {
 	}, [alertMessage, onKeyDown]);
 
 	if (!alertMessage) {
-		return null;
+		return (<></>);
 	}
 	return (
 		<Modal

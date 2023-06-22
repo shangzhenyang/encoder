@@ -5,7 +5,7 @@ const coreValues = [
 	"爱国", "敬业", "诚信", "友善"
 ];
 
-export function decodeCoreValues(str: string) {
+export function decodeCoreValues(str: string): string {
 	if (!str) {
 		return "";
 	}
@@ -25,7 +25,7 @@ export function decodeCoreValues(str: string) {
 	return result;
 }
 
-export function encodeCoreValues(str: string) {
+export function encodeCoreValues(str: string): string {
 	try {
 		const base = codes.length - 1;
 		let encoded = "";
@@ -49,7 +49,7 @@ export function encodeCoreValues(str: string) {
 	}
 }
 
-export function isCoreValuesEncoded(str: string) {
+export function isCoreValuesEncoded(str: string): boolean {
 	str = str.replaceAll(" ", "");
 	if (!str || str.length % 2 !== 0) {
 		return false;

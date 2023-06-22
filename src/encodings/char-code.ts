@@ -1,4 +1,4 @@
-export function decodeCharCode(str: string) {
+export function decodeCharCode(str: string): string {
 	const codes = str.trim().split(" ");
 	let result = "";
 	for (let i = 0; i < codes.length; i++) {
@@ -7,7 +7,7 @@ export function decodeCharCode(str: string) {
 	return result;
 }
 
-export function encodeCharCode(str: string) {
+export function encodeCharCode(str: string): string {
 	let result = "";
 	for (let i = 0; i < str.length; i++) {
 		result += str.charCodeAt(i).toString() + " ";

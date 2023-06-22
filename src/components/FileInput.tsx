@@ -12,14 +12,14 @@ interface Props {
 function FileInput(
 	{ updateAlertMessage, updateText }: Props,
 	ref: ForwardedRef<HTMLInputElement>
-) {
-	const handleFileChange = (evt: ChangeEvent<HTMLInputElement>) => {
-		const file = evt.target.files?.[0];
+): JSX.Element {
+	const handleFileChange = (event: ChangeEvent<HTMLInputElement>): void => {
+		const file = event.target.files?.[0];
 		if (!file) {
 			return;
 		}
 		const reader = new FileReader();
-		reader.onload = () => {
+		reader.onload = (): void => {
 			updateText(reader.result as string);
 		};
 		if (file.type.startsWith("image/")) {

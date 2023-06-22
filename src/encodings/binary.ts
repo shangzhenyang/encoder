@@ -1,4 +1,4 @@
-export function decodeBinary(str: string) {
+export function decodeBinary(str: string): string {
 	const binaries = str.trim().split(" ");
 	let result = "";
 	for (let i = 0; i < binaries.length; i++) {
@@ -7,7 +7,7 @@ export function decodeBinary(str: string) {
 	return result;
 }
 
-export function encodeBinary(str: string) {
+export function encodeBinary(str: string): string {
 	const num = parseInt(str);
 	let binary = "";
 	if (!isNaN(num)) {

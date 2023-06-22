@@ -13,14 +13,18 @@ interface Props {
 	updateAlertMessage: (newValue: AlertMessage | null) => void;
 }
 
-function Menu({ exportAsFile, openLocalFile, updateAlertMessage }: Props) {
+function Menu({
+	exportAsFile,
+	openLocalFile,
+	updateAlertMessage
+}: Props): JSX.Element {
 	const [showMenu, setShowMenu] = useState<boolean>(false);
 
-	const openMenu = () => {
+	const openMenu = (): void => {
 		setShowMenu(true);
 	};
 
-	const updateShowMenu = (newValue: boolean) => {
+	const updateShowMenu = (newValue: boolean): void => {
 		setShowMenu(newValue);
 	};
 

@@ -23,7 +23,7 @@ const i18nResources = {
 	}
 };
 
-const lang = (() => {
+const lang = ((): string => {
 	if (/^(yue|zh)(-cn|-hans(-[a-z]+)?)?$/i.test(navigator.language)) {
 		return "zh-CN";
 	} else if (

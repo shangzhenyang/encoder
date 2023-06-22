@@ -31,7 +31,7 @@ import type Option from "@/types/Option";
 
 const md5Hist = new Map();
 
-function App() {
+function App(): JSX.Element {
 	const [alertMessage, setAlertMessage] = useState<AlertMessage | null>(null);
 	const [encoding, setEncoding] = useState<string>("base64");
 	const [imageInfo, setImageInfo] = useState<ImageInfo | null>(null);
@@ -71,7 +71,7 @@ function App() {
 		value: "uricomponent"
 	}];
 
-	const checkIfTextEmpty = () => {
+	const checkIfTextEmpty = (): boolean => {
 		if (!text) {
 			setAlertMessage({
 				title: t("error"),
@@ -82,7 +82,7 @@ function App() {
 		return false;
 	};
 
-	const decode = () => {
+	const decode = (): void => {
 		if (checkIfTextEmpty()) {
 			return;
 		}
@@ -138,7 +138,7 @@ function App() {
 		}
 	};
 
-	const encode = () => {
+	const encode = (): void => {
 		if (encoding === "dataurl") {
 			if (text) {
 				setText("data:text/plain;base64," + encodeBase64(text));
@@ -164,7 +164,7 @@ function App() {
 				setText(encodeCoreValues(text));
 				break;
 			case "md5":
-				(() => {
+				((): void => {
 					const md5Value = md5(text);
 					md5Hist.set(md5Value, text);
 					setText(md5Value);
@@ -200,7 +200,7 @@ function App() {
 		}
 	};
 
-	const exportAsFile = () => {
+	const exportAsFile = (): void => {
 		if (checkIfTextEmpty()) {
 			return;
 		}
@@ -212,27 +212,31 @@ function App() {
 		newA.click();
 	};
 
-	const handleTextChange = (evt: ChangeEvent<HTMLTextAreaElement>) => {
-		setText(evt.target.value);
+	const handleTextChange = (
+		event: ChangeEvent<HTMLTextAreaElement>
+	): void => {
+		setText(event.target.value);
 	};
 
-	const handleTextKeyDown = (evt: KeyboardEvent<HTMLTextAreaElement>) => {
-		if (evt.ctrlKey || evt.metaKey) {
-			switch (evt.key) {
+	const handleTextKeyDown = (
+		event: KeyboardEvent<HTMLTextAreaElement>
+	): void => {
+		if (event.ctrlKey || event.metaKey) {
+			switch (event.key) {
 				case "Enter":
-					evt.preventDefault();
-					if (evt.shiftKey) {
+					event.preventDefault();
+					if (event.shiftKey) {
 						decode();
 					} else {
 						encode();
 					}
 					break;
 				case "o":
-					evt.preventDefault();
+					event.preventDefault();
 					openLocalFile();
 					break;
 				case "s":
-					evt.preventDefault();
+					event.preventDefault();
 					exportAsFile();
 					break;
 				default:
@@ -241,7 +245,7 @@ function App() {
 		}
 	};
 
-	const isOnly = (regExp: RegExp, str: string) => {
+	const isOnly = (regExp: RegExp, str: string): boolean => {
 		for (let i = 0; i < str.length; i++) {
 			if (!regExp.test(str[i])) {
 				return false;
@@ -250,23 +254,23 @@ function App() {
 		return true;
 	};
 
-	const openLocalFile = () => {
+	const openLocalFile = (): void => {
 		fileInput.current?.click();
 	};
 
-	const updateAlertMessage = (newValue: AlertMessage | null) => {
+	const updateAlertMessage = (newValue: AlertMessage | null): void => {
 		setAlertMessage(newValue);
 	};
 
-	const updateEncoding = (newValue: string) => {
+	const updateEncoding = (newValue: string): void => {
 		setEncoding(newValue);
 	};
 
-	const updateImageInfo = (newValue: ImageInfo | null) => {
+	const updateImageInfo = (newValue: ImageInfo | null): void => {
 		setImageInfo(newValue);
 	};
 
-	const updateText = (newValue: string) => {
+	const updateText = (newValue: string): void => {
 		setText(newValue);
 	};
 

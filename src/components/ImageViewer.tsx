@@ -13,13 +13,13 @@ interface Props {
 	updateImageInfo: (newValue: ImageInfo | null) => void;
 }
 
-function ImageViewer({ imageInfo, updateImageInfo }: Props) {
-	const closeDialog = () => {
+function ImageViewer({ imageInfo, updateImageInfo }: Props): JSX.Element {
+	const closeDialog = (): void => {
 		updateImageInfo(null);
 	};
 
 	if (!imageInfo) {
-		return null;
+		return (<></>);
 	}
 	return (
 		<Modal

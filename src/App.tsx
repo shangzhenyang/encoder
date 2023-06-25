@@ -304,7 +304,6 @@ function App(): JSX.Element {
 			</header>
 			<textarea
 				className={styles["text-area"]}
-				autoFocus={true}
 				placeholder={t("enterText").toString()}
 				value={text}
 				onChange={handleTextChange}

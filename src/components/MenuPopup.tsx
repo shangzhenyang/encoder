@@ -11,6 +11,7 @@ import {
 
 import styles from "@/styles/MenuPopup.module.css";
 
+import type { KeyboardEvent } from "react";
 import type AlertMessage from "@/types/AlertMessage";
 
 interface Props {
@@ -86,13 +87,22 @@ function MenuPopup({
 				/>
 			);
 		}
+
+		const handleKeyDown = (event: KeyboardEvent<HTMLDivElement>): void => {
+			if (event.key === "Enter") {
+				onClick?.();
+			}
+		};
+
 		return (
 			<div
 				key={title}
 				className={styles["menu-item"]}
 				role="menuitem"
 				tabIndex={0}
-				onClick={onClick}>
+				onClick={onClick}
+				onKeyDown={handleKeyDown}
+			>
 				{icon && <FontAwesomeIcon icon={icon} fixedWidth />}
 				<span>{title}</span>
 			</div>

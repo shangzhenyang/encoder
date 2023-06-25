@@ -116,7 +116,8 @@ function MenuPopup({
 			overlayClassName="mask"
 			role="menu"
 			onRequestClose={closeMenu}
-			shouldCloseOnOverlayClick={true}>
+			shouldCloseOnOverlayClick={true}
+		>
 			{itemsElem}
 		</Modal>
 	);

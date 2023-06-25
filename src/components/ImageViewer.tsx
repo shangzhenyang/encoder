@@ -27,7 +27,8 @@ function ImageViewer({ imageInfo, updateImageInfo }: Props): JSX.Element {
 			className={classnames("popup", styles["image-viewer"])}
 			overlayClassName="mask"
 			onRequestClose={closeDialog}
-			shouldCloseOnOverlayClick={true}>
+			shouldCloseOnOverlayClick={true}
+		>
 			<header>
 				<h1>{t("imageViewer")}</h1>
 				<FontAwesomeIcon

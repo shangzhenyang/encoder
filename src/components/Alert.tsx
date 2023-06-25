@@ -44,7 +44,8 @@ function Alert({ alertMessage, updateAlertMessage }: Props): JSX.Element {
 			className={classnames("popup", styles["alert"])}
 			overlayClassName="mask"
 			onRequestClose={closeDialog}
-			shouldCloseOnOverlayClick={true}>
+			shouldCloseOnOverlayClick={true}
+		>
 			<h1>{alertMessage.title}</h1>
 			<p>{alertMessage.text}</p>
 			<div className={styles["btn-bar"]}>

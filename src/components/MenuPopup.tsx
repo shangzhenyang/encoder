@@ -9,9 +9,10 @@ import {
 	faUser
 } from "@fortawesome/free-solid-svg-icons";
 
+import { keyboardClick } from "@/utils";
+
 import styles from "@/styles/MenuPopup.module.css";
 
-import type { KeyboardEvent } from "react";
 import type AlertMessage from "@/types/AlertMessage";
 
 interface Props {
@@ -67,10 +68,12 @@ function MenuPopup({
 		title: t("about"),
 		icon: faCircleInfo,
 		onClick: (): void => {
-			updateAlertMessage({
-				title: t("about"),
-				text: "Developed by Shangzhen Yang."
-			});
+			setTimeout(() => {
+				updateAlertMessage({
+					title: t("about"),
+					text: "Developed by Shangzhen Yang."
+				});
+			}, 1);
 			closeMenu();
 		}
 	}];
@@ -88,12 +91,6 @@ function MenuPopup({
 			);
 		}
 
-		const handleKeyDown = (event: KeyboardEvent<HTMLDivElement>): void => {
-			if (event.key === "Enter") {
-				onClick?.();
-			}
-		};
-
 		return (
 			<div
 				key={title}
@@ -101,7 +98,7 @@ function MenuPopup({
 				role="menuitem"
 				tabIndex={0}
 				onClick={onClick}
-				onKeyDown={handleKeyDown}
+				onKeyDown={onClick && keyboardClick(onClick)}
 			>
 				{icon && <FontAwesomeIcon icon={icon} fixedWidth />}
 				<span>{title}</span>

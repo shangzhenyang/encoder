@@ -307,8 +307,8 @@ function App(): JSX.Element {
 				placeholder={t("enterText").toString()}
 				value={text}
 				onChange={handleTextChange}
-				onKeyDown={handleTextKeyDown}>
-			</textarea>
+				onKeyDown={handleTextKeyDown}
+			></textarea>
 			<div className={styles["control-bar"]}>
 				<DropDown
 					id="encoding-selector"
@@ -320,13 +320,15 @@ function App(): JSX.Element {
 				<button
 					className="default-btn"
 					type="button"
-					onClick={encode}>
+					onClick={encode}
+				>
 					{t("encode")}
 				</button>
 				<button
 					className={styles["regular-btn"]}
 					type="button"
-					onClick={decode}>
+					onClick={decode}
+				>
 					{t("decode")}
 				</button>
 			</div>

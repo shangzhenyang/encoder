@@ -3,6 +3,7 @@ import { t } from "i18next";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
 
+import { keyboardClick } from "@/utils";
 import MenuPopup from "@/components/MenuPopup";
 
 import type AlertMessage from "@/types/AlertMessage";
@@ -37,6 +38,7 @@ function Menu({
 				tabIndex={0}
 				title={t("menu").toString()}
 				onClick={openMenu}
+				onKeyDown={keyboardClick(openMenu)}
 			/>
 			<MenuPopup
 				show={showMenu}

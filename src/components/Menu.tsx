@@ -3,10 +3,10 @@ import { t } from "i18next";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
 
-import { keyboardClick } from "@/utils";
+import { handleKeyboardClick } from "@/utils";
 import MenuPopup from "@/components/MenuPopup";
 
-import type AlertMessage from "@/types/AlertMessage";
+import type { AlertMessage } from "@/types";
 
 interface Props {
 	exportAsFile: () => void;
@@ -17,7 +17,7 @@ interface Props {
 function Menu({
 	exportAsFile,
 	openLocalFile,
-	updateAlertMessage
+	updateAlertMessage,
 }: Props): JSX.Element {
 	const [showMenu, setShowMenu] = useState<boolean>(false);
 
@@ -38,7 +38,7 @@ function Menu({
 				tabIndex={0}
 				title={t("menu").toString()}
 				onClick={openMenu}
-				onKeyDown={keyboardClick(openMenu)}
+				onKeyDown={handleKeyboardClick(openMenu)}
 			/>
 			<MenuPopup
 				show={showMenu}

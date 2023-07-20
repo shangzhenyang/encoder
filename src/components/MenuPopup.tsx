@@ -6,14 +6,14 @@ import {
 	faDownload,
 	faFolderOpen,
 	faStar,
-	faUser
+	faUser,
 } from "@fortawesome/free-solid-svg-icons";
 
-import { keyboardClick } from "@/utils";
+import { handleKeyboardClick } from "@/utils";
 
 import styles from "@/styles/MenuPopup.module.css";
 
-import type AlertMessage from "@/types/AlertMessage";
+import type { AlertMessage } from "@/types";
 
 interface Props {
 	show: boolean;
@@ -28,7 +28,7 @@ function MenuPopup({
 	exportAsFile,
 	openLocalFile,
 	updateAlertMessage,
-	updateShowMenu
+	updateShowMenu,
 }: Props): JSX.Element {
 	const closeMenu = (): void => {
 		updateShowMenu(false);
@@ -40,30 +40,30 @@ function MenuPopup({
 		onClick: (): void => {
 			openLocalFile();
 			closeMenu();
-		}
+		},
 	}, {
 		title: t("exportAsFile"),
 		icon: faDownload,
 		onClick: (): void => {
 			exportAsFile();
 			closeMenu();
-		}
+		},
 	}, {
-		separator: true
+		separator: true,
 	}, {
 		title: t("starOnGithub"),
 		icon: faStar,
 		onClick: (): void => {
 			window.open("https://github.com/shangzhenyang/encoder");
 			closeMenu();
-		}
+		},
 	}, {
 		title: t("authorsPortfolio"),
 		icon: faUser,
 		onClick: (): void => {
 			window.open("https://www.yangshangzhen.com/");
 			closeMenu();
-		}
+		},
 	}, {
 		title: t("about"),
 		icon: faCircleInfo,
@@ -71,15 +71,15 @@ function MenuPopup({
 			setTimeout(() => {
 				updateAlertMessage({
 					title: t("about"),
-					text: "Developed by Shangzhen Yang."
+					text: "Developed by Shangzhen Yang.",
 				});
 			}, 1);
 			closeMenu();
-		}
+		},
 	}];
 	const itemsElem = items.map((
 		{ separator, title, icon, onClick },
-		index
+		index,
 	) => {
 		if (separator) {
 			return (
@@ -98,7 +98,7 @@ function MenuPopup({
 				role="menuitem"
 				tabIndex={0}
 				onClick={onClick}
-				onKeyDown={onClick && keyboardClick(onClick)}
+				onKeyDown={onClick && handleKeyboardClick(onClick)}
 			>
 				{icon && <FontAwesomeIcon icon={icon} fixedWidth />}
 				<span>{title}</span>

@@ -1,5 +1,4 @@
 import { createRef, useEffect, useState } from "react";
-import browserUpdate from "browser-update";
 import { t } from "i18next";
 import md5 from "md5";
 import QRCode from "qrcode";
@@ -11,7 +10,7 @@ import { decodeBinary, encodeBinary } from "@/encodings/binary";
 import {
 	decodeCoreValues,
 	isCoreValuesEncoded,
-	encodeCoreValues
+	encodeCoreValues,
 } from "@/encodings/core-values";
 import { decodeCharCode, encodeCharCode } from "@/encodings/char-code";
 import { decodeUnicode, encodeUnicode } from "@/encodings/unicode";
@@ -25,9 +24,7 @@ import Menu from "@/components/Menu";
 import styles from "@/styles/App.module.css";
 
 import type { ChangeEvent, KeyboardEvent } from "react";
-import type AlertMessage from "@/types/AlertMessage";
-import type ImageInfo from "@/types/ImageInfo";
-import type Option from "@/types/Option";
+import type { AlertMessage, ImageInfo, Option } from "@/types";
 
 const md5Hist = new Map();
 
@@ -41,41 +38,41 @@ function App(): JSX.Element {
 
 	const encodingOptions: Option[] = [{
 		text: "Base64",
-		value: "base64"
+		value: "base64",
 	}, {
 		text: t("binary"),
-		value: "binary"
+		value: "binary",
 	}, {
 		text: t("qrCode"),
-		value: "qrcode"
+		value: "qrcode",
 	}, {
 		text: t("coreValues"),
-		value: "corevalues"
+		value: "corevalues",
 	}, {
 		text: t("morseCode"),
-		value: "morse"
+		value: "morse",
 	}, {
 		text: t("charCode"),
-		value: "charcode"
+		value: "charcode",
 	}, {
 		text: "Data URL",
-		value: "dataurl"
+		value: "dataurl",
 	}, {
 		text: "MD5",
-		value: "md5"
+		value: "md5",
 	}, {
 		text: "Unicode",
-		value: "unicode"
+		value: "unicode",
 	}, {
 		text: "URI Component",
-		value: "uricomponent"
+		value: "uricomponent",
 	}];
 
 	const checkIfTextEmpty = (): boolean => {
 		if (!text) {
 			setAlertMessage({
 				title: t("error"),
-				text: t("textEmpty")
+				text: t("textEmpty"),
 			});
 			return true;
 		}
@@ -92,7 +89,7 @@ function App(): JSX.Element {
 				if (decoded.includes("image/")) {
 					setImageInfo({
 						src: decoded,
-						alt: t("decodedImage")
+						alt: t("decodedImage"),
 					});
 				} else {
 					decoded = decodeBase64(decoded.split("base64,")[1]);
@@ -104,7 +101,7 @@ function App(): JSX.Element {
 					decoded = md5Hist.get(decoded);
 					setAlertMessage({
 						title: t("tip"),
-						text: t("md5CannotBeDecoded")
+						text: t("md5CannotBeDecoded"),
 					});
 				} else if (isOnly(/0|1/, decoded)) {
 					decoded = decodeBinary(decoded);
@@ -132,7 +129,7 @@ function App(): JSX.Element {
 				console.error(error);
 				setAlertMessage({
 					title: t("error"),
-					text: error.message
+					text: error.message,
 				});
 			}
 		}
@@ -175,17 +172,17 @@ function App(): JSX.Element {
 				break;
 			case "qrcode":
 				QRCode.toDataURL(text, {
-					margin: 2
+					margin: 2,
 				}).then((url) => {
 					setImageInfo({
 						src: url,
-						alt: t("qrCode")
+						alt: t("qrCode"),
 					});
 				}).catch((error: Error) => {
 					console.error(error);
 					setAlertMessage({
 						title: t("error"),
-						text: error.message
+						text: error.message,
 					});
 				});
 				break;
@@ -206,20 +203,20 @@ function App(): JSX.Element {
 		}
 		const newA = document.createElement("a");
 		newA.href = URL.createObjectURL(new Blob([text], {
-			type: "text/plain"
+			type: "text/plain",
 		}));
 		newA.download = "encoder.txt";
 		newA.click();
 	};
 
 	const handleTextChange = (
-		event: ChangeEvent<HTMLTextAreaElement>
+		event: ChangeEvent<HTMLTextAreaElement>,
 	): void => {
 		setText(event.target.value);
 	};
 
 	const handleTextKeyDown = (
-		event: KeyboardEvent<HTMLTextAreaElement>
+		event: KeyboardEvent<HTMLTextAreaElement>,
 	): void => {
 		if (event.ctrlKey || event.metaKey) {
 			switch (event.key) {
@@ -275,17 +272,6 @@ function App(): JSX.Element {
 	};
 
 	useEffect(() => {
-		browserUpdate({
-			required: { c: -1, e: -1, f: -1, o: -1, s: 0 },
-			insecure: true,
-			noclose: true,
-			no_permanent_hide: true,
-			notify_esr: true,
-			reminder: 0,
-			reminderClosed: 0,
-			unsupported: true,
-			url: "https://browsehappy.com/"
-		});
 		setTimeout(() => {
 			ReactGA.initialize("G-H0PC8ZZ7BN");
 			ReactGA.send("pageview");

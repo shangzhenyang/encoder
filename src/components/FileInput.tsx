@@ -2,7 +2,7 @@ import { forwardRef } from "react";
 import { t } from "i18next";
 
 import type { ChangeEvent, ForwardedRef } from "react";
-import type AlertMessage from "@/types/AlertMessage";
+import type { AlertMessage } from "@/types";
 
 interface Props {
 	updateAlertMessage: (newValue: AlertMessage | null) => void;
@@ -11,7 +11,7 @@ interface Props {
 
 function FileInput(
 	{ updateAlertMessage, updateText }: Props,
-	ref: ForwardedRef<HTMLInputElement>
+	ref: ForwardedRef<HTMLInputElement>,
 ): JSX.Element {
 	const handleFileChange = (event: ChangeEvent<HTMLInputElement>): void => {
 		const file = event.target.files?.[0];
@@ -29,7 +29,7 @@ function FileInput(
 		} else {
 			updateAlertMessage({
 				title: t("error"),
-				text: t("unsupportedFileType")
+				text: t("unsupportedFileType"),
 			});
 		}
 	};

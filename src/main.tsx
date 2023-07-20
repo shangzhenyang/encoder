@@ -13,14 +13,14 @@ import "@/styles/globals.css";
 
 const i18nResources = {
 	"en-US": {
-		translation: translationEnUs
+		translation: translationEnUs,
 	},
 	"zh-CN": {
-		translation: translationZhCn
+		translation: translationZhCn,
 	},
 	"zh-TW": {
-		translation: translationZhTw
-	}
+		translation: translationZhTw,
+	},
 };
 
 const lang = ((): string => {
@@ -41,8 +41,8 @@ i18n.init({
 	lng: lang,
 	fallbackLng: "en-US",
 	interpolation: {
-		escapeValue: false
-	}
+		escapeValue: false,
+	},
 });
 
 document.documentElement.lang = lang;
@@ -52,5 +52,5 @@ Modal.setAppElement("#root");
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
 	<StrictMode>
 		<App />
-	</StrictMode>
+	</StrictMode>,
 );

@@ -1,7 +1,7 @@
 import styles from "@/styles/DropDown.module.css";
 
 import type { ChangeEvent } from "react";
-import type Option from "@/types/Option";
+import type { Option } from "@/types";
 
 interface Props {
 	id: string;
@@ -16,7 +16,7 @@ function DropDown({
 	label,
 	options,
 	value,
-	updateValue
+	updateValue,
 }: Props): JSX.Element {
 	const handleChange = (event: ChangeEvent<HTMLSelectElement>): void => {
 		updateValue(event.target.value);
@@ -34,7 +34,8 @@ function DropDown({
 			<select
 				id={id}
 				value={value}
-				onChange={handleChange}>
+				onChange={handleChange}
+			>
 				{optionsElem}
 			</select>
 		</div>

@@ -6,7 +6,7 @@ import { faClose } from "@fortawesome/free-solid-svg-icons";
 
 import styles from "@/styles/ImageViewer.module.css";
 
-import type ImageInfo from "@/types/ImageInfo";
+import type { ImageInfo } from "@/types";
 
 interface Props {
 	imageInfo: ImageInfo | null;

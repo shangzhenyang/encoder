@@ -29,6 +29,10 @@
 			"error",
 			"always"
 		],
+		"comma-dangle": [
+			"error",
+			"always-multiline"
+		],
 		"curly": [
 			"error",
 			"all"
@@ -60,6 +64,7 @@
 			"error",
 			"double"
 		],
+		"react/jsx-closing-bracket-location": "error",
 		"react/react-in-jsx-scope": "off",
 		"semi": [
 			"error",

@@ -2,10 +2,8 @@ import { fileURLToPath, URL } from "node:url";
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import autoprefixer from "autoprefixer";
-import eslint from "@rollup/plugin-eslint";
 import { VitePWA } from "vite-plugin-pwa";
 
-// https://vitejs.dev/config/
 export default defineConfig({
 	build: {
 		rollupOptions: {
@@ -13,24 +11,20 @@ export default defineConfig({
 				manualChunks(id) {
 					if (id.includes("node_modules")) {
 						return "vendor";
+					} else if (id.includes("translations")) {
+						return "translations";
 					}
-				}
-			}
-		}
+				},
+			},
+		},
 	},
 	css: {
 		postcss: {
-			plugins: [autoprefixer]
-		}
+			plugins: [autoprefixer],
+		},
 	},
 	plugins: [
 		react(),
-		{
-			...eslint({
-				include: ["src/**/*.{ts,tsx}"]
-			}),
-			enforce: "pre"
-		},
 		VitePWA({
 			registerType: "autoUpdate",
 			manifest: {
@@ -43,14 +37,14 @@ export default defineConfig({
 					src: "https://www.shangzhenyang.com/images/avatar.png",
 					sizes: "720x720",
 					type: "image/png",
-					purpose: "any"
-				}]
-			}
-		})
+					purpose: "any",
+				}],
+			},
+		}),
 	],
 	resolve: {
 		alias: {
-			"@": fileURLToPath(new URL("./src", import.meta.url))
-		}
-	}
+			"@": fileURLToPath(new URL("./src", import.meta.url)),
+		},
+	},
 });

@@ -2,7 +2,7 @@ const codes = "0123456789a ";
 const coreValues = [
 	"富强", "民主", "文明", "和谐",
 	"自由", "平等", "公正", "法治",
-	"爱国", "敬业", "诚信", "友善"
+	"爱国", "敬业", "诚信", "友善",
 ];
 
 export function decodeCoreValues(str: string): string {
@@ -34,7 +34,7 @@ export function encodeCoreValues(str: string): string {
 			for (let j = 0; j < base; j++) {
 				charCode = charCode.replace(
 					new RegExp(codes[j], "g"),
-					coreValues[j] + " "
+					coreValues[j] + " ",
 				);
 			}
 			encoded += charCode;

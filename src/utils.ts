@@ -1,5 +1,5 @@
-export function keyboardClick(
-	onClick: () => void
+export function handleKeyboardClick(
+	onClick: () => void,
 ): ((event: KeyboardEvent | React.KeyboardEvent<Element>) => void) {
 	return (event: KeyboardEvent | React.KeyboardEvent<Element>): void => {
 		switch (event.key) {

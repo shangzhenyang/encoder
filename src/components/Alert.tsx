@@ -5,7 +5,7 @@ import Modal from "react-modal";
 
 import styles from "@/styles/Alert.module.css";
 
-import type AlertMessage from "@/types/AlertMessage";
+import type { AlertMessage } from "@/types";
 
 interface Props {
 	alertMessage: AlertMessage | null;
@@ -19,7 +19,7 @@ function Alert({ alertMessage, updateAlertMessage }: Props): JSX.Element {
 
 	const closeDialogCallback = useCallback(
 		closeDialog,
-		[updateAlertMessage]
+		[updateAlertMessage],
 	);
 	const onKeyDown = useCallback((event: KeyboardEvent) => {
 		if (event.key === "Enter") {
@@ -52,7 +52,8 @@ function Alert({ alertMessage, updateAlertMessage }: Props): JSX.Element {
 				<button
 					className="default-btn"
 					type="button"
-					onClick={closeDialog}>
+					onClick={closeDialog}
+				>
 					{t("ok")}
 				</button>
 			</div>

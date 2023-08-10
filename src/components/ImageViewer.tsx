@@ -1,29 +1,27 @@
-import { t } from "i18next";
 import classnames from "classnames";
-import Modal from "react-modal";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faClose } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import Modal from "react-modal";
+import { t } from "i18next";
+
+import { useAppDispatch, useAppSelector } from "@/redux/hooks";
+import { setImageInfo } from "@/redux/reducers/app";
 
 import styles from "@/styles/ImageViewer.module.css";
 
-import type { ImageInfo } from "@/types";
+function ImageViewer(): JSX.Element {
+	const dispatch = useAppDispatch();
+	const imageInfo = useAppSelector((state) => {
+		return state.app.imageInfo;
+	});
 
-interface Props {
-	imageInfo: ImageInfo | null;
-	updateImageInfo: (newValue: ImageInfo | null) => void;
-}
-
-function ImageViewer({ imageInfo, updateImageInfo }: Props): JSX.Element {
 	const closeDialog = (): void => {
-		updateImageInfo(null);
+		dispatch(setImageInfo({}));
 	};
 
-	if (!imageInfo) {
-		return (<></>);
-	}
 	return (
 		<Modal
-			isOpen={true}
+			isOpen={!!imageInfo.src}
 			className={classnames("popup", styles["image-viewer"])}
 			overlayClassName="mask"
 			onRequestClose={closeDialog}

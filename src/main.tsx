@@ -1,9 +1,11 @@
-import { StrictMode } from "react";
-import ReactDOM from "react-dom/client";
 import i18n, { t } from "i18next";
 import Modal from "react-modal";
+import { Provider } from "react-redux";
+import ReactDOM from "react-dom/client";
+import { StrictMode } from "react";
 
 import App from "@/App";
+import store from "@/redux/store";
 
 import translationEnUs from "@/translations/en-us.json";
 import translationZhCn from "@/translations/zh-cn.json";
@@ -37,12 +39,12 @@ const lang = ((): string => {
 })();
 
 i18n.init({
-	resources: i18nResources,
-	lng: lang,
 	fallbackLng: "en-US",
 	interpolation: {
 		escapeValue: false,
 	},
+	lng: lang,
+	resources: i18nResources,
 });
 
 document.documentElement.lang = lang;
@@ -51,6 +53,8 @@ Modal.setAppElement("#root");
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
 	<StrictMode>
-		<App />
+		<Provider store={store}>
+			<App />
+		</Provider>
 	</StrictMode>,
 );

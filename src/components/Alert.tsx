@@ -1,31 +1,28 @@
 import { useCallback, useEffect } from "react";
-import { t } from "i18next";
 import classnames from "classnames";
 import Modal from "react-modal";
+import { t } from "i18next";
+
+import { useAppDispatch, useAppSelector } from "@/redux/hooks";
+import { setAlertMessage } from "@/redux/reducers/app";
 
 import styles from "@/styles/Alert.module.css";
 
-import type { AlertMessage } from "@/types";
+function Alert(): JSX.Element {
+	const dispatch = useAppDispatch();
+	const alertMessage = useAppSelector((state) => {
+		return state.app.alertMessage;
+	});
 
-interface Props {
-	alertMessage: AlertMessage | null;
-	updateAlertMessage: (newValue: AlertMessage | null) => void;
-}
+	const closeDialog = useCallback(() => {
+		dispatch(setAlertMessage({}));
+	}, [dispatch]);
 
-function Alert({ alertMessage, updateAlertMessage }: Props): JSX.Element {
-	const closeDialog = (): void => {
-		updateAlertMessage(null);
-	};
-
-	const closeDialogCallback = useCallback(
-		closeDialog,
-		[updateAlertMessage],
-	);
 	const onKeyDown = useCallback((event: KeyboardEvent) => {
 		if (event.key === "Enter") {
-			closeDialogCallback();
+			closeDialog();
 		}
-	}, [closeDialogCallback]);
+	}, [closeDialog]);
 
 	useEffect(() => {
 		if (alertMessage) {
@@ -35,18 +32,15 @@ function Alert({ alertMessage, updateAlertMessage }: Props): JSX.Element {
 		}
 	}, [alertMessage, onKeyDown]);
 
-	if (!alertMessage) {
-		return (<></>);
-	}
 	return (
 		<Modal
-			isOpen={true}
+			isOpen={!!alertMessage.text}
 			className={classnames("popup", styles["alert"])}
 			overlayClassName="mask"
 			onRequestClose={closeDialog}
 			shouldCloseOnOverlayClick={true}
 		>
-			<h1>{alertMessage.title}</h1>
+			<h1>{alertMessage.title || t("tip")}</h1>
 			<p>{alertMessage.text}</p>
 			<div className={styles["btn-bar"]}>
 				<button

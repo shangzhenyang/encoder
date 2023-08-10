@@ -1,11 +1,11 @@
 export interface AlertMessage {
-	text: string;
-	title: string;
+	text?: string;
+	title?: string;
 }
 
 export interface ImageInfo {
-	alt: string;
-	src: string;
+	alt?: string;
+	src?: string;
 }
 
 export interface Option {

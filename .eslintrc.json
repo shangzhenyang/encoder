@@ -6,6 +6,7 @@
 	"extends": [
 		"eslint:recommended",
 		"plugin:react/recommended",
+		"plugin:react-hooks/recommended",
 		"plugin:@typescript-eslint/recommended",
 		"plugin:jsx-a11y/recommended"
 	],
@@ -13,6 +14,7 @@
 	"parser": "@typescript-eslint/parser",
 	"parserOptions": {
 		"ecmaVersion": "latest",
+		"project": "./tsconfig.json",
 		"sourceType": "module"
 	},
 	"plugins": [
@@ -59,6 +61,12 @@
 			"unix"
 		],
 		"no-mixed-operators": "error",
+		"no-multiple-empty-lines": [
+			"error",
+			{
+				"max": 1
+			}
+		],
 		"prefer-const": "error",
 		"quotes": [
 			"error",
@@ -70,7 +78,24 @@
 			"error",
 			"always"
 		],
-		"@typescript-eslint/explicit-function-return-type": "error"
+		"sort-imports": [
+			"error",
+			{
+				"ignoreCase": true,
+				"allowSeparatedGroups": true
+			}
+		],
+		"sort-keys": [
+			"error",
+			"asc",
+			{
+				"caseSensitive": false,
+				"natural": true
+			}
+		],
+		"@typescript-eslint/explicit-function-return-type": "error",
+		"@typescript-eslint/no-non-null-assertion": "error",
+		"@typescript-eslint/no-unsafe-assignment": "error"
 	},
 	"settings": {
 		"react": {

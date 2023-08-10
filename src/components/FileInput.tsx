@@ -1,18 +1,21 @@
 import { forwardRef } from "react";
 import { t } from "i18next";
 
+import { setAlertMessage } from "@/redux/reducers/app";
+import { useAppDispatch } from "@/redux/hooks";
+
 import type { ChangeEvent, ForwardedRef } from "react";
-import type { AlertMessage } from "@/types";
 
 interface Props {
-	updateAlertMessage: (newValue: AlertMessage | null) => void;
 	updateText: (newValue: string) => void;
 }
 
 function FileInput(
-	{ updateAlertMessage, updateText }: Props,
+	{ updateText }: Props,
 	ref: ForwardedRef<HTMLInputElement>,
 ): JSX.Element {
+	const dispatch = useAppDispatch();
+
 	const handleFileChange = (event: ChangeEvent<HTMLInputElement>): void => {
 		const file = event.target.files?.[0];
 		if (!file) {
@@ -27,10 +30,10 @@ function FileInput(
 		} else if (file.type.startsWith("text/")) {
 			reader.readAsText(file);
 		} else {
-			updateAlertMessage({
-				title: t("error"),
+			dispatch(setAlertMessage({
 				text: t("unsupportedFileType"),
-			});
+				title: t("error"),
+			}));
 		}
 	};
 

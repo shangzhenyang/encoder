@@ -14,6 +14,7 @@
 	"enterText": "Enter text...",
 	"error": "Error",
 	"exportAsFile": "Export as File",
+	"htmlEntities": "HTML Entities",
 	"imageViewer": "Image Viewer",
 	"importFromLocalFile": "Import from Local File",
 	"md5CannotBeDecoded": "MD5 cannot be decoded.",

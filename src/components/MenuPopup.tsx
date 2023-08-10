@@ -1,6 +1,3 @@
-import { t } from "i18next";
-import Modal from "react-modal";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
 	faCircleInfo,
 	faDownload,
@@ -8,18 +5,20 @@ import {
 	faStar,
 	faUser,
 } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import Modal from "react-modal";
+import { t } from "i18next";
 
 import { handleKeyboardClick } from "@/utils";
+import { setAlertMessage } from "@/redux/reducers/app";
+import { useAppDispatch } from "@/redux/hooks";
 
 import styles from "@/styles/MenuPopup.module.css";
-
-import type { AlertMessage } from "@/types";
 
 interface Props {
 	show: boolean;
 	exportAsFile: () => void;
 	openLocalFile: () => void;
-	updateAlertMessage: (newValue: AlertMessage | null) => void;
 	updateShowMenu: (newValue: boolean) => void;
 }
 
@@ -27,55 +26,56 @@ function MenuPopup({
 	show,
 	exportAsFile,
 	openLocalFile,
-	updateAlertMessage,
 	updateShowMenu,
 }: Props): JSX.Element {
+	const dispatch = useAppDispatch();
+
 	const closeMenu = (): void => {
 		updateShowMenu(false);
 	};
 
 	const items = [{
-		title: t("importFromLocalFile"),
 		icon: faFolderOpen,
 		onClick: (): void => {
 			openLocalFile();
 			closeMenu();
 		},
+		title: t("importFromLocalFile"),
 	}, {
-		title: t("exportAsFile"),
 		icon: faDownload,
 		onClick: (): void => {
 			exportAsFile();
 			closeMenu();
 		},
+		title: t("exportAsFile"),
 	}, {
 		separator: true,
 	}, {
-		title: t("starOnGithub"),
 		icon: faStar,
 		onClick: (): void => {
 			window.open("https://github.com/shangzhenyang/encoder");
 			closeMenu();
 		},
+		title: t("starOnGithub"),
 	}, {
-		title: t("authorsPortfolio"),
 		icon: faUser,
 		onClick: (): void => {
 			window.open("https://www.yangshangzhen.com/");
 			closeMenu();
 		},
+		title: t("authorsPortfolio"),
 	}, {
-		title: t("about"),
 		icon: faCircleInfo,
 		onClick: (): void => {
 			setTimeout(() => {
-				updateAlertMessage({
-					title: t("about"),
+				dispatch(setAlertMessage({
 					text: "Developed by Shangzhen Yang.",
-				});
+					title: t("about"),
+				}));
 			}, 1);
 			closeMenu();
 		},
+		title: t("about"),
 	}];
 	const itemsElem = items.map((
 		{ separator, title, icon, onClick },

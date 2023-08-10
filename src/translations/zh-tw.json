@@ -14,6 +14,7 @@
 	"enterText": "輸入文字...",
 	"error": "錯誤",
 	"exportAsFile": "匯出為檔案",
+	"htmlEntities": "HTML 實體",
 	"imageViewer": "圖片檢視器",
 	"importFromLocalFile": "從本地檔案匯入",
 	"md5CannotBeDecoded": "MD5 不能被解碼。",

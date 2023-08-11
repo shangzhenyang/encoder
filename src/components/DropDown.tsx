@@ -1,7 +1,6 @@
 import styles from "@/styles/DropDown.module.css";
-
-import type { ChangeEvent } from "react";
 import type { Option } from "@/types";
+import type { ChangeEvent } from "react";
 
 interface Props {
 	id: string;

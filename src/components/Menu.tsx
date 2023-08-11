@@ -1,10 +1,9 @@
+import MenuPopup from "@/components/MenuPopup";
+import { handleKeyboardClick } from "@/utils";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { t } from "i18next";
 import { useState } from "react";
-
-import { handleKeyboardClick } from "@/utils";
-import MenuPopup from "@/components/MenuPopup";
 
 interface Props {
 	exportAsFile: () => void;

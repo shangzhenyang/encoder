@@ -1,7 +1,9 @@
 {
 	"css.lint.zeroUnits": "warning",
 	"editor.codeActionsOnSave": [
-		"source.fixAll"
+		"source.addMissingImports",
+		"source.fixAll",
+		"source.organizeImports"
 	],
 	"editor.formatOnSave": true,
 	"editor.formatOnType": true,

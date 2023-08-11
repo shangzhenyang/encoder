@@ -1,13 +1,11 @@
-import classnames from "classnames";
-import { faClose } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import Modal from "react-modal";
-import { t } from "i18next";
-
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { setImageInfo } from "@/redux/reducers/app";
-
 import styles from "@/styles/ImageViewer.module.css";
+import { faClose } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import classnames from "classnames";
+import { t } from "i18next";
+import Modal from "react-modal";
 
 function ImageViewer(): JSX.Element {
 	const dispatch = useAppDispatch();

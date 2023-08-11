@@ -20,7 +20,8 @@
 	"plugins": [
 		"react",
 		"@typescript-eslint",
-		"jsx-a11y"
+		"jsx-a11y",
+		"no-relative-import-paths"
 	],
 	"rules": {
 		"arrow-body-style": [
@@ -67,6 +68,13 @@
 				"max": 1
 			}
 		],
+		"no-relative-import-paths/no-relative-import-paths": [
+			"error",
+			{
+				"prefix": "@",
+				"rootDir": "./src"
+			}
+		],
 		"prefer-const": "error",
 		"quotes": [
 			"error",
@@ -77,13 +85,6 @@
 		"semi": [
 			"error",
 			"always"
-		],
-		"sort-imports": [
-			"error",
-			{
-				"ignoreCase": true,
-				"allowSeparatedGroups": true
-			}
 		],
 		"sort-keys": [
 			"error",

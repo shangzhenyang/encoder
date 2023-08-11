@@ -1,6 +1,5 @@
-import { createSlice } from "@reduxjs/toolkit";
-
 import type { AlertMessage, ImageInfo } from "@/types";
+import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
 	alertMessage: {} as AlertMessage,

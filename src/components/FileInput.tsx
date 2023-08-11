@@ -1,10 +1,8 @@
-import { forwardRef } from "react";
-import { t } from "i18next";
-
-import { setAlertMessage } from "@/redux/reducers/app";
 import { useAppDispatch } from "@/redux/hooks";
-
+import { setAlertMessage } from "@/redux/reducers/app";
+import { t } from "i18next";
 import type { ChangeEvent, ForwardedRef } from "react";
+import { forwardRef } from "react";
 
 interface Props {
 	updateText: (newValue: string) => void;

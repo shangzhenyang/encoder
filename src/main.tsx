@@ -1,17 +1,14 @@
-import i18n, { t } from "i18next";
-import Modal from "react-modal";
-import { Provider } from "react-redux";
-import ReactDOM from "react-dom/client";
-import { StrictMode } from "react";
-
 import App from "@/App";
 import store from "@/redux/store";
-
+import "@/styles/globals.css";
 import translationEnUs from "@/translations/en-us.json";
 import translationZhCn from "@/translations/zh-cn.json";
 import translationZhTw from "@/translations/zh-tw.json";
-
-import "@/styles/globals.css";
+import i18n, { t } from "i18next";
+import { StrictMode } from "react";
+import ReactDOM from "react-dom/client";
+import Modal from "react-modal";
+import { Provider } from "react-redux";
 
 const i18nResources = {
 	"en-US": {

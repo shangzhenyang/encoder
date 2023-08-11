@@ -1,3 +1,7 @@
+import { useAppDispatch } from "@/redux/hooks";
+import { setAlertMessage } from "@/redux/reducers/app";
+import styles from "@/styles/MenuPopup.module.css";
+import { handleKeyboardClick } from "@/utils";
 import {
 	faCircleInfo,
 	faDownload,
@@ -6,14 +10,8 @@ import {
 	faUser,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import Modal from "react-modal";
 import { t } from "i18next";
-
-import { handleKeyboardClick } from "@/utils";
-import { setAlertMessage } from "@/redux/reducers/app";
-import { useAppDispatch } from "@/redux/hooks";
-
-import styles from "@/styles/MenuPopup.module.css";
+import Modal from "react-modal";
 
 interface Props {
 	show: boolean;

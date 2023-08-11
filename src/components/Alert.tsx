@@ -1,12 +1,10 @@
-import { useCallback, useEffect } from "react";
-import classnames from "classnames";
-import Modal from "react-modal";
-import { t } from "i18next";
-
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { setAlertMessage } from "@/redux/reducers/app";
-
 import styles from "@/styles/Alert.module.css";
+import classnames from "classnames";
+import { t } from "i18next";
+import { useCallback, useEffect } from "react";
+import Modal from "react-modal";
 
 function Alert(): JSX.Element {
 	const dispatch = useAppDispatch();

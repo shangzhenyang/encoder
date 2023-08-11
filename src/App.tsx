@@ -1,10 +1,8 @@
-import { createRef, useEffect, useState } from "react";
-import { decode as decodeMorse, encode as encodeMorse } from "xmorse";
-import md5 from "md5";
-import QRCode from "qrcode";
-import ReactGA from "react-ga4";
-import { t } from "i18next";
-
+import Alert from "@/components/Alert";
+import DropDown from "@/components/DropDown";
+import FileInput from "@/components/FileInput";
+import ImageViewer from "@/components/ImageViewer";
+import Menu from "@/components/Menu";
 import { decodeBase64, encodeBase64 } from "@/encodings/base64";
 import { decodeBinary, encodeBinary } from "@/encodings/binary";
 import { decodeCharCode, encodeCharCode } from "@/encodings/char-code";
@@ -19,19 +17,17 @@ import {
 	isHtmlEntitiesEncoded,
 } from "@/encodings/html-entities";
 import { decodeUnicode, encodeUnicode } from "@/encodings/unicode";
-
-import { setAlertMessage, setImageInfo } from "@/redux/reducers/app";
-import Alert from "@/components/Alert";
-import DropDown from "@/components/DropDown";
-import FileInput from "@/components/FileInput";
-import ImageViewer from "@/components/ImageViewer";
-import Menu from "@/components/Menu";
 import { useAppDispatch } from "@/redux/hooks";
-
+import { setAlertMessage, setImageInfo } from "@/redux/reducers/app";
 import styles from "@/styles/App.module.css";
-
-import type { ChangeEvent, KeyboardEvent } from "react";
 import type { Option } from "@/types";
+import { t } from "i18next";
+import md5 from "md5";
+import QRCode from "qrcode";
+import type { ChangeEvent, KeyboardEvent } from "react";
+import { createRef, useEffect, useState } from "react";
+import ReactGA from "react-ga4";
+import { decode as decodeMorse, encode as encodeMorse } from "xmorse";
 
 const md5Hist = {} as Record<string, string>;
 

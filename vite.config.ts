@@ -1,7 +1,7 @@
-import { fileURLToPath, URL } from "node:url";
-import autoprefixer from "autoprefixer";
-import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
+import autoprefixer from "autoprefixer";
+import { fileURLToPath, URL } from "node:url";
+import { defineConfig } from "vite";
 import { VitePWA } from "vite-plugin-pwa";
 
 export default defineConfig({

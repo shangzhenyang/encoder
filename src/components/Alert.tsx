@@ -1,10 +1,10 @@
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { setAlertMessage } from "@/redux/reducers/app";
 import styles from "@/styles/Alert.module.css";
-import classnames from "classnames";
+import classNames from "classnames";
 import { t } from "i18next";
 import { useCallback, useEffect } from "react";
-import Modal from "react-modal";
+import ReactModal from "react-modal";
 
 function Alert(): JSX.Element {
 	const dispatch = useAppDispatch();
@@ -31,9 +31,9 @@ function Alert(): JSX.Element {
 	}, [alertMessage, onKeyDown]);
 
 	return (
-		<Modal
+		<ReactModal
 			isOpen={!!alertMessage.text}
-			className={classnames("popup", styles["alert"])}
+			className={classNames("popup", styles["alert"])}
 			overlayClassName="mask"
 			onRequestClose={closeDialog}
 			shouldCloseOnOverlayClick={true}
@@ -49,7 +49,7 @@ function Alert(): JSX.Element {
 					{t("ok")}
 				</button>
 			</div>
-		</Modal>
+		</ReactModal>
 	);
 }
 

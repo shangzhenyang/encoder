@@ -11,7 +11,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { t } from "i18next";
-import Modal from "react-modal";
+import ReactModal from "react-modal";
 
 interface MenuPopupProps {
 	show: boolean;
@@ -105,7 +105,7 @@ function MenuPopup({
 	});
 
 	return (
-		<Modal
+		<ReactModal
 			isOpen={show}
 			className={styles["menu-popup"]}
 			overlayClassName="mask"
@@ -114,7 +114,7 @@ function MenuPopup({
 			shouldCloseOnOverlayClick={true}
 		>
 			{itemsElem}
-		</Modal>
+		</ReactModal>
 	);
 }
 

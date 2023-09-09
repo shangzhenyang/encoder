@@ -3,9 +3,9 @@ import { setImageInfo } from "@/redux/reducers/app";
 import styles from "@/styles/ImageViewer.module.css";
 import { faClose } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import classnames from "classnames";
+import classNames from "classnames";
 import { t } from "i18next";
-import Modal from "react-modal";
+import ReactModal from "react-modal";
 
 function ImageViewer(): JSX.Element {
 	const dispatch = useAppDispatch();
@@ -18,9 +18,9 @@ function ImageViewer(): JSX.Element {
 	};
 
 	return (
-		<Modal
+		<ReactModal
 			isOpen={!!imageInfo.src}
-			className={classnames("popup", styles["image-viewer"])}
+			className={classNames("popup", styles["image-viewer"])}
 			overlayClassName="mask"
 			onRequestClose={closeDialog}
 			shouldCloseOnOverlayClick={true}
@@ -37,7 +37,7 @@ function ImageViewer(): JSX.Element {
 				/>
 			</header>
 			<img src={imageInfo.src} alt={imageInfo.alt} />
-		</Modal>
+		</ReactModal>
 	);
 }
 

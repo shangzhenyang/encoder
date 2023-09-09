@@ -3,7 +3,7 @@ function addZero(num: string, length: number): string {
 }
 
 export function decodeUnicode(unicode: string): string {
-	return unicode.replace(/\\u?([\d\w]{4})/gi, (_match, group) => {
+	return unicode.replace(/\\u?([\d\w]{4})/gi, (_match, group: string) => {
 		return String.fromCharCode(parseInt(group, 16));
 	});
 }

@@ -1,15 +1,14 @@
 import { useAppDispatch } from "@/redux/hooks";
 import { setAlertMessage } from "@/redux/reducers/app";
 import { t } from "i18next";
-import type { ChangeEvent, ForwardedRef } from "react";
-import { forwardRef } from "react";
+import { ChangeEvent, ForwardedRef, forwardRef } from "react";
 
-interface Props {
+interface FileInputProps {
 	updateText: (newValue: string) => void;
 }
 
 function FileInput(
-	{ updateText }: Props,
+	{ updateText }: FileInputProps,
 	ref: ForwardedRef<HTMLInputElement>,
 ): JSX.Element {
 	const dispatch = useAppDispatch();

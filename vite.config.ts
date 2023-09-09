@@ -8,10 +8,14 @@ export default defineConfig({
 	build: {
 		rollupOptions: {
 			output: {
-				manualChunks(id) {
+				manualChunks: (id) => {
+					if (id.includes("fortawesome")) {
+						return "icons";
+					}
 					if (id.includes("node_modules")) {
-						return "vendor";
-					} else if (id.includes("translations")) {
+						return "vendors";
+					}
+					if (id.includes("translations")) {
 						return "translations";
 					}
 				},
@@ -27,6 +31,7 @@ export default defineConfig({
 		react(),
 		VitePWA({
 			manifest: {
+				// eslint-disable-next-line max-len
 				description: "Encoder is a web-based tool that allows you to easily encode text into various formats, including base64, binary, MD5, Morse code, QR code, Unicode, URI Component, and more.",
 				icons: [{
 					purpose: "any",

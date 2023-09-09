@@ -20,12 +20,17 @@ import { decodeUnicode, encodeUnicode } from "@/encodings/unicode";
 import { useAppDispatch } from "@/redux/hooks";
 import { setAlertMessage, setImageInfo } from "@/redux/reducers/app";
 import styles from "@/styles/App.module.css";
-import type { Option } from "@/types";
+import { Option } from "@/types";
 import { t } from "i18next";
 import md5 from "md5";
 import QRCode from "qrcode";
-import type { ChangeEvent, KeyboardEvent } from "react";
-import { createRef, useEffect, useState } from "react";
+import {
+	ChangeEvent,
+	KeyboardEvent,
+	createRef,
+	useEffect,
+	useState,
+} from "react";
 import ReactGA from "react-ga4";
 import { decode as decodeMorse, encode as encodeMorse } from "xmorse";
 

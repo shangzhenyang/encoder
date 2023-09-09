@@ -1,4 +1,4 @@
-import type { AlertMessage, ImageInfo } from "@/types";
+import { AlertMessage, ImageInfo } from "@/types";
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
@@ -7,7 +7,7 @@ const initialState = {
 };
 
 const slice = createSlice({
-	initialState,
+	initialState: initialState,
 	name: "app",
 	reducers: {
 		setAlertMessage: (state, action) => {

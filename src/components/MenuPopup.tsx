@@ -13,7 +13,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { t } from "i18next";
 import Modal from "react-modal";
 
-interface Props {
+interface MenuPopupProps {
 	show: boolean;
 	exportAsFile: () => void;
 	openLocalFile: () => void;
@@ -25,7 +25,7 @@ function MenuPopup({
 	exportAsFile,
 	openLocalFile,
 	updateShowMenu,
-}: Props): JSX.Element {
+}: MenuPopupProps): JSX.Element {
 	const dispatch = useAppDispatch();
 
 	const closeMenu = (): void => {

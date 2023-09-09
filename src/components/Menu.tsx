@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { t } from "i18next";
 import { useState } from "react";
 
-interface Props {
+interface MenuProps {
 	exportAsFile: () => void;
 	openLocalFile: () => void;
 }
@@ -13,7 +13,7 @@ interface Props {
 function Menu({
 	exportAsFile,
 	openLocalFile,
-}: Props): JSX.Element {
+}: MenuProps): JSX.Element {
 	const [showMenu, setShowMenu] = useState<boolean>(false);
 
 	const openMenu = (): void => {

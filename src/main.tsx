@@ -7,7 +7,7 @@ import translationZhTw from "@/translations/zh-tw.json";
 import i18n, { t } from "i18next";
 import { StrictMode } from "react";
 import ReactDOM from "react-dom/client";
-import Modal from "react-modal";
+import ReactModal from "react-modal";
 import { Provider } from "react-redux";
 
 const i18nResources = {
@@ -23,7 +23,7 @@ const i18nResources = {
 };
 
 const lang = ((): string => {
-	if (/^(yue|zh)(-cn|-hans(-[a-z]+)?)?$/i.test(navigator.language)) {
+	if (/^(yue|zh)(-cn|-sg|-hans(-[a-z]+)?)?$/i.test(navigator.language)) {
 		return "zh-CN";
 	} else if (
 		navigator.language.startsWith("zh") ||
@@ -47,7 +47,7 @@ i18n.init({
 }).catch(() => { });
 
 document.documentElement.lang = lang;
-Modal.setAppElement("#root");
+ReactModal.setAppElement("#root");
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
 	<StrictMode>

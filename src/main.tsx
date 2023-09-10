@@ -44,7 +44,7 @@ i18n.init({
 	resources: i18nResources,
 }).then(() => {
 	document.title = t("encoderByShangzhen");
-}).catch(() => { });
+}).catch(console.error);
 
 document.documentElement.lang = lang;
 ReactModal.setAppElement("#root");

@@ -1,0 +1,50 @@
+{
+	"headers": [
+		{
+			"source": "/sw.js",
+			"headers": [
+				{
+					"key": "Cache-Control",
+					"value": "no-store"
+				}
+			]
+		},
+		{
+			"source": "/(.*)",
+			"headers": [
+				{
+					"key": "Content-Security-Policy",
+					"value": "default-src 'none'; base-uri 'none'; connect-src 'self' https://vitals.vercel-insights.com; form-action 'none'; frame-ancestors 'none'; img-src data: https://www.shangzhenyang.com; manifest-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'"
+				},
+				{
+					"key": "Referrer-Policy",
+					"value": "strict-origin-when-cross-origin"
+				},
+				{
+					"key": "Strict-Transport-Security",
+					"value": "max-age=31536000"
+				},
+				{
+					"key": "X-Content-Type-Options",
+					"value": "nosniff"
+				}
+			]
+		},
+		{
+			"source": "/assets/(.*)",
+			"headers": [
+				{
+					"key": "Cache-Control",
+					"value": "public, max-age=31536000, immutable"
+				}
+			]
+		}
+	],
+	"redirects": [
+		{
+			"source": "/favicon.ico",
+			"destination": "/images/avatar.png",
+			"permanent": true
+		}
+	]
+}

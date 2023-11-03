@@ -3,15 +3,14 @@
 	"css.lint.idSelector": "error",
 	"css.lint.importStatement": "error",
 	"css.lint.zeroUnits": "warning",
-	"editor.codeActionsOnSave": [
-		"source.addMissingImports",
-		"source.fixAll",
-		"source.organizeImports"
-	],
+	"editor.codeActionsOnSave": {
+		"source.addMissingImports": "always",
+		"source.fixAll": "always",
+		"source.organizeImports": "always"
+	},
 	"editor.formatOnSave": true,
 	"editor.formatOnType": true,
 	"editor.insertSpaces": false,
-	"editor.linkedEditing": true,
 	"editor.rulers": [ 80 ],
 	"editor.tabSize": 4,
 	"files.eol": "\n",
@@ -24,7 +23,6 @@
 	"typescript.format.semicolons": "insert",
 	"typescript.preferences.importModuleSpecifier": "non-relative",
 	"typescript.preferences.quoteStyle": "double",
-	"typescript.referencesCodeLens.enabled": true,
 	"typescript.updateImportsOnFileMove.enabled": "always",
 	"[typescript]": {
 		"editor.defaultFormatter": "vscode.typescript-language-features"

@@ -43,7 +43,7 @@
 	"redirects": [
 		{
 			"source": "/favicon.ico",
-			"destination": "/images/avatar.png",
+			"destination": "https://www.shangzhenyang.com/images/avatar.png",
 			"permanent": true
 		}
 	]

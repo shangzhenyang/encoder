@@ -35,18 +35,17 @@ const lang = ((): string => {
 	}
 })();
 
-i18n.init({
+await i18n.init({
 	fallbackLng: "en-US",
 	interpolation: {
 		escapeValue: false,
 	},
 	lng: lang,
 	resources: i18nResources,
-}).then(() => {
-	document.title = t("encoderByShangzhen");
-}).catch(console.error);
+});
 
 document.documentElement.lang = lang;
+document.title = t("encoderByShangzhen");
 ReactModal.setAppElement("#root");
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(

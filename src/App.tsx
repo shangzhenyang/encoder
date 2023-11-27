@@ -21,7 +21,6 @@ import { useAppDispatch } from "@/redux/hooks";
 import { setAlertMessage, setImageInfo } from "@/redux/reducers/app";
 import styles from "@/styles/App.module.css";
 import { Option } from "@/types";
-import { Analytics } from "@vercel/analytics/react";
 import { t } from "i18next";
 import md5 from "md5";
 import QRCode from "qrcode";
@@ -29,8 +28,10 @@ import {
 	ChangeEvent,
 	KeyboardEvent,
 	createRef,
+	useEffect,
 	useState,
 } from "react";
+import ReactGA from "react-ga4";
 import { decode as decodeMorse, encode as encodeMorse } from "xmorse";
 
 const md5Hist = {} as Record<string, string>;
@@ -294,6 +295,13 @@ function App(): JSX.Element {
 		setText(newValue);
 	};
 
+	useEffect(() => {
+		setTimeout(() => {
+			ReactGA.initialize("G-H0PC8ZZ7BN");
+			ReactGA.send("pageview");
+		}, 1000);
+	}, []);
+
 	return (
 		<div className={styles["App"]}>
 			<header>
@@ -339,7 +347,6 @@ function App(): JSX.Element {
 			/>
 			<ImageViewer />
 			<Alert />
-			<Analytics />
 		</div>
 	);
 }

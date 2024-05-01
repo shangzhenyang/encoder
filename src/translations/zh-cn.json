@@ -14,6 +14,7 @@
 	"enterText": "输入文本...",
 	"error": "错误",
 	"exportAsFile": "导出为文件",
+	"htmlDecimal": "HTML 十进制",
 	"htmlEntities": "HTML 实体",
 	"imageViewer": "图片查看器",
 	"importFromLocalFile": "从本地文件导入",

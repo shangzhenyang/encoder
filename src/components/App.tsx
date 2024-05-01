@@ -12,6 +12,11 @@ import {
 	isCoreValuesEncoded,
 } from "@/encodings/core-values";
 import {
+	decodeHtmlDecimal,
+	encodeHtmlDecimal,
+	isHtmlDecimalEncoded,
+} from "@/encodings/html-decimal";
+import {
 	decodeHtmlEntities,
 	encodeHtmlEntities,
 	isHtmlEntitiesEncoded,
@@ -64,6 +69,10 @@ function App(): JSX.Element {
 		{
 			text: "Data URL",
 			value: "dataurl",
+		},
+		{
+			text: t("htmlDecimal"),
+			value: "htmldecimal",
 		},
 		{
 			text: t("htmlEntities"),
@@ -149,6 +158,8 @@ function App(): JSX.Element {
 				decoded = decodeCharCode(decoded);
 			} else if (isCoreValuesEncoded(decoded)) {
 				decoded = decodeCoreValues(decoded);
+			} else if (isHtmlDecimalEncoded(decoded)) {
+				decoded = decodeHtmlDecimal(decoded);
 			} else if (isHtmlEntitiesEncoded(decoded)) {
 				decoded = decodeHtmlEntities(decoded);
 			}
@@ -188,6 +199,9 @@ function App(): JSX.Element {
 				break;
 			case "corevalues":
 				setText(encodeCoreValues(text));
+				break;
+			case "htmldecimal":
+				setText(encodeHtmlDecimal(text));
 				break;
 			case "htmlentities":
 				setText(encodeHtmlEntities(text));

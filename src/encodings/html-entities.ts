@@ -1,10 +1,13 @@
-import {
-	decode as decodeHtmlEntities,
-	encode as encodeHtmlEntities,
-} from "html-entities";
+import { decode, encode } from "html-entities";
 
-function isHtmlEntitiesEncoded(str: string): boolean {
-	return str.includes("&") && str.includes(";");
+export function decodeHtmlEntities(str: string): string {
+	return decode(str);
 }
 
-export { decodeHtmlEntities, encodeHtmlEntities, isHtmlEntitiesEncoded };
+export function encodeHtmlEntities(str: string): string {
+	return encode(str);
+}
+
+export function isHtmlEntitiesEncoded(str: string): boolean {
+	return str.includes("&") && str.includes(";");
+}

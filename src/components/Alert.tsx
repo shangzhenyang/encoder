@@ -16,19 +16,18 @@ function Alert(): JSX.Element {
 		dispatch(setAlertMessage({}));
 	}, [dispatch]);
 
-	const onKeyDown = useCallback((event: KeyboardEvent) => {
-		if (event.key === "Enter") {
-			closeDialog();
-		}
-	}, [closeDialog]);
-
 	useEffect(() => {
+		const onKeyDown = (event: KeyboardEvent): void => {
+			if (event.key === "Enter") {
+				closeDialog();
+			}
+		};
 		if (alertMessage) {
 			document.addEventListener("keydown", onKeyDown);
 		} else {
 			document.removeEventListener("keydown", onKeyDown);
 		}
-	}, [alertMessage, onKeyDown]);
+	}, [alertMessage, closeDialog]);
 
 	return (
 		<ReactModal

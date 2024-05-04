@@ -43,65 +43,36 @@ const md5Hist = {} as Record<string, string>;
 
 function App(): JSX.Element {
 	const dispatch = useAppDispatch();
-
-	const [encoding, setEncoding] = useState<string>("base64");
-	const [text, setText] = useState<string>("");
-
 	const fileInput = createRef<HTMLInputElement>();
+	const params = Object.fromEntries(
+		new URLSearchParams(window.location.search).entries(),
+	) as Record<string, string | undefined>;
 
 	const encodingOptions: Option[] = [
-		{
-			text: "Base64",
-			value: "base64",
-		},
-		{
-			text: t("binary"),
-			value: "binary",
-		},
-		{
-			text: t("charCode"),
-			value: "charcode",
-		},
-		{
-			text: t("coreValues"),
-			value: "corevalues",
-		},
-		{
-			text: "Data URL",
-			value: "dataurl",
-		},
-		{
-			text: t("htmlDecimal"),
-			value: "htmldecimal",
-		},
-		{
-			text: t("htmlEntities"),
-			value: "htmlentities",
-		},
-		{
-			text: "MD5",
-			value: "md5",
-		},
-		{
-			text: t("morseCode"),
-			value: "morse",
-		},
-		{
-			text: t("qrCode"),
-			value: "qrcode",
-		},
-		{
-			text: "Unicode",
-			value: "unicode",
-		},
-		{
-			text: "URI Component",
-			value: "uricomponent",
-		},
+		{ text: "Base64", value: "base64" },
+		{ text: t("binary"), value: "binary" },
+		{ text: t("charCode"), value: "charcode" },
+		{ text: t("coreValues"), value: "corevalues" },
+		{ text: "Data URL", value: "dataurl" },
+		{ text: t("htmlDecimal"), value: "htmldecimal" },
+		{ text: t("htmlEntities"), value: "htmlentities" },
+		{ text: "MD5", value: "md5" },
+		{ text: t("morseCode"), value: "morse" },
+		{ text: t("qrCode"), value: "qrcode" },
+		{ text: "Unicode", value: "unicode" },
+		{ text: "URI Component", value: "uricomponent" },
 	];
 	encodingOptions.sort((a, b) => {
 		return a.text.localeCompare(b.text);
 	});
+
+	const [encoding, setEncoding] = useState<string>((
+		params.encoding &&
+		encodingOptions.some((option) => {
+			return option.value === params.encoding;
+		})
+	) ? params.encoding : "base64");
+	const [text, setText] = useState<string>("");
 
 	const checkIfTextEmpty = (): boolean => {
 		if (!text) {
@@ -164,7 +135,7 @@ function App(): JSX.Element {
 				decoded = decodeHtmlEntities(decoded);
 			}
 			setText(decoded);
-		} catch (error: unknown) {
+		} catch (error) {
 			if (error instanceof Error) {
 				console.error(error);
 				dispatch(setAlertMessage({
@@ -175,7 +146,7 @@ function App(): JSX.Element {
 		}
 	};
 
-	const encode = (): void => {
+	const encode = async (): Promise<void> => {
 		if (encoding === "dataurl") {
 			if (text) {
 				setText("data:text/plain;base64," + encodeBase64(text));
@@ -188,58 +159,58 @@ function App(): JSX.Element {
 			return;
 		}
 		switch (encoding) {
-			case "base64":
+			case "base64": {
 				setText(encodeBase64(text));
-				break;
-			case "binary":
+			} break;
+			case "binary": {
 				setText(encodeBinary(text));
-				break;
-			case "charcode":
+			} break;
+			case "charcode": {
 				setText(encodeCharCode(text));
-				break;
-			case "corevalues":
+			} break;
+			case "corevalues": {
 				setText(encodeCoreValues(text));
-				break;
-			case "htmldecimal":
+			} break;
+			case "htmldecimal": {
 				setText(encodeHtmlDecimal(text));
-				break;
-			case "htmlentities":
+			} break;
+			case "htmlentities": {
 				setText(encodeHtmlEntities(text));
-				break;
-			case "md5":
-				((): void => {
-					const md5Value = md5(text);
-					md5Hist[md5Value] = text;
-					setText(md5Value);
-				})();
-				break;
-			case "morse":
+			} break;
+			case "md5": {
+				const md5Value = md5(text);
+				md5Hist[md5Value] = text;
+				setText(md5Value);
+			} break;
+			case "morse": {
 				setText(encodeMorse(text));
-				break;
-			case "qrcode":
-				QRCode.toDataURL(text, {
-					margin: 2,
-				}).then((url) => {
+			} break;
+			case "qrcode": {
+				try {
+					const url = await QRCode.toDataURL(text, {
+						margin: 2,
+					});
 					dispatch(setImageInfo({
 						alt: t("qrCode"),
 						src: url,
 					}));
-				}).catch((error: Error) => {
-					console.error(error);
-					dispatch(setAlertMessage({
-						text: error.message,
-						title: t("error"),
-					}));
-				});
-				break;
-			case "unicode":
+				} catch (error) {
+					if (error instanceof Error) {
+						console.error(error);
+						dispatch(setAlertMessage({
+							text: error.message,
+							title: t("error"),
+						}));
+					}
+				}
+			} break;
+			case "unicode": {
 				setText(encodeUnicode(text));
-				break;
-			case "uricomponent":
+			} break;
+			case "uricomponent": {
 				setText(encodeURIComponent(text));
-				break;
-			default:
-				break;
+			} break;
+			default: break;
 		}
 	};
 
@@ -255,6 +226,10 @@ function App(): JSX.Element {
 		newA.click();
 	};
 
+	const handleEncodeClick = (): void => {
+		void encode();
+	};
+
 	const handleTextChange = (
 		event: ChangeEvent<HTMLTextAreaElement>,
 	): void => {
@@ -266,24 +241,23 @@ function App(): JSX.Element {
 	): void => {
 		if (event.ctrlKey || event.metaKey) {
 			switch (event.key) {
-				case "Enter":
+				case "Enter": {
 					event.preventDefault();
 					if (event.shiftKey) {
 						decode();
 					} else {
-						encode();
+						void encode();
 					}
-					break;
-				case "o":
+				} break;
+				case "o": {
 					event.preventDefault();
 					openLocalFile();
-					break;
-				case "s":
+				} break;
+				case "s": {
 					event.preventDefault();
 					exportAsFile();
-					break;
-				default:
-					break;
+				} break;
+				default: break;
 			}
 		}
 	};
@@ -303,6 +277,7 @@ function App(): JSX.Element {
 
 	const updateEncoding = (newValue: string): void => {
 		setEncoding(newValue);
+		window.history.replaceState(null, "", `?encoding=${newValue}`);
 	};
 
 	const updateText = (newValue: string): void => {
@@ -343,7 +318,7 @@ function App(): JSX.Element {
 				<button
 					className="default-btn"
 					type="button"
-					onClick={encode}
+					onClick={handleEncodeClick}
 				>
 					{t("encode")}
 				</button>

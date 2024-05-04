@@ -4,12 +4,11 @@ export function handleKeyboardClick(
 	return (event: KeyboardEvent | React.KeyboardEvent<Element>): void => {
 		switch (event.key) {
 			case "Enter":
-			case " ":
+			case " ": {
 				onClick();
 				event.preventDefault();
-				break;
-			default:
-				break;
+			} break;
+			default: break;
 		}
 	};
 }

@@ -32,7 +32,6 @@ export default defineConfig({
 		react(),
 		VitePWA({
 			manifest: {
-				// eslint-disable-next-line max-len
 				description: "Encoder is a web-based tool that allows you to easily encode text into various formats, including base64, binary, MD5, Morse code, QR code, Unicode, URI Component, and more.",
 				icons: [{
 					purpose: "any",
@@ -43,7 +42,7 @@ export default defineConfig({
 				id: "/",
 				name: "Encoder",
 				short_name: "Encoder",
-				theme_color: "#0066cc",
+				theme_color: "#006fee",
 			},
 			registerType: "autoUpdate",
 		}),

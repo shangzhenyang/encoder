@@ -1,6 +1,5 @@
 import { useAppDispatch } from "@/redux/hooks";
 import { setAlertMessage } from "@/redux/reducers/app";
-import { handleKeyboardClick } from "@/utils";
 import {
 	faBars,
 	faCircleInfo,
@@ -19,6 +18,7 @@ import {
 	DropdownTrigger,
 } from "@nextui-org/react";
 import { t } from "i18next";
+import { Key } from "react";
 
 interface MenuProps {
 	exportAsFile: () => void;
@@ -33,62 +33,58 @@ function Menu({
 
 	const isMac = navigator.userAgent.includes("Macintosh");
 
+	const actions: Record<string, () => void> = {
+		about: (): void => {
+			dispatch(setAlertMessage({
+				text: "Developed by Shangzhen Yang.",
+				title: t("about"),
+			}));
+		},
+		authorsPortfolio: (): void => {
+			window.open("https://www.yangshangzhen.com/");
+		},
+		exportAsFile: exportAsFile,
+		importFromLocalFile: openLocalFile,
+		starOnGithub: (): void => {
+			window.open("https://github.com/shangzhenyang/encoder");
+		},
+	};
 	const menuItems = [
 		[
 			{
 				icon: faFolderOpen,
-				onClick: (): void => {
-					openLocalFile();
-				},
+				id: "importFromLocalFile",
 				shortcut: isMac ? "⌘O" : "Ctrl+O",
-				title: t("importFromLocalFile"),
 			},
 			{
 				icon: faDownload,
-				onClick: (): void => {
-					exportAsFile();
-				},
+				id: "exportAsFile",
 				shortcut: isMac ? "⌘S" : "Ctrl+S",
-				title: t("exportAsFile"),
 			},
 		],
 		[
 			{
 				icon: faStar,
-				onClick: (): void => {
-					window.open("https://github.com/shangzhenyang/encoder");
-				},
+				id: "starOnGithub",
 				shortcut: null,
-				title: t("starOnGithub"),
 			},
 			{
 				icon: faUser,
-				onClick: (): void => {
-					window.open("https://www.yangshangzhen.com/");
-				},
+				id: "authorsPortfolio",
 				shortcut: null,
-				title: t("authorsPortfolio"),
 			},
 			{
 				icon: faCircleInfo,
-				onClick: (): void => {
-					dispatch(setAlertMessage({
-						text: "Developed by Shangzhen Yang.",
-						title: t("about"),
-					}));
-				},
+				id: "about",
 				shortcut: null,
-				title: t("about"),
 			},
 		],
 	];
 	const sectionElements = menuItems.map((items, index) => {
-		const itemElements = items.map(({ shortcut, title, icon, onClick }) => {
+		const itemElements = items.map(({ icon, id, shortcut }) => {
 			return (
 				<DropdownItem
-					key={title}
-					onClick={onClick}
-					onKeyDown={handleKeyboardClick(onClick)}
+					key={id}
 					shortcut={shortcut}
 					startContent={
 						<FontAwesomeIcon
@@ -97,9 +93,9 @@ function Menu({
 							aria-label="icon"
 						/>
 					}
-					textValue={title}
+					textValue={t(id)}
 				>
-					<span>{title}</span>
+					<span>{t(id)}</span>
 				</DropdownItem>
 			);
 		});
@@ -114,6 +110,10 @@ function Menu({
 		);
 	});
 
+	const handleMenuAction = (key: Key): void => {
+		actions[key as string]?.();
+	};
+
 	return (
 		<Dropdown>
 			<DropdownTrigger>
@@ -121,7 +121,11 @@ function Menu({
 					<FontAwesomeIcon icon={faBars} size="xl" />
 				</Button>
 			</DropdownTrigger>
-			<DropdownMenu className="pt-3" aria-label={t("menu")}>
+			<DropdownMenu
+				aria-label={t("menu")}
+				className="pt-3"
+				onAction={handleMenuAction}
+			>
 				{sectionElements}
 			</DropdownMenu>
 		</Dropdown>

@@ -13,8 +13,6 @@ function ImageViewer(): JSX.Element {
 		dispatch(setImageInfo({}));
 	};
 
-	console.log("imageInfo", imageInfo);
-
 	return (
 		<Modal
 			className="w-fit min-w-48"

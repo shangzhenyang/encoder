@@ -31,6 +31,8 @@ function Menu({
 }: MenuProps): JSX.Element {
 	const dispatch = useAppDispatch();
 
+	const isIos = navigator.userAgent.includes("iPhone") ||
+		navigator.userAgent.includes("iPad");
 	const isMac = navigator.userAgent.includes("Macintosh");
 
 	const actions: Record<string, () => void> = {
@@ -54,12 +56,12 @@ function Menu({
 			{
 				icon: faFolderOpen,
 				id: "importFromLocalFile",
-				shortcut: isMac ? "⌘O" : "Ctrl+O",
+				shortcut: (isIos || isMac) ? "⌘O" : "Ctrl+O",
 			},
 			{
 				icon: faDownload,
 				id: "exportAsFile",
-				shortcut: isMac ? "⌘S" : "Ctrl+S",
+				shortcut: (isIos || isMac) ? "⌘S" : "Ctrl+S",
 			},
 		],
 		[

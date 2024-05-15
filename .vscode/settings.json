@@ -2,6 +2,7 @@
 	"css.lint.duplicateProperties": "error",
 	"css.lint.idSelector": "error",
 	"css.lint.importStatement": "error",
+	"css.lint.unknownAtRules": "ignore",
 	"css.lint.zeroUnits": "warning",
 	"editor.codeActionsOnSave": {
 		"source.addMissingImports": "always",
@@ -11,6 +12,9 @@
 	"editor.formatOnSave": true,
 	"editor.formatOnType": true,
 	"editor.insertSpaces": false,
+	"editor.quickSuggestions": {
+		"strings": "on"
+	},
 	"editor.rulers": [ 80 ],
 	"editor.tabSize": 4,
 	"files.eol": "\n",

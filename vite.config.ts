@@ -1,5 +1,4 @@
 import react from "@vitejs/plugin-react";
-import autoprefixer from "autoprefixer";
 import { fileURLToPath, URL } from "node:url";
 import { defineConfig } from "vite";
 import { VitePWA } from "vite-plugin-pwa";
@@ -12,6 +11,12 @@ export default defineConfig({
 					if (id.includes("fortawesome")) {
 						return "icons";
 					}
+					if (id.includes("framer-motion")) {
+						return "framer-motion";
+					}
+					if (id.includes("nextui")) {
+						return "nextui";
+					}
 					if (id.includes("node_modules")) {
 						return "vendors";
 					}
@@ -22,11 +27,6 @@ export default defineConfig({
 			},
 		},
 		target: "esnext",
-	},
-	css: {
-		postcss: {
-			plugins: [autoprefixer],
-		},
 	},
 	plugins: [
 		react(),

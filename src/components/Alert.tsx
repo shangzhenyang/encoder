@@ -1,10 +1,16 @@
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { setAlertMessage } from "@/redux/reducers/app";
-import styles from "@/styles/Alert.module.css";
-import classNames from "classnames";
+import { handleKeyboardClick } from "@/utils";
+import {
+	Button,
+	Modal,
+	ModalBody,
+	ModalContent,
+	ModalFooter,
+	ModalHeader,
+} from "@nextui-org/react";
 import { t } from "i18next";
 import { useCallback, useEffect } from "react";
-import ReactModal from "react-modal";
 
 function Alert(): JSX.Element {
 	const dispatch = useAppDispatch();
@@ -17,38 +23,43 @@ function Alert(): JSX.Element {
 	}, [dispatch]);
 
 	useEffect(() => {
-		const onKeyDown = (event: KeyboardEvent): void => {
+		const handleKeyDown = (event: KeyboardEvent): void => {
 			if (event.key === "Enter") {
 				closeDialog();
 			}
 		};
 		if (alertMessage) {
-			document.addEventListener("keydown", onKeyDown);
+			document.addEventListener("keydown", handleKeyDown);
 		} else {
-			document.removeEventListener("keydown", onKeyDown);
+			document.removeEventListener("keydown", handleKeyDown);
 		}
 	}, [alertMessage, closeDialog]);
 
 	return (
-		<ReactModal
+		<Modal
+			className="px-6 py-4"
 			isOpen={!!alertMessage.text}
-			className={classNames("popup", styles["alert"])}
-			overlayClassName="mask"
-			onRequestClose={closeDialog}
-			shouldCloseOnOverlayClick={true}
+			hideCloseButton={true}
+			onClose={closeDialog}
 		>
-			<h1>{alertMessage.title || t("tip")}</h1>
-			<p>{alertMessage.text}</p>
-			<div className={styles["btn-bar"]}>
-				<button
-					className="default-btn"
-					type="button"
-					onClick={closeDialog}
-				>
-					{t("ok")}
-				</button>
-			</div>
-		</ReactModal>
+			<ModalContent>
+				<ModalHeader className="p-0">
+					{alertMessage.title || t("tip")}
+				</ModalHeader>
+				<ModalBody className="px-0">
+					{alertMessage.text}
+				</ModalBody>
+				<ModalFooter className="p-0">
+					<Button
+						color="primary"
+						onClick={closeDialog}
+						onKeyDown={handleKeyboardClick(closeDialog)}
+					>
+						{t("ok")}
+					</Button>
+				</ModalFooter>
+			</ModalContent>
+		</Modal>
 	);
 }
 

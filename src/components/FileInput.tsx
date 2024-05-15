@@ -36,10 +36,11 @@ function FileInput(
 
 	return (
 		<input
-			ref={ref}
 			accept="image/*,text/*"
-			type="file"
+			hidden
 			onChange={handleFileChange}
+			ref={ref}
+			type="file"
 		/>
 	);
 }

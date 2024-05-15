@@ -1,11 +1,7 @@
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { setImageInfo } from "@/redux/reducers/app";
-import styles from "@/styles/ImageViewer.module.css";
-import { faClose } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import classNames from "classnames";
+import { Modal, ModalBody, ModalContent, ModalHeader } from "@nextui-org/react";
 import { t } from "i18next";
-import ReactModal from "react-modal";
 
 function ImageViewer(): JSX.Element {
 	const dispatch = useAppDispatch();
@@ -17,27 +13,23 @@ function ImageViewer(): JSX.Element {
 		dispatch(setImageInfo({}));
 	};
 
+	console.log("imageInfo", imageInfo);
+
 	return (
-		<ReactModal
+		<Modal
+			className="w-fit min-w-48"
 			isOpen={!!imageInfo.src}
-			className={classNames("popup", styles["image-viewer"])}
-			overlayClassName="mask"
-			onRequestClose={closeDialog}
-			shouldCloseOnOverlayClick={true}
+			onClose={closeDialog}
 		>
-			<header>
-				<h1>{t("imageViewer")}</h1>
-				<FontAwesomeIcon
-					icon={faClose}
-					size="lg"
-					role="button"
-					tabIndex={0}
-					title={t("close").toString()}
-					onClick={closeDialog}
-				/>
-			</header>
-			<img src={imageInfo.src} alt={imageInfo.alt} />
-		</ReactModal>
+			<ModalContent>
+				<ModalHeader>
+					{t("imageViewer")}
+				</ModalHeader>
+				<ModalBody className="pb-6 pt-0">
+					<img src={imageInfo.src} alt={imageInfo.alt} />
+				</ModalBody>
+			</ModalContent>
+		</Modal>
 	);
 }
 

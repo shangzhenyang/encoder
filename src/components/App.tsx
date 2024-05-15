@@ -1,8 +1,8 @@
 import Alert from "@/components/Alert";
-import DropDown from "@/components/DropDown";
 import FileInput from "@/components/FileInput";
 import ImageViewer from "@/components/ImageViewer";
 import Menu from "@/components/Menu";
+import Selector from "@/components/Selector";
 import { decodeBase64, encodeBase64 } from "@/encodings/base64";
 import { decodeBinary, encodeBinary } from "@/encodings/binary";
 import { decodeCharCode, encodeCharCode } from "@/encodings/char-code";
@@ -24,26 +24,18 @@ import {
 import { decodeUnicode, encodeUnicode } from "@/encodings/unicode";
 import { useAppDispatch } from "@/redux/hooks";
 import { setAlertMessage, setImageInfo } from "@/redux/reducers/app";
-import styles from "@/styles/App.module.css";
 import { Option } from "@/types";
+import { handleKeyboardClick } from "@/utils";
+import { Button } from "@nextui-org/react";
 import { t } from "i18next";
 import md5 from "md5";
 import QRCode from "qrcode";
-import {
-	ChangeEvent,
-	KeyboardEvent,
-	createRef,
-	useEffect,
-	useState,
-} from "react";
+import { ChangeEvent, useEffect, useRef, useState } from "react";
 import ReactGA from "react-ga4";
 import { decode as decodeMorse, encode as encodeMorse } from "xmorse";
 
-const md5Hist = {} as Record<string, string>;
-
 function App(): JSX.Element {
 	const dispatch = useAppDispatch();
-	const fileInput = createRef<HTMLInputElement>();
 	const params = Object.fromEntries(
 		new URLSearchParams(window.location.search).entries(),
 	) as Record<string, string | undefined>;
@@ -74,6 +66,9 @@ function App(): JSX.Element {
 	) ? params.encoding : "base64");
 	const [text, setText] = useState<string>("");
 
+	const fileInput = useRef<HTMLInputElement>(null);
+	const md5History = useRef<Record<string, string>>({});
+
 	const checkIfTextEmpty = (): boolean => {
 		if (!text) {
 			dispatch(setAlertMessage({
@@ -103,8 +98,8 @@ function App(): JSX.Element {
 			} else if (isOnly(/\.|-|\/|\s/, decoded)) {
 				decoded = decodeMorse(decoded.replaceAll(" ", "/"));
 			} else if (!decoded.includes(" ")) {
-				if (md5Hist[decoded]) {
-					decoded = md5Hist[decoded];
+				if (md5History.current[decoded]) {
+					decoded = md5History.current[decoded];
 					dispatch(setAlertMessage({
 						text: t("md5CannotBeDecoded"),
 					}));
@@ -179,7 +174,7 @@ function App(): JSX.Element {
 			} break;
 			case "md5": {
 				const md5Value = md5(text);
-				md5Hist[md5Value] = text;
+				md5History.current[md5Value] = text;
 				setText(md5Value);
 			} break;
 			case "morse": {
@@ -236,32 +231,6 @@ function App(): JSX.Element {
 		setText(event.target.value);
 	};
 
-	const handleTextKeyDown = (
-		event: KeyboardEvent<HTMLTextAreaElement>,
-	): void => {
-		if (event.ctrlKey || event.metaKey) {
-			switch (event.key) {
-				case "Enter": {
-					event.preventDefault();
-					if (event.shiftKey) {
-						decode();
-					} else {
-						void encode();
-					}
-				} break;
-				case "o": {
-					event.preventDefault();
-					openLocalFile();
-				} break;
-				case "s": {
-					event.preventDefault();
-					exportAsFile();
-				} break;
-				default: break;
-			}
-		}
-	};
-
 	const isOnly = (regExp: RegExp, str: string): boolean => {
 		for (let i = 0; i < str.length; i++) {
 			if (!regExp.test(str[i])) {
@@ -291,44 +260,81 @@ function App(): JSX.Element {
 		}, 1000);
 	}, []);
 
+	useEffect(() => {
+		const handleKeyDown = (event: KeyboardEvent): void => {
+			if (event.ctrlKey || event.metaKey) {
+				switch (event.key) {
+					case "Enter": {
+						event.preventDefault();
+						if (event.shiftKey) {
+							decode();
+						} else {
+							void encode();
+						}
+					} break;
+					case "o": {
+						event.preventDefault();
+						openLocalFile();
+					} break;
+					case "s": {
+						event.preventDefault();
+						exportAsFile();
+					} break;
+					default: break;
+				}
+			}
+		};
+
+		document.addEventListener("keydown", handleKeyDown);
+
+		return (): void => {
+			document.removeEventListener("keydown", handleKeyDown);
+		};
+	});
+
 	return (
-		<div className={styles["App"]}>
-			<header>
-				<h1>{t("encoder")}</h1>
+		<div className="flex flex-col h-full pb-11 px-[10%]">
+			<header className="flex items-center justify-between gap-2.5 my-8">
+				<h1 className="text-3xl font-thin">
+					{t("encoder")}
+				</h1>
 				<Menu
 					exportAsFile={exportAsFile}
 					openLocalFile={openLocalFile}
 				/>
 			</header>
 			<textarea
-				className={styles["text-area"]}
-				placeholder={t("enterText").toString()}
-				value={text}
+				aria-label={t("text")}
+				className="appearance-none text-inherit block h-full resize-none w-full mx-auto my-0 px-4 py-2.5 rounded-medium bg-default-100 shadow-sm"
 				onChange={handleTextChange}
-				onKeyDown={handleTextKeyDown}
+				placeholder={t("enterText")}
+				value={text}
 			></textarea>
-			<div className={styles["control-bar"]}>
-				<DropDown
+			<div className="flex flex-col md:flex-row items-center gap-2.5 mt-4">
+				<Selector
 					id="encoding-selector"
 					label={t("encoding")}
 					options={encodingOptions}
 					value={encoding}
 					updateValue={updateEncoding}
 				/>
-				<button
-					className="default-btn"
-					type="button"
+				<Button
+					className="w-full md:h-full md:w-auto px-11"
+					color="primary"
 					onClick={handleEncodeClick}
+					onKeyDown={handleKeyboardClick(handleEncodeClick)}
+					size="lg"
 				>
 					{t("encode")}
-				</button>
-				<button
-					className={styles["regular-btn"]}
-					type="button"
+				</Button>
+				<Button
+					className="w-full md:h-full md:w-auto px-11"
 					onClick={decode}
+					onKeyDown={handleKeyboardClick(decode)}
+					size="lg"
 				>
 					{t("decode")}
-				</button>
+				</Button>
 			</div>
 			<FileInput
 				ref={fileInput}

@@ -1,133 +1,20 @@
-:root {
-	--bg-body: white;
-	--bg-popup: white;
-	--fg-alpha-1: rgba(0, 0, 0, .1);
-	--fg-alpha-2: rgba(0, 0, 0, .2);
-	--theme-color: rgb(0, 102, 204);
-}
-
-* {
-	box-sizing: border-box;
-}
-
-*:focus:not(:focus-visible) {
-	outline: none;
-}
-
-*:focus-visible {
-	outline: 2px solid var(--fg-alpha-2);
-}
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 body {
-	background-color: var(--bg-body);
 	cursor: default;
-	font-family: Helvetica, "PingFang SC", "Microsoft YaHei", sans-serif;
 	height: 100%;
-	margin: 0;
-	-webkit-tap-highlight-color: transparent;
-	text-size-adjust: 100%;
 	user-select: none;
 }
 
-button {
-	background-color: transparent;
-	border: 1px solid var(--fg-alpha-2);
-	border-radius: 5px;
-	color: inherit;
-	cursor: pointer;
-	font-size: 18px;
-	padding: 10px 45px;
-	transition: all .25s;
-}
-
 html,
-#root {
+.root,
+.root>div {
 	height: 100%;
 }
 
-header {
-	align-items: center;
-	display: flex;
-	gap: 10px;
-	justify-content: space-between;
-}
-
-h1 {
-	font-family: sans-serif;
-	font-weight: lighter;
-	margin: 0;
-	text-transform: uppercase;
-}
-
-input[type=file] {
-	display: none;
-}
-
-svg[role=button] {
-	cursor: pointer;
-	padding: 5px;
-	transition: opacity .25s;
-}
-
-svg[role=button]:hover,
-.default-btn:hover {
-	opacity: .75;
-}
-
-svg[role=button]:active,
-.default-btn:active {
-	opacity: .5;
-}
-
-.default-btn {
-	background-color: var(--theme-color);
-	color: white;
-}
-
-.mask {
-	animation: fadeIn .25s;
-	background-color: rgba(0, 0, 0, .1);
-	display: flex;
-	height: 100%;
-	left: 0;
-	position: fixed;
-	top: 0;
-	width: 100%;
-}
-
-.popup {
-	animation: fadeIn .25s;
-	background-color: var(--bg-popup);
-	border-radius: 5px;
-	box-shadow: 0 0 5px rgba(0, 0, 0, .5);
-	margin: auto;
-	transition: all .25s;
-}
-
-.popup h1 {
-	font-size: 20px;
-}
-
-@keyframes fadeIn {
-	from {
-		opacity: 0;
-	}
-
-	to {
-		opacity: 1;
-	}
-}
-
-@media (prefers-color-scheme: dark) {
-	:root {
-		--bg-body: rgb(30, 30, 30);
-		--bg-popup: black;
-		--fg-alpha-1: rgba(255, 255, 255, .1);
-		--fg-alpha-2: rgba(255, 255, 255, .2);
-		color-scheme: dark;
-	}
-
-	body {
-		color: whitesmoke;
-	}
+textarea:focus-visible {
+	outline: 2px solid hsl(var(--nextui-focus) / var(--nextui-focus-opacity, 1));
+	outline-offset: 2px;
 }

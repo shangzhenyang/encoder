@@ -1,4 +1,5 @@
 import Alert from "@/components/Alert";
+import Analytics from "@/components/Analytics";
 import FileInput from "@/components/FileInput";
 import ImageViewer from "@/components/ImageViewer";
 import Menu from "@/components/Menu";
@@ -31,7 +32,6 @@ import { t } from "i18next";
 import md5 from "md5";
 import QRCode from "qrcode";
 import { ChangeEvent, useEffect, useRef, useState } from "react";
-import ReactGA from "react-ga4";
 import { decode as decodeMorse, encode as encodeMorse } from "xmorse";
 
 function App(): JSX.Element {
@@ -254,13 +254,6 @@ function App(): JSX.Element {
 	};
 
 	useEffect(() => {
-		setTimeout(() => {
-			ReactGA.initialize("G-H0PC8ZZ7BN");
-			ReactGA.send("pageview");
-		}, 1000);
-	}, []);
-
-	useEffect(() => {
 		const handleKeyDown = (event: KeyboardEvent): void => {
 			if (event.ctrlKey || event.metaKey) {
 				switch (event.key) {
@@ -342,6 +335,7 @@ function App(): JSX.Element {
 			/>
 			<ImageViewer />
 			<Alert />
+			<Analytics />
 		</div>
 	);
 }

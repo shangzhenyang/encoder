@@ -46,9 +46,7 @@ function Alert(): JSX.Element {
 				<ModalHeader className="p-0">
 					{alertMessage.title || t("tip")}
 				</ModalHeader>
-				<ModalBody className="px-0">
-					{alertMessage.text}
-				</ModalBody>
+				<ModalBody className="px-0">{alertMessage.text}</ModalBody>
 				<ModalFooter className="p-0">
 					<Button
 						color="primary"

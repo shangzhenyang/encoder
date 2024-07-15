@@ -10,7 +10,7 @@ body {
 
 html,
 .root,
-.root>div {
+.root > div {
 	height: 100%;
 }
 

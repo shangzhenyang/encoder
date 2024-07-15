@@ -20,11 +20,12 @@ function ImageViewer(): JSX.Element {
 			onClose={closeDialog}
 		>
 			<ModalContent>
-				<ModalHeader>
-					{t("imageViewer")}
-				</ModalHeader>
+				<ModalHeader>{t("imageViewer")}</ModalHeader>
 				<ModalBody className="pb-6 pt-0">
-					<img src={imageInfo.src} alt={imageInfo.alt} />
+					<img
+						src={imageInfo.src}
+						alt={imageInfo.alt}
+					/>
 				</ModalBody>
 			</ModalContent>
 		</Modal>

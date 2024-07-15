@@ -2,36 +2,32 @@
 	"css.lint.duplicateProperties": "error",
 	"css.lint.idSelector": "error",
 	"css.lint.importStatement": "error",
-	"css.lint.unknownAtRules": "ignore",
 	"css.lint.zeroUnits": "warning",
 	"editor.codeActionsOnSave": {
 		"source.addMissingImports": "always",
-		"source.fixAll": "always",
 		"source.organizeImports": "always"
 	},
+	"editor.defaultFormatter": "esbenp.prettier-vscode",
 	"editor.formatOnSave": true,
 	"editor.formatOnType": true,
 	"editor.insertSpaces": false,
-	"editor.quickSuggestions": {
-		"strings": "on"
-	},
-	"editor.rulers": [ 80 ],
+	"editor.rulers": [80],
 	"editor.tabSize": 4,
 	"files.eol": "\n",
 	"files.insertFinalNewline": true,
 	"files.trimFinalNewlines": true,
 	"files.trimTrailingWhitespace": true,
 	"html.format.wrapLineLength": 0,
-	"json.format.keepLines": true,
 	"json.validate.enable": false,
-	"typescript.format.semicolons": "insert",
 	"typescript.preferences.importModuleSpecifier": "non-relative",
-	"typescript.preferences.quoteStyle": "double",
 	"typescript.updateImportsOnFileMove.enabled": "always",
+	"[html]": {
+		"editor.defaultFormatter": "vscode.html-language-features"
+	},
 	"[typescript]": {
-		"editor.defaultFormatter": "vscode.typescript-language-features"
+		"editor.defaultFormatter": "esbenp.prettier-vscode"
 	},
 	"[typescriptreact]": {
-		"editor.defaultFormatter": "vscode.typescript-language-features"
+		"editor.defaultFormatter": "esbenp.prettier-vscode"
 	}
 }

@@ -5,9 +5,12 @@ export function decodeHtmlDecimal(str: string): string {
 }
 
 export function encodeHtmlDecimal(str: string): string {
-	return str.split("").map((char) => {
-		return `&#${char.charCodeAt(0)};`;
-	}).join("");
+	return str
+		.split("")
+		.map((char) => {
+			return `&#${char.charCodeAt(0)};`;
+		})
+		.join("");
 }
 
 export function isHtmlDecimalEncoded(str: string): boolean {

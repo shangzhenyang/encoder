@@ -25,22 +25,22 @@ interface MenuProps {
 	openLocalFile: () => void;
 }
 
-function Menu({
-	exportAsFile,
-	openLocalFile,
-}: MenuProps): JSX.Element {
+function Menu({ exportAsFile, openLocalFile }: MenuProps): JSX.Element {
 	const dispatch = useAppDispatch();
 
-	const isIos = navigator.userAgent.includes("iPhone") ||
+	const isIos =
+		navigator.userAgent.includes("iPhone") ||
 		navigator.userAgent.includes("iPad");
 	const isMac = navigator.userAgent.includes("Macintosh");
 
 	const actions: Record<string, () => void> = {
 		about: (): void => {
-			dispatch(setAlertMessage({
-				text: "Developed by Shangzhen Yang.",
-				title: t("about"),
-			}));
+			dispatch(
+				setAlertMessage({
+					text: "Developed by Shangzhen Yang.",
+					title: t("about"),
+				}),
+			);
 		},
 		authorsPortfolio: (): void => {
 			window.open("https://www.yangshangzhen.com/");
@@ -56,12 +56,12 @@ function Menu({
 			{
 				icon: faFolderOpen,
 				id: "importFromLocalFile",
-				shortcut: (isIos || isMac) ? "⌘O" : "Ctrl+O",
+				shortcut: isIos || isMac ? "⌘O" : "Ctrl+O",
 			},
 			{
 				icon: faDownload,
 				id: "exportAsFile",
-				shortcut: (isIos || isMac) ? "⌘S" : "Ctrl+S",
+				shortcut: isIos || isMac ? "⌘S" : "Ctrl+S",
 			},
 		],
 		[
@@ -120,7 +120,10 @@ function Menu({
 		<Dropdown>
 			<DropdownTrigger>
 				<Button>
-					<FontAwesomeIcon icon={faBars} size="xl" />
+					<FontAwesomeIcon
+						icon={faBars}
+						size="xl"
+					/>
 				</Button>
 			</DropdownTrigger>
 			<DropdownMenu

@@ -6,7 +6,7 @@ interface SelectorProps {
 	id: string;
 	label: string;
 	options: Option[];
-	value: string;
+	values: string[];
 	updateValue: (newValue: string) => void;
 }
 
@@ -14,23 +14,32 @@ function Selector({
 	id,
 	label,
 	options,
-	value,
+	values,
 	updateValue,
 }: SelectorProps): JSX.Element {
 	const handleChange = (event: ChangeEvent<HTMLSelectElement>): void => {
+		if (!event.target.value) {
+			return;
+		}
 		updateValue(event.target.value);
 	};
 
 	const optionElements = options.map(({ text, value }) => {
-		return <SelectItem key={value} value={value}>{text}</SelectItem>;
+		return (
+			<SelectItem
+				key={value}
+				value={value}
+			>
+				{text}
+			</SelectItem>
+		);
 	});
 
 	return (
 		<Select
-			defaultSelectedKeys={[value]}
 			id={id}
 			label={label}
-			value={value}
+			selectedKeys={values}
 			onChange={handleChange}
 		>
 			{optionElements}

@@ -4,23 +4,23 @@ Encoder is a free and easy-to-use tool for encoding text into various formats, i
 
 ## Features
 
-- Encode text into a variety of formats
-- Simple and clean user interface
-- Multilingual support with automatic language detection
-- No installation required, simply visit the website to use the tool
-- PWA functionality allows for offline use
+-   Encode text into a variety of formats
+-   Simple and clean user interface
+-   Multilingual support with automatic language detection
+-   No installation required, simply visit the website to use the tool
+-   PWA functionality allows for offline use
 
 ## Supported Formats
 
-- Base64
-- Binary
-- QR Code
-- Core Values
-- Morse Code
-- Data URL
-- MD5
-- Unicode
-- URI Component
+-   Base64
+-   Binary
+-   QR Code
+-   Core Values
+-   Morse Code
+-   Data URL
+-   MD5
+-   Unicode
+-   URI Component
 
 ## License
 

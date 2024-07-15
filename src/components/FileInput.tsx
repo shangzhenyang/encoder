@@ -27,10 +27,12 @@ function FileInput(
 		} else if (file.type.startsWith("text/")) {
 			reader.readAsText(file);
 		} else {
-			dispatch(setAlertMessage({
-				text: t("unsupportedFileType"),
-				title: t("error"),
-			}));
+			dispatch(
+				setAlertMessage({
+					text: t("unsupportedFileType"),
+					title: t("error"),
+				}),
+			);
 		}
 	};
 

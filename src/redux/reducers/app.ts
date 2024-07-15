@@ -21,8 +21,5 @@ const slice = createSlice({
 	},
 });
 
-export const {
-	setAlertMessage,
-	setImageInfo,
-} = slice.actions;
+export const { setAlertMessage, setImageInfo } = slice.actions;
 export default slice.reducer;

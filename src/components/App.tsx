@@ -58,12 +58,14 @@ function App(): JSX.Element {
 		return a.text.localeCompare(b.text);
 	});
 
-	const [encoding, setEncoding] = useState<string>((
+	const [selectedEncodings, setSelectedEncodings] = useState<string[]>(
 		params.encoding &&
-		encodingOptions.some((option) => {
-			return option.value === params.encoding;
-		})
-	) ? params.encoding : "base64");
+			encodingOptions.some((option) => {
+				return option.value === params.encoding;
+			})
+			? [params.encoding]
+			: ["base64"],
+	);
 	const [text, setText] = useState<string>("");
 
 	const fileInput = useRef<HTMLInputElement>(null);
@@ -71,10 +73,12 @@ function App(): JSX.Element {
 
 	const checkIfTextEmpty = (): boolean => {
 		if (!text) {
-			dispatch(setAlertMessage({
-				text: t("textEmpty"),
-				title: t("error"),
-			}));
+			dispatch(
+				setAlertMessage({
+					text: t("textEmpty"),
+					title: t("error"),
+				}),
+			);
 			return true;
 		}
 		return false;
@@ -88,10 +92,12 @@ function App(): JSX.Element {
 		try {
 			if (decoded.startsWith("data:")) {
 				if (decoded.includes("image/")) {
-					dispatch(setImageInfo({
-						alt: t("decodedImage"),
-						src: decoded,
-					}));
+					dispatch(
+						setImageInfo({
+							alt: t("decodedImage"),
+							src: decoded,
+						}),
+					);
 				} else {
 					decoded = decodeBase64(decoded.split("base64,")[1]);
 				}
@@ -100,9 +106,11 @@ function App(): JSX.Element {
 			} else if (!decoded.includes(" ")) {
 				if (md5History.current[decoded]) {
 					decoded = md5History.current[decoded];
-					dispatch(setAlertMessage({
-						text: t("md5CannotBeDecoded"),
-					}));
+					dispatch(
+						setAlertMessage({
+							text: t("md5CannotBeDecoded"),
+						}),
+					);
 				} else if (isOnly(/0|1/, decoded)) {
 					decoded = decodeBinary(decoded);
 				} else if (isOnly(/\d/, decoded)) {
@@ -133,16 +141,18 @@ function App(): JSX.Element {
 		} catch (error) {
 			if (error instanceof Error) {
 				console.error(error);
-				dispatch(setAlertMessage({
-					text: error.message,
-					title: t("error"),
-				}));
+				dispatch(
+					setAlertMessage({
+						text: error.message,
+						title: t("error"),
+					}),
+				);
 			}
 		}
 	};
 
 	const encode = async (): Promise<void> => {
-		if (encoding === "dataurl") {
+		if (selectedEncodings[0] === "dataurl") {
 			if (text) {
 				setText("data:text/plain;base64," + encodeBase64(text));
 			} else {
@@ -153,59 +163,75 @@ function App(): JSX.Element {
 		if (checkIfTextEmpty()) {
 			return;
 		}
-		switch (encoding) {
+		switch (selectedEncodings[0]) {
 			case "base64": {
 				setText(encodeBase64(text));
-			} break;
+				break;
+			}
 			case "binary": {
 				setText(encodeBinary(text));
-			} break;
+				break;
+			}
 			case "charcode": {
 				setText(encodeCharCode(text));
-			} break;
+				break;
+			}
 			case "corevalues": {
 				setText(encodeCoreValues(text));
-			} break;
+				break;
+			}
 			case "htmldecimal": {
 				setText(encodeHtmlDecimal(text));
-			} break;
+				break;
+			}
 			case "htmlentities": {
 				setText(encodeHtmlEntities(text));
-			} break;
+				break;
+			}
 			case "md5": {
 				const md5Value = md5(text);
 				md5History.current[md5Value] = text;
 				setText(md5Value);
-			} break;
+				break;
+			}
 			case "morse": {
 				setText(encodeMorse(text));
-			} break;
+				break;
+			}
 			case "qrcode": {
 				try {
 					const url = await QRCode.toDataURL(text, {
 						margin: 2,
 					});
-					dispatch(setImageInfo({
-						alt: t("qrCode"),
-						src: url,
-					}));
+					dispatch(
+						setImageInfo({
+							alt: t("qrCode"),
+							src: url,
+						}),
+					);
 				} catch (error) {
 					if (error instanceof Error) {
 						console.error(error);
-						dispatch(setAlertMessage({
-							text: error.message,
-							title: t("error"),
-						}));
+						dispatch(
+							setAlertMessage({
+								text: error.message,
+								title: t("error"),
+							}),
+						);
 					}
 				}
-			} break;
+				break;
+			}
 			case "unicode": {
 				setText(encodeUnicode(text));
-			} break;
+				break;
+			}
 			case "uricomponent": {
 				setText(encodeURIComponent(text));
-			} break;
-			default: break;
+				break;
+			}
+			default:
+				break;
 		}
 	};
 
@@ -214,9 +240,11 @@ function App(): JSX.Element {
 			return;
 		}
 		const newA = document.createElement("a");
-		newA.href = URL.createObjectURL(new Blob([text], {
-			type: "text/plain",
-		}));
+		newA.href = URL.createObjectURL(
+			new Blob([text], {
+				type: "text/plain",
+			}),
+		);
 		newA.download = "encoder.txt";
 		newA.click();
 	};
@@ -245,7 +273,7 @@ function App(): JSX.Element {
 	};
 
 	const updateEncoding = (newValue: string): void => {
-		setEncoding(newValue);
+		setSelectedEncodings([newValue]);
 		window.history.replaceState(null, "", `?encoding=${newValue}`);
 	};
 
@@ -264,16 +292,20 @@ function App(): JSX.Element {
 						} else {
 							void encode();
 						}
-					} break;
+						break;
+					}
 					case "o": {
 						event.preventDefault();
 						openLocalFile();
-					} break;
+						break;
+					}
 					case "s": {
 						event.preventDefault();
 						exportAsFile();
-					} break;
-					default: break;
+						break;
+					}
+					default:
+						break;
 				}
 			}
 		};
@@ -288,9 +320,7 @@ function App(): JSX.Element {
 	return (
 		<div className="flex flex-col h-full pb-11 px-[10%]">
 			<header className="flex items-center justify-between gap-2.5 my-8">
-				<h1 className="text-3xl font-thin">
-					{t("encoder")}
-				</h1>
+				<h1 className="text-3xl font-thin">{t("encoder")}</h1>
 				<Menu
 					exportAsFile={exportAsFile}
 					openLocalFile={openLocalFile}
@@ -308,7 +338,7 @@ function App(): JSX.Element {
 					id="encoding-selector"
 					label={t("encoding")}
 					options={encodingOptions}
-					value={encoding}
+					values={selectedEncodings}
 					updateValue={updateEncoding}
 				/>
 				<Button

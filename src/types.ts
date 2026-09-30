@@ -1,11 +1,6 @@
-export interface AlertMessage {
+export interface DialogInfo {
 	text?: string;
 	title?: string;
-}
-
-export interface ImageInfo {
-	alt?: string;
-	src?: string;
 }
 
 export interface Option {

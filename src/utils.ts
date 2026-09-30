@@ -1,16 +1,18 @@
-export function handleKeyboardClick(
-	onClick: () => void,
-): (event: KeyboardEvent | React.KeyboardEvent<Element>) => void {
-	return (event: KeyboardEvent | React.KeyboardEvent<Element>): void => {
-		switch (event.key) {
-			case "Enter":
-			case " ": {
-				onClick();
-				event.preventDefault();
-				break;
-			}
-			default:
-				break;
-		}
-	};
+import { useStore } from "@/store";
+import type { DialogInfo } from "@/types";
+
+export function closeDialog(): void {
+	useStore.setState({
+		isDialogShown: false,
+	});
+}
+
+export function showDialog(text: string, options: DialogInfo = {}): void {
+	useStore.setState({
+		dialog: {
+			...options,
+			text,
+		},
+		isDialogShown: true,
+	});
 }

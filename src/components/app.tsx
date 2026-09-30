@@ -1,9 +1,9 @@
-import Alert from "@/components/Alert";
-import Analytics from "@/components/Analytics";
-import FileInput from "@/components/FileInput";
-import ImageViewer from "@/components/ImageViewer";
-import Menu from "@/components/Menu";
-import Selector from "@/components/Selector";
+import Analytics from "@/components/analytics";
+import FileInput from "@/components/file-input";
+import ImageViewer from "@/components/image-viewer";
+import Menu from "@/components/menu";
+import MessageDialog from "@/components/message-dialog";
+import Selector from "@/components/selector";
 import { decodeBase64, encodeBase64 } from "@/encodings/base64";
 import { decodeBinary, encodeBinary } from "@/encodings/binary";
 import { decodeCharCode, encodeCharCode } from "@/encodings/char-code";
@@ -23,48 +23,84 @@ import {
 	isHtmlEntitiesEncoded,
 } from "@/encodings/html-entities";
 import { decodeUnicode, encodeUnicode } from "@/encodings/unicode";
-import { useAppDispatch } from "@/redux/hooks";
-import { setAlertMessage, setImageInfo } from "@/redux/reducers/app";
-import { Option } from "@/types";
-import { handleKeyboardClick } from "@/utils";
-import { Button } from "@nextui-org/react";
+import { useStore } from "@/store";
+import type { Option } from "@/types";
+import { showDialog } from "@/utils";
+import { Button, TextArea, useTheme } from "@heroui/react";
 import { t } from "i18next";
 import md5 from "md5";
 import QRCode from "qrcode";
-import { ChangeEvent, useEffect, useRef, useState } from "react";
+import type { ChangeEvent, JSX } from "react";
+import { useEffect, useRef, useState } from "react";
 import { decode as decodeMorse, encode as encodeMorse } from "xmorse";
 
 function App(): JSX.Element {
-	const dispatch = useAppDispatch();
+	useTheme();
 	const params = Object.fromEntries(
 		new URLSearchParams(window.location.search).entries(),
 	) as Record<string, string | undefined>;
 
 	const encodingOptions: Option[] = [
-		{ text: "Base64", value: "base64" },
-		{ text: t("binary"), value: "binary" },
-		{ text: t("charCode"), value: "charcode" },
-		{ text: t("coreValues"), value: "corevalues" },
-		{ text: "Data URL", value: "dataurl" },
-		{ text: t("htmlDecimal"), value: "htmldecimal" },
-		{ text: t("htmlEntities"), value: "htmlentities" },
-		{ text: "MD5", value: "md5" },
-		{ text: t("morseCode"), value: "morse" },
-		{ text: t("qrCode"), value: "qrcode" },
-		{ text: "Unicode", value: "unicode" },
-		{ text: "URI Component", value: "uricomponent" },
+		{
+			text: "Base64",
+			value: "base64",
+		},
+		{
+			text: t("binary"),
+			value: "binary",
+		},
+		{
+			text: t("charCode"),
+			value: "charcode",
+		},
+		{
+			text: t("coreValues"),
+			value: "corevalues",
+		},
+		{
+			text: "Data URL",
+			value: "dataurl",
+		},
+		{
+			text: t("htmlDecimal"),
+			value: "htmldecimal",
+		},
+		{
+			text: t("htmlEntities"),
+			value: "htmlentities",
+		},
+		{
+			text: "MD5",
+			value: "md5",
+		},
+		{
+			text: t("morseCode"),
+			value: "morse",
+		},
+		{
+			text: t("qrCode"),
+			value: "qrcode",
+		},
+		{
+			text: "Unicode",
+			value: "unicode",
+		},
+		{
+			text: "URI Component",
+			value: "uricomponent",
+		},
 	];
 	encodingOptions.sort((a, b) => {
 		return a.text.localeCompare(b.text);
 	});
 
-	const [selectedEncodings, setSelectedEncodings] = useState<string[]>(
+	const [selectedEncoding, setSelectedEncoding] = useState<string>(
 		params.encoding &&
 			encodingOptions.some((option) => {
 				return option.value === params.encoding;
 			})
-			? [params.encoding]
-			: ["base64"],
+			? params.encoding
+			: "base64",
 	);
 	const [text, setText] = useState<string>("");
 
@@ -73,12 +109,9 @@ function App(): JSX.Element {
 
 	const checkIfTextEmpty = (): boolean => {
 		if (!text) {
-			dispatch(
-				setAlertMessage({
-					text: t("textEmpty"),
-					title: t("error"),
-				}),
-			);
+			showDialog(t("textEmpty"), {
+				title: t("error"),
+			});
 			return true;
 		}
 		return false;
@@ -92,12 +125,11 @@ function App(): JSX.Element {
 		try {
 			if (decoded.startsWith("data:")) {
 				if (decoded.includes("image/")) {
-					dispatch(
-						setImageInfo({
-							alt: t("decodedImage"),
-							src: decoded,
-						}),
-					);
+					useStore.setState({
+						imageViewerSrc: decoded,
+						imageViewerTitle: t("decodedImage"),
+						isImageViewerShown: true,
+					});
 				} else {
 					decoded = decodeBase64(decoded.split("base64,")[1]);
 				}
@@ -106,11 +138,7 @@ function App(): JSX.Element {
 			} else if (!decoded.includes(" ")) {
 				if (md5History.current[decoded]) {
 					decoded = md5History.current[decoded];
-					dispatch(
-						setAlertMessage({
-							text: t("md5CannotBeDecoded"),
-						}),
-					);
+					showDialog(t("md5CannotBeDecoded"));
 				} else if (isOnly(/0|1/, decoded)) {
 					decoded = decodeBinary(decoded);
 				} else if (isOnly(/\d/, decoded)) {
@@ -141,18 +169,15 @@ function App(): JSX.Element {
 		} catch (error) {
 			if (error instanceof Error) {
 				console.error(error);
-				dispatch(
-					setAlertMessage({
-						text: error.message,
-						title: t("error"),
-					}),
-				);
+				showDialog(error.message, {
+					title: t("error"),
+				});
 			}
 		}
 	};
 
 	const encode = async (): Promise<void> => {
-		if (selectedEncodings[0] === "dataurl") {
+		if (selectedEncoding === "dataurl") {
 			if (text) {
 				setText("data:text/plain;base64," + encodeBase64(text));
 			} else {
@@ -163,7 +188,7 @@ function App(): JSX.Element {
 		if (checkIfTextEmpty()) {
 			return;
 		}
-		switch (selectedEncodings[0]) {
+		switch (selectedEncoding) {
 			case "base64": {
 				setText(encodeBase64(text));
 				break;
@@ -203,21 +228,17 @@ function App(): JSX.Element {
 					const url = await QRCode.toDataURL(text, {
 						margin: 2,
 					});
-					dispatch(
-						setImageInfo({
-							alt: t("qrCode"),
-							src: url,
-						}),
-					);
+					useStore.setState({
+						imageViewerSrc: url,
+						imageViewerTitle: t("qrCode"),
+						isImageViewerShown: true,
+					});
 				} catch (error) {
 					if (error instanceof Error) {
 						console.error(error);
-						dispatch(
-							setAlertMessage({
-								text: error.message,
-								title: t("error"),
-							}),
-						);
+						showDialog(error.message, {
+							title: t("error"),
+						});
 					}
 				}
 				break;
@@ -273,7 +294,7 @@ function App(): JSX.Element {
 	};
 
 	const updateEncoding = (newValue: string): void => {
-		setSelectedEncodings([newValue]);
+		setSelectedEncoding(newValue);
 		window.history.replaceState(null, "", `?encoding=${newValue}`);
 	};
 
@@ -326,35 +347,34 @@ function App(): JSX.Element {
 					openLocalFile={openLocalFile}
 				/>
 			</header>
-			<textarea
+			<TextArea
 				aria-label={t("text")}
-				className="appearance-none text-inherit block h-full resize-none w-full mx-auto my-0 px-4 py-2.5 rounded-medium bg-default-100 shadow-sm"
+				className="min-h-0 flex-1 resize-none px-4 py-3 sm:text-base"
+				fullWidth
 				onChange={handleTextChange}
 				placeholder={t("enterText")}
 				value={text}
-			></textarea>
-			<div className="flex flex-col md:flex-row items-center gap-2.5 mt-4">
+			/>
+			<div className="mt-4 flex flex-col items-stretch gap-2.5 md:flex-row md:items-end">
 				<Selector
 					id="encoding-selector"
 					label={t("encoding")}
 					options={encodingOptions}
-					values={selectedEncodings}
 					updateValue={updateEncoding}
+					value={selectedEncoding}
 				/>
 				<Button
-					className="w-full md:h-full md:w-auto px-11"
-					color="primary"
-					onClick={handleEncodeClick}
-					onKeyDown={handleKeyboardClick(handleEncodeClick)}
+					className="w-full px-10 md:w-auto"
+					onPress={handleEncodeClick}
 					size="lg"
 				>
 					{t("encode")}
 				</Button>
 				<Button
-					className="w-full md:h-full md:w-auto px-11"
-					onClick={decode}
-					onKeyDown={handleKeyboardClick(decode)}
+					className="w-full px-10 md:w-auto"
+					onPress={decode}
 					size="lg"
+					variant="secondary"
 				>
 					{t("decode")}
 				</Button>
@@ -364,7 +384,7 @@ function App(): JSX.Element {
 				updateText={updateText}
 			/>
 			<ImageViewer />
-			<Alert />
+			<MessageDialog />
 			<Analytics />
 		</div>
 	);

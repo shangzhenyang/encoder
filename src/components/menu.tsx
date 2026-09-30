@@ -1,5 +1,4 @@
-import { useAppDispatch } from "@/redux/hooks";
-import { setAlertMessage } from "@/redux/reducers/app";
+import { showDialog } from "@/utils";
 import {
 	faBars,
 	faCircleInfo,
@@ -9,16 +8,10 @@ import {
 	faUser,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-	Button,
-	Dropdown,
-	DropdownItem,
-	DropdownMenu,
-	DropdownSection,
-	DropdownTrigger,
-} from "@nextui-org/react";
+import type { Key } from "@heroui/react";
+import { Button, Dropdown, Kbd, Label, Separator } from "@heroui/react";
 import { t } from "i18next";
-import { Key } from "react";
+import type { JSX } from "react";
 
 interface MenuProps {
 	exportAsFile: () => void;
@@ -26,8 +19,6 @@ interface MenuProps {
 }
 
 function Menu({ exportAsFile, openLocalFile }: MenuProps): JSX.Element {
-	const dispatch = useAppDispatch();
-
 	const isIos =
 		navigator.userAgent.includes("iPhone") ||
 		navigator.userAgent.includes("iPad");
@@ -35,12 +26,9 @@ function Menu({ exportAsFile, openLocalFile }: MenuProps): JSX.Element {
 
 	const actions: Record<string, () => void> = {
 		about: (): void => {
-			dispatch(
-				setAlertMessage({
-					text: "Developed by Shangzhen Yang.",
-					title: t("about"),
-				}),
-			);
+			showDialog("Developed by Shangzhen Yang.", {
+				title: t("about"),
+			});
 		},
 		authorsPortfolio: (): void => {
 			window.open("https://www.yangshangzhen.com/");
@@ -82,57 +70,66 @@ function Menu({ exportAsFile, openLocalFile }: MenuProps): JSX.Element {
 			},
 		],
 	];
-	const sectionElements = menuItems.map((items, index) => {
-		const itemElements = items.map(({ icon, id, shortcut }) => {
-			return (
-				<DropdownItem
-					key={id}
-					shortcut={shortcut}
-					startContent={
-						<FontAwesomeIcon
-							icon={icon}
-							fixedWidth
-							aria-label="icon"
-						/>
-					}
-					textValue={t(id)}
+	const sectionElements = menuItems.flatMap((items, index) => {
+		const itemElements = items.map((item) => {
+			const shortcutElement = item.shortcut ? (
+				<Kbd
+					className="ms-auto"
+					slot="keyboard"
+					variant="light"
 				>
-					<span>{t(id)}</span>
-				</DropdownItem>
+					<Kbd.Content>{item.shortcut}</Kbd.Content>
+				</Kbd>
+			) : null;
+
+			return (
+				<Dropdown.Item
+					id={item.id}
+					key={item.id}
+					textValue={t(item.id)}
+				>
+					<FontAwesomeIcon
+						aria-hidden="true"
+						icon={item.icon}
+					/>
+					<Label>{t(item.id)}</Label>
+					{shortcutElement}
+				</Dropdown.Item>
 			);
 		});
 
-		return (
-			<DropdownSection
-				key={index}
-				showDivider={index !== menuItems.length - 1}
-			>
+		const sectionElement = (
+			<Dropdown.Section key={`section-${index}`}>
 				{itemElements}
-			</DropdownSection>
+			</Dropdown.Section>
 		);
+		if (index === 0) {
+			return [sectionElement];
+		}
+		return [<Separator key={`separator-${index}`} />, sectionElement];
 	});
 
 	const handleMenuAction = (key: Key): void => {
-		actions[key as string]?.();
+		actions[String(key)]?.();
 	};
 
 	return (
 		<Dropdown>
-			<DropdownTrigger>
-				<Button>
-					<FontAwesomeIcon
-						icon={faBars}
-						size="xl"
-					/>
-				</Button>
-			</DropdownTrigger>
-			<DropdownMenu
+			<Button
 				aria-label={t("menu")}
-				className="pt-3"
-				onAction={handleMenuAction}
+				isIconOnly
+				variant="secondary"
 			>
-				{sectionElements}
-			</DropdownMenu>
+				<FontAwesomeIcon
+					icon={faBars}
+					size="lg"
+				/>
+			</Button>
+			<Dropdown.Popover>
+				<Dropdown.Menu onAction={handleMenuAction}>
+					{sectionElements}
+				</Dropdown.Menu>
+			</Dropdown.Popover>
 		</Dropdown>
 	);
 }

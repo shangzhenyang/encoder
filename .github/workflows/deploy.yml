@@ -1,0 +1,15 @@
+name: Deploy to Retinbox Web Hosting
+
+on: push
+
+jobs:
+    deploy:
+        runs-on: ubuntu-latest
+        container:
+            image: shangzheny/rth-host-helper:latest
+
+        steps:
+            - name: Deploy to Retinbox Web Hosting
+              uses: rthsoftware/host-auto-deploy@master
+              env:
+                  RTH_API_KEY: ${{ secrets.RTH_API_KEY }}

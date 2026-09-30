@@ -1,18 +1,13 @@
-import { useAppDispatch } from "@/redux/hooks";
-import { setAlertMessage } from "@/redux/reducers/app";
+import { showDialog } from "@/utils";
 import { t } from "i18next";
-import { ChangeEvent, ForwardedRef, forwardRef } from "react";
+import type { ChangeEvent, JSX, Ref } from "react";
 
 interface FileInputProps {
+	ref: Ref<HTMLInputElement>;
 	updateText: (newValue: string) => void;
 }
 
-function FileInput(
-	{ updateText }: FileInputProps,
-	ref: ForwardedRef<HTMLInputElement>,
-): JSX.Element {
-	const dispatch = useAppDispatch();
-
+function FileInput({ ref, updateText }: FileInputProps): JSX.Element {
 	const handleFileChange = (event: ChangeEvent<HTMLInputElement>): void => {
 		const file = event.target.files?.[0];
 		if (!file) {
@@ -27,12 +22,9 @@ function FileInput(
 		} else if (file.type.startsWith("text/")) {
 			reader.readAsText(file);
 		} else {
-			dispatch(
-				setAlertMessage({
-					text: t("unsupportedFileType"),
-					title: t("error"),
-				}),
-			);
+			showDialog(t("unsupportedFileType"), {
+				title: t("error"),
+			});
 		}
 	};
 
@@ -47,4 +39,4 @@ function FileInput(
 	);
 }
 
-export default forwardRef(FileInput);
+export default FileInput;

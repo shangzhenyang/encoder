@@ -1,15 +1,11 @@
-import App from "@/components/App";
-import store from "@/redux/store";
-import "@/styles/globals.css";
+import App from "@/components/app";
+import "@/globals.css";
 import translationEnUs from "@/translations/en-us.json";
 import translationZhCn from "@/translations/zh-cn.json";
 import translationZhTw from "@/translations/zh-tw.json";
-import { NextUIProvider } from "@nextui-org/react";
 import i18n, { t } from "i18next";
-import { ThemeProvider as NextThemesProvider } from "next-themes";
 import { StrictMode } from "react";
 import ReactDOM from "react-dom/client";
-import { Provider as ReduxProvider } from "react-redux";
 
 const i18nResources = {
 	"en-US": {
@@ -50,12 +46,6 @@ document.title = t("encoderByShangzhen");
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
 	<StrictMode>
-		<ReduxProvider store={store}>
-			<NextUIProvider>
-				<NextThemesProvider attribute="class">
-					<App />
-				</NextThemesProvider>
-			</NextUIProvider>
-		</ReduxProvider>
+		<App />
 	</StrictMode>,
 );

@@ -1,0 +1,14 @@
+{
+	"configurations": [
+		{
+			"internalConsoleOptions": "openOnSessionStart",
+			"name": "Vite",
+			"outputCapture": "std",
+			"request": "launch",
+			"runtimeArgs": ["--run", "dev"],
+			"runtimeExecutable": "node",
+			"type": "node"
+		}
+	],
+	"version": "0.2.0"
+}

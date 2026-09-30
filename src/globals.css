@@ -1,0 +1,15 @@
+@import "tailwindcss";
+@import "@heroui/styles";
+
+body {
+	@apply bg-background text-foreground;
+	cursor: default;
+	height: 100%;
+	user-select: none;
+}
+
+html,
+.root,
+.root > div {
+	height: 100%;
+}

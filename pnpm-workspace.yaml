@@ -1,2 +1,3 @@
+minimumReleaseAge: 1440
 minimumReleaseAgeExclude:
-    - "@shangzhen/eslint-config@6.0.0"
+  - "@shangzhen/eslint-config@6.0.0"
